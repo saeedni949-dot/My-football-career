@@ -93,7 +93,33 @@ input,select{
 .small{color:#99a4b2;font-size:12px}
 .big{font-size:35px;font-weight:bold;text-align:center}
 
-/* PITCH */
+.club-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+.club-card{
+    background:#222a34;
+    border:1px solid #303944;
+    border-radius:12px;
+    padding:14px;
+    cursor:pointer;
+    transition:.15s;
+}
+.club-card:hover{
+    background:#2b3440;
+    transform:translateY(-2px);
+}
+.club-name{
+    font-weight:bold;
+    font-size:15px;
+}
+.club-strength{
+    color:#8bd5ca;
+    font-size:12px;
+    margin-top:5px;
+}
+
 .pitch{
     position:relative;
     max-width:700px;
@@ -154,7 +180,6 @@ input,select{
     border-color:#f1c40f;
 }
 
-/* MATCH */
 .match-header{
     background:#151b23;
     border-radius:16px;
@@ -230,9 +255,13 @@ input,select{
     padding:12px;
     margin-top:10px;
 }
-table{width:100%;border-collapse:collapse}
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+}
 th,td{
-    padding:10px;
+    padding:10px 5px;
     border-bottom:1px solid #303944;
     text-align:center;
 }
@@ -240,12 +269,16 @@ tr.my-team{
     background:#183b35;
     font-weight:bold;
 }
+
 @media(max-width:600px){
     .pitch{height:560px}
     .slot{width:80px}
     .slot-name{font-size:9px}
     .slot-ball{width:47px;height:47px}
     .match-score{font-size:40px}
+    .club-grid{grid-template-columns:1fr}
+    table{font-size:10px}
+    th,td{padding:7px 2px}
 }
 </style>
 </head>
@@ -254,7 +287,6 @@ tr.my-team{
 
 <div class="container">
 
-<!-- HOME -->
 <section id="home">
     <div class="title">⚽ My Football Career</div>
 
@@ -274,7 +306,6 @@ tr.my-team{
     </div>
 </section>
 
-<!-- COACH -->
 <section id="coach" class="hidden">
     <h2>👔 ساخت مربی</h2>
 
@@ -301,32 +332,18 @@ tr.my-team{
     </div>
 </section>
 
-<!-- CLUB -->
 <section id="club" class="hidden">
     <h2>🏟️ انتخاب باشگاه</h2>
 
     <div class="card">
-        <p class="info">فصل جدید را از هفته اول و با جدول صفر شروع می‌کنی.</p>
+        <p class="info">
+            یک باشگاه انتخاب کن. هر باشگاه اسکواد، بازیکنان و قدرت مخصوص خودش را دارد.
+        </p>
 
-        <button class="btn" onclick="selectClub('پیشتازان بندرترکمن')">
-            پیشتازان بندرترکمن
-        </button>
-
-        <button class="btn" onclick="selectClub('پارس فوتبال')">
-            پارس فوتبال
-        </button>
-
-        <button class="btn" onclick="selectClub('آریا اسپرت')">
-            آریا اسپرت
-        </button>
-
-        <button class="btn" onclick="selectClub('گرگان یونایتد')">
-            گرگان یونایتد
-        </button>
+        <div id="clubList" class="club-grid"></div>
     </div>
 </section>
 
-<!-- DASHBOARD -->
 <section id="dashboard" class="hidden">
     <h2>📊 داشبورد</h2>
 
@@ -359,13 +376,14 @@ tr.my-team{
     </button>
 </section>
 
-<!-- TEAM -->
 <section id="team" class="hidden">
     <h2>👥 تیم</h2>
 
     <div class="card">
-        <h3>ترکیب اصلی</h3>
-        <p class="info">اول روی بازیکن داخل زمین بزن، سپس بازیکن نیمکت را انتخاب کن.</p>
+        <h3 id="teamTitle">ترکیب اصلی</h3>
+        <p class="info">
+            اول روی بازیکن داخل زمین بزن، سپس بازیکن نیمکت را انتخاب کن.
+        </p>
         <div id="pitchContainer"></div>
     </div>
 
@@ -387,7 +405,6 @@ tr.my-team{
     </button>
 </section>
 
-<!-- PLAYER -->
 <section id="player" class="hidden">
     <div class="card">
         <h2 id="playerName"></h2>
@@ -410,7 +427,6 @@ tr.my-team{
     </div>
 </section>
 
-<!-- TACTICS -->
 <section id="tactics" class="hidden">
     <h2>🧠 تاکتیک</h2>
 
@@ -439,7 +455,6 @@ tr.my-team{
     </button>
 </section>
 
-<!-- MATCH -->
 <section id="match" class="hidden">
     <h2>🏟️ Match Center</h2>
 
@@ -504,13 +519,12 @@ tr.my-team{
     </button>
 </section>
 
-<!-- TABLE -->
 <section id="table" class="hidden">
     <h2>🏆 جدول لیگ</h2>
 
     <div class="card">
         <p class="info">
-            فصل <span id="tableSeason">1</span> — هر تیم فصل را از صفر شروع می‌کند.
+            فصل <span id="tableSeason">1</span> — جدول ۱۶ تیمی
         </p>
 
         <table>
@@ -541,10 +555,10 @@ tr.my-team{
 <script>
 
 /* =====================================================
-PLAYERS
+PISHTAZAN - ORIGINAL SQUAD
 ===================================================== */
 
-const players=[
+const PISHTAZAN_PLAYERS=[
 { id:1,number:1,name:"سمیع",position:"GK",ovr:68,pac:58,sho:25,pas:45,dri:35,def:25,phy:55 },
 { id:22,number:22,name:"محمد امین برون‌سرا",position:"GK",ovr:67,pac:55,sho:20,pas:40,dri:30,def:20,phy:50 },
 { id:3,number:3,name:"سعید نیازی",position:"CB",ovr:72,pac:78,sho:35,pas:48,dri:45,def:91,phy:55 },
@@ -569,32 +583,249 @@ const players=[
 
 
 /* =====================================================
-STORAGE
+LEAGUE TEAMS
 ===================================================== */
 
-/*
-   از کلیدهای جدید استفاده می‌کنیم تا اطلاعات خراب/قدیمی
-   نسخه قبلی دیگر وارد کریر جدید نشود.
-*/
+const TEAM_DEFS=[
+    {name:"پیشتازان بندرترکمن",strength:70},
+    {name:"پارس فوتبال",strength:68},
+    {name:"آریا اسپرت",strength:69},
+    {name:"گرگان یونایتد",strength:71},
+    {name:"تهران یونایتد",strength:75},
+    {name:"استقلال",strength:77},
+    {name:"سپاهان",strength:76},
+    {name:"پرسپولیس",strength:78},
+    {name:"تراکتور",strength:74},
+    {name:"ذوب‌آهن",strength:69},
+    {name:"فولاد",strength:73},
+    {name:"گل‌گهر",strength:72},
+    {name:"نساجی",strength:68},
+    {name:"ملوان",strength:71},
+    {name:"خیبر",strength:67},
+    {name:"شمس‌آذر",strength:66}
+];
 
-const CAREER_KEY="mfc_career_v3";
-const LINEUP_KEY="mfc_lineup_v3";
-const TABLE_KEY="mfc_table_v3";
+const leagueTeams=TEAM_DEFS.map(t=>t.name);
 
 
 /* =====================================================
-TEAMS
+GENERATED SQUADS
 ===================================================== */
 
-const leagueTeams=[
-    "پیشتازان بندرترکمن",
-    "پارس فوتبال",
-    "آریا اسپرت",
-    "گرگان یونایتد",
-    "تهران یونایتد",
-    "استقلال جوانان"
+const OTHER_TEAM_ROSTERS={
+
+"پارس فوتبال":[
+"علی رضایی","مهدی کریمی","امیرحسین صادقی","پارسا احمدی","یونس مرادی",
+"کیان نادری","محمدحسین کاظمی","ابوالفضل حسینی","سامان اکبری","آرین رستمی",
+"ماهان حیدری","امیررضا موسوی","طاها یوسفی","بردیا شریفی","میلاد نوروزی",
+"سینا فرهادی","محمدطاها قاسمی","پوریا عزیزی","آرمان توکلی","عرفان مرادی"
+],
+
+"آریا اسپرت":[
+"آریا نیک‌نام","اشکان احمدی","امیررضا شمس","نیما قربانی","سروش محمدی",
+"بردیا اکبری","پارسا رجبی","عرفان کریمی","ماهان رضایی","محمدامین حیدری",
+"کیارش نادری","ابراهیم مرادی","علی‌رضا صادقی","پرهام یوسفی","سامیار کاظمی",
+"مهدی رستمی","سینا نوری","یاسین توکلی","محمدپارسا حسینی","نوید اکبری"
+],
+
+"گرگان یونایتد":[
+"یاسین نوروزی","امیرمهدی کریمی","محمدحسین رجبی","سامان صادقی","علی اکبری",
+"رضا حیدری","آرین مرادی","امیرعباس نوری","طاها کاظمی","سجاد قربانی",
+"پارسا شفیعی","محمدامین رضایی","کیان احمدی","سینا رستگار","مهدی یوسفی",
+"ابوالفضل نادری","امیررضا توکلی","بردیا حسینی","ماهان اکبری","عرفان صادقی"
+],
+
+"تهران یونایتد":[
+"آراد محمدی","پارسا احمدی","امیرعلی حسینی","کیان رضایی","سروش اکبری",
+"ماهان کریمی","یونس صادقی","بردیا نادری","محمدطاها مرادی","آریا حیدری",
+"امیرحسین رستمی","سامیار توکلی","علی‌رضا کاظمی","پرهام نوری","محمدامین قربانی",
+"طاها شریفی","سینا احمدی","پوریا حسینی","عرفان یوسفی","میلاد اکبری"
+],
+
+"استقلال":[
+"آرین رضایی","محمدطاها کریمی","امیرحسین احمدی","ابوالفضل مرادی","سینا اکبری",
+"یاسین حیدری","پارسا نادری","مهدی حسینی","کیان صادقی","امیرعلی توکلی",
+"سامیار رستمی","بردیا کاظمی","ماهان قربانی","محمدامین یوسفی","طاها نوروزی",
+"سروش شریفی","آرمان احمدی","پرهام رضایی","امیررضا حسینی","علی مرادی"
+],
+
+"سپاهان":[
+"پارسا محمدی","امیرحسین کریمی","مهدی احمدی","آرین حسینی","یاسین صادقی",
+"بردیا رضایی","کیارش مرادی","سامان نادری","محمدطاها اکبری","سینا کاظمی",
+"امیرعلی رستمی","ماهان توکلی","پرهام حیدری","عرفان احمدی","علی‌رضا قربانی",
+"طاها حسینی","امیررضا شریفی","یونس کریمی","محمدامین نوری","آریا مرادی"
+],
+
+"پرسپولیس":[
+"امیرعلی رضایی","سینا محمدی","محمدحسین کریمی","پارسا حسینی","آرین احمدی",
+"مهدی نادری","یاسین اکبری","بردیا مرادی","کیان حیدری","امیررضا صادقی",
+"ماهان شریفی","طاها کریمی","پرهام رستمی","سامیار حسینی","عرفان کاظمی",
+"محمدامین احمدی","علی توکلی","سروش رضایی","آرمان نوری","یونس مرادی"
+],
+
+"تراکتور":[
+"محمدطاها رضایی","امیرحسین مرادی","آرین کریمی","سینا حسینی","پارسا صادقی",
+"کیان احمدی","مهدی اکبری","یاسین رجبی","بردیا رضایی","سامان نوری",
+"امیرعلی کاظمی","ماهان حیدری","طاها مرادی","عرفان شریفی","محمدامین توکلی",
+"سروش احمدی","آرمان کریمی","پرهام حسینی","علی نادری","یونس اکبری"
+],
+
+"ذوب‌آهن":[
+"آرین محمدی","علی رضایی","پارسا کریمی","امیرحسین صادقی","کیان مرادی",
+"مهدی نادری","سینا حیدری","بردیا احمدی","یاسین اکبری","سامان حسینی",
+"ماهان صادقی","طاها کاظمی","امیررضا مرادی","پرهام توکلی","عرفان نوری",
+"محمدامین شریفی","سروش رضایی","آرمان احمدی","یونس کریمی","علی‌رضا حسینی"
+],
+
+"فولاد":[
+"امیررضا محمدی","سینا کریمی","محمدطاها احمدی","پارسا رضایی","آرین مرادی",
+"یاسین حسینی","بردیا صادقی","کیان اکبری","مهدی حیدری","سامان کاظمی",
+"امیرعلی نادری","ماهان احمدی","طاها توکلی","پرهام مرادی","عرفان حسینی",
+"محمدامین رضایی","سروش اکبری","آرمان شریفی","یونس نوری","علی کریمی"
+],
+
+"گل‌گهر":[
+"کیان رضایی","آرین احمدی","امیرحسین کریمی","سینا مرادی","پارسا نادری",
+"محمدطاها حسینی","یاسین رضایی","بردیا اکبری","مهدی صادقی","سامان مرادی",
+"امیررضا کاظمی","ماهان حسینی","طاها احمدی","پرهام کریمی","عرفان رضایی",
+"محمدامین مرادی","سروش نادری","آرمان اکبری","یونس حسینی","علی صادقی"
+],
+
+"نساجی":[
+"آرمان رضایی","سینا احمدی","امیرعلی مرادی","پارسا حسینی","یاسین کریمی",
+"بردیا نادری","کیان صادقی","مهدی احمدی","سامان رضایی","ماهان مرادی",
+"محمدطاها نوری","طاها حسینی","امیررضا کریمی","پرهام احمدی","عرفان صادقی",
+"محمدامین کاظمی","سروش مرادی","یونس رضایی","علی نادری","آریا حسینی"
+],
+
+"ملوان":[
+"محمدطاها محمدی","امیرحسین رضایی","سینا حسینی","پارسا احمدی","آرین صادقی",
+"یاسین مرادی","بردیا کریمی","کیان نادری","مهدی رضایی","سامان احمدی",
+"امیرعلی حسینی","ماهان صادقی","طاها مرادی","پرهام رضایی","عرفان احمدی",
+"محمدامین حسینی","سروش کریمی","آرمان مرادی","یونس احمدی","علی نادری"
+],
+
+"خیبر":[
+"آرین رضایی","محمدامین احمدی","امیرحسین مرادی","پارسا کریمی","سینا صادقی",
+"یاسین احمدی","بردیا حسینی","کیان مرادی","مهدی کریمی","سامان نادری",
+"امیررضا احمدی","ماهان رضایی","طاها صادقی","پرهام حسینی","عرفان مرادی",
+"محمدطاها کریمی","سروش احمدی","آرمان حسینی","یونس مرادی","علی اکبری"
+],
+
+"شمس‌آذر":[
+"پارسا رضایی","امیرعلی احمدی","آرین حسینی","سینا مرادی","محمدطاها صادقی",
+"یاسین کریمی","بردیا احمدی","کیان حسینی","مهدی مرادی","سامان کریمی",
+"امیررضا نادری","ماهان احمدی","طاها حسینی","پرهام مرادی","عرفان کریمی",
+"محمدامین صادقی","سروش حسینی","آرمان احمدی","یونس کریمی","علی مرادی"
+]
+
+};
+
+
+/* =====================================================
+SQUAD GENERATOR
+===================================================== */
+
+const squadPositions=[
+    "GK","GK",
+    "LB","CB","CB","CB","RB","RB",
+    "CDM","CM","CM","CM","CM","CDM",
+    "LW","RW","ST","ST","LW","RW"
 ];
 
+const baseStats={
+    GK:{pac:57,sho:20,pas:42,dri:30,def:25,phy:55},
+    LB:{pac:72,sho:35,pas:55,dri:52,def:68,phy:62},
+    RB:{pac:71,sho:35,pas:57,dri:53,def:69,phy:64},
+    CB:{pac:62,sho:28,pas:48,dri:38,def:76,phy:76},
+    CDM:{pac:61,sho:38,pas:65,dri:50,def:70,phy:73},
+    CM:{pac:68,sho:45,pas:70,dri:66,def:48,phy:62},
+    LW:{pac:83,sho:61,pas:55,dri:76,def:28,phy:53},
+    RW:{pac:84,sho:60,pas:56,dri:74,def:29,phy:54},
+    ST:{pac:72,sho:73,pas:43,dri:55,def:22,phy:68}
+};
+
+function clampStat(value){
+    return Math.max(15,Math.min(95,Math.round(value)));
+}
+
+function calculateGeneratedOVR(stats){
+    return Math.round(
+        stats.pac*.15+
+        stats.sho*.15+
+        stats.pas*.15+
+        stats.dri*.15+
+        stats.def*.20+
+        stats.phy*.20
+    );
+}
+
+function generateSquad(teamName){
+
+    const teamIndex=leagueTeams.indexOf(teamName);
+    const teamDef=TEAM_DEFS.find(t=>t.name===teamName);
+
+    const names=OTHER_TEAM_ROSTERS[teamName] || [];
+
+    return names.map((name,index)=>{
+
+        const position=squadPositions[index];
+        const base=baseStats[position];
+
+        const variance=
+            ((index*7+teamIndex*3)%11)-5;
+
+        const strengthAdjustment=
+            (teamDef.strength-70)*.45;
+
+        const stats={
+            pac:clampStat(base.pac+variance+strengthAdjustment),
+            sho:clampStat(base.sho+variance*.7+strengthAdjustment),
+            pas:clampStat(base.pas+variance*.6+strengthAdjustment),
+            dri:clampStat(base.dri+variance*.8+strengthAdjustment),
+            def:clampStat(base.def+variance*.5+strengthAdjustment),
+            phy:clampStat(base.phy+variance*.7+strengthAdjustment)
+        };
+
+        const ovr=calculateGeneratedOVR(stats);
+
+        return{
+            id:(teamIndex+1)*1000+index+1,
+            number:index+1,
+            name,
+            position,
+            ovr,
+            ...stats
+        };
+    });
+}
+
+
+const SQUADS={
+    "پیشتازان بندرترکمن":PISHTAZAN_PLAYERS
+};
+
+leagueTeams.forEach(team=>{
+
+    if(team!=="پیشتازان بندرترکمن"){
+        SQUADS[team]=generateSquad(team);
+    }
+
+});
+
+
+/* =====================================================
+STORAGE
+===================================================== */
+
+const CAREER_KEY="mfc_career_v4";
+const LINEUP_KEY="mfc_lineup_v4";
+const TABLE_KEY="mfc_table_v4";
+
+
+/* =====================================================
+TABLE
+===================================================== */
 
 function createEmptyTeamTable(){
 
@@ -649,10 +880,9 @@ function createEmptyCareer(){
 
 }
 
-
 let career=createEmptyCareer();
-
 let leagueTable=createEmptyTeamTable();
+let players=[];
 
 
 /* =====================================================
@@ -674,8 +904,76 @@ const defaultLineup={
 };
 
 let lineup={...defaultLineup};
-
 let selectedSlot=null;
+
+
+/* =====================================================
+GET DEFAULT LINEUP FOR CLUB
+===================================================== */
+
+function getDefaultLineupForClub(club){
+
+    if(club==="پیشتازان بندرترکمن"){
+        return {...defaultLineup};
+    }
+
+    const squad=SQUADS[club] || [];
+
+    const findPosition=(positions,used=[])=>{
+        return squad.find(
+            p=>positions.includes(p.position)&&
+            !used.includes(p.id)
+        );
+    };
+
+    const used=[];
+
+    const gk=findPosition(["GK"],used);
+    used.push(gk.id);
+
+    const lb=findPosition(["LB"],used);
+    used.push(lb.id);
+
+    const lcb=findPosition(["CB"],used);
+    used.push(lcb.id);
+
+    const rcb=findPosition(["CB"],used);
+    used.push(rcb.id);
+
+    const rb=findPosition(["RB"],used);
+    used.push(rb.id);
+
+    const cdm=findPosition(["CDM"],used);
+    used.push(cdm.id);
+
+    const lcm=findPosition(["CM"],used);
+    used.push(lcm.id);
+
+    const rcm=findPosition(["CM"],used);
+    used.push(rcm.id);
+
+    const lw=findPosition(["LW"],used);
+    used.push(lw.id);
+
+    const st=findPosition(["ST"],used);
+    used.push(st.id);
+
+    const rw=findPosition(["RW"],used);
+
+    return{
+        gk:gk.id,
+        lb:lb.id,
+        lcb:lcb.id,
+        rcb:rcb.id,
+        rb:rb.id,
+        cdm:cdm.id,
+        lcm:lcm.id,
+        rcm:rcm.id,
+        lw:lw.id,
+        st:st.id,
+        rw:rw.id
+    };
+}
 
 
 /* =====================================================
@@ -712,7 +1010,6 @@ function hasSavedCareer(){
     return !!localStorage.getItem(CAREER_KEY);
 }
 
-
 function updateHomeSaveStatus(){
 
     const btn=document.getElementById("continueBtn");
@@ -729,7 +1026,37 @@ function updateHomeSaveStatus(){
         status.innerText="🆕 هنوز کریری ذخیره نشده است.";
 
     }
+}
 
+
+/* =====================================================
+CLUB LIST
+===================================================== */
+
+function renderClubList(){
+
+    const container=document.getElementById("clubList");
+
+    container.innerHTML=TEAM_DEFS.map(team=>`
+
+        <div
+            class="club-card"
+            onclick="selectClub('${team.name}')"
+        >
+            <div class="club-name">
+                ${team.name}
+            </div>
+
+            <div class="club-strength">
+                ⭐ قدرت تیم: ${team.strength}
+            </div>
+
+            <div class="small">
+                👥 ${SQUADS[team.name].length} بازیکن
+            </div>
+        </div>
+
+    `).join("");
 }
 
 
@@ -749,6 +1076,10 @@ function showScreen(screen){
 
     if(screen==="home"){
         updateHomeSaveStatus();
+    }
+
+    if(screen==="club"){
+        renderClubList();
     }
 
     if(screen==="dashboard"){
@@ -775,50 +1106,30 @@ START NEW CAREER
 
 function startNewCareer(){
 
-    /*
-       اول تایمر مسابقه قبلی را متوقف می‌کنیم.
-    */
-
     if(matchTimer){
         clearInterval(matchTimer);
         matchTimer=null;
     }
 
-    /*
-       تمام ذخیره‌های این نسخه پاک می‌شوند.
-    */
-
     localStorage.removeItem(CAREER_KEY);
     localStorage.removeItem(LINEUP_KEY);
     localStorage.removeItem(TABLE_KEY);
 
-    /*
-       کریر کاملاً تازه
-    */
-
     career=createEmptyCareer();
+
+    players=[];
 
     lineup={...defaultLineup};
 
     leagueTable=createEmptyTeamTable();
 
     selectedSlot=null;
-
     matchState=null;
-
-    /*
-       اطلاعات فرم مربی هم پاک می‌شود.
-    */
 
     document.getElementById("coachName").value="";
     document.getElementById("coachAge").value=35;
     document.getElementById("coachNationality").value="Iran";
     document.getElementById("coachStyle").value="balanced";
-
-    /*
-       فعلاً چیزی ذخیره نمی‌کنیم.
-       وقتی مربی ساخته شد، سیو ایجاد می‌شود.
-    */
 
     showScreen("coach");
 }
@@ -844,34 +1155,23 @@ function continueCareer(){
             ...JSON.parse(savedCareer)
         };
 
+        if(!career.club || !SQUADS[career.club]){
+            throw new Error("Invalid club");
+        }
+
+        players=SQUADS[career.club];
+
         const savedLineup=localStorage.getItem(LINEUP_KEY);
 
         lineup=savedLineup
-            ? {...defaultLineup,...JSON.parse(savedLineup)}
-            : {...defaultLineup};
+            ? JSON.parse(savedLineup)
+            : getDefaultLineupForClub(career.club);
 
         const savedTable=localStorage.getItem(TABLE_KEY);
 
         leagueTable=savedTable
             ? {...createEmptyTeamTable(),...JSON.parse(savedTable)}
             : createEmptyTeamTable();
-
-        /*
-           برای اطمینان اگر جدول تیم فعلی وجود نداشت،
-           آن را ایجاد می‌کنیم.
-        */
-
-        if(!leagueTable[career.club]){
-            leagueTable[career.club]={
-                played:career.matches,
-                wins:career.wins,
-                draws:career.draws,
-                losses:career.losses,
-                gf:career.goalsFor,
-                ga:career.goalsAgainst,
-                points:career.points
-            };
-        }
 
         selectedSlot=null;
 
@@ -883,8 +1183,9 @@ function continueCareer(){
 
         console.error(error);
 
-        alert("اطلاعات کریر خراب شده است. یک کریر جدید بساز.");
-
+        alert(
+            "اطلاعات کریر قابل خواندن نیست. یک کریر جدید بساز."
+        );
     }
 }
 
@@ -914,12 +1215,7 @@ function createCoach(){
 
     career.mentality=career.style;
 
-    /*
-       فصل و جدول همین‌جا کاملاً صفر هستند.
-    */
-
     leagueTable=createEmptyTeamTable();
-    lineup={...defaultLineup};
 
     saveGame();
 
@@ -933,11 +1229,16 @@ CLUB
 
 function selectClub(club){
 
+    if(!SQUADS[club]){
+        alert("اسکواد این باشگاه پیدا نشد.");
+        return;
+    }
+
     career.club=club;
 
-    /*
-       هنگام انتخاب باشگاه، جدول باز هم از صفر شروع می‌شود.
-    */
+    players=SQUADS[club];
+
+    lineup=getDefaultLineupForClub(club);
 
     leagueTable=createEmptyTeamTable();
 
@@ -990,6 +1291,9 @@ TEAM
 ===================================================== */
 
 function renderTeam(){
+
+    document.getElementById("teamTitle").innerText=
+        `ترکیب اصلی — ${career.club}`;
 
     renderPitch();
     renderRoster();
@@ -1113,12 +1417,9 @@ function handleRosterClick(playerId){
         return;
     }
 
-    /*
-       اگر بازیکن نیمکت کلیک شد و جایگاهی انتخاب نشده:
-       پیام واضح نشان می‌دهیم.
-    */
-
-    alert("اول روی بازیکن داخل زمین بزن، سپس این بازیکن را انتخاب کن.");
+    alert(
+        "اول روی بازیکن داخل زمین بزن، سپس این بازیکن را انتخاب کن."
+    );
 }
 
 
@@ -1273,7 +1574,8 @@ function resetLineup(){
 
     if(!confirm("ترکیب به حالت اولیه برگردد؟"))return;
 
-    lineup={...defaultLineup};
+    lineup=getDefaultLineupForClub(career.club);
+
     selectedSlot=null;
 
     saveLineup();
@@ -1440,21 +1742,19 @@ OPPONENT
 
 function getOpponent(){
 
-    const opponents=[
-        {name:"پارس فوتبال",strength:66},
-        {name:"آریا اسپرت",strength:69},
-        {name:"گرگان یونایتد",strength:71},
-        {name:"تهران یونایتد",strength:75},
-        {name:"استقلال جوانان",strength:77}
-    ];
-
-    const available=opponents.filter(
-        o=>o.name!==career.club
+    const available=TEAM_DEFS.filter(
+        t=>t.name!==career.club
     );
 
-    return available[
-        Math.floor(Math.random()*available.length)
-    ];
+    const selected=
+        available[
+            Math.floor(Math.random()*available.length)
+        ];
+
+    return{
+        name:selected.name,
+        strength:selected.strength
+    };
 }
 
 
@@ -1671,11 +1971,17 @@ function simulateMinute(){
     const power=matchState.teamPower;
 
     let homeChance=.075+power.finalAttack/1000;
+
     let awayChance=.070+
         matchState.opponent.strength/1100;
 
-    if(career.mentality==="attacking")homeChance+=.018;
-    if(career.mentality==="defensive")awayChance-=.012;
+    if(career.mentality==="attacking"){
+        homeChance+=.018;
+    }
+
+    if(career.mentality==="defensive"){
+        awayChance-=.012;
+    }
 
     const possessionBase=
         50+
@@ -1691,8 +1997,6 @@ function simulateMinute(){
 
     matchState.possessionAway=
         100-matchState.possessionHome;
-
-    /* HOME */
 
     if(Math.random()<homeChance){
 
@@ -1731,8 +2035,6 @@ function simulateMinute(){
             );
         }
     }
-
-    /* AWAY */
 
     if(Math.random()<awayChance){
 
@@ -1791,8 +2093,6 @@ function simulateMinute(){
         }
     }
 
-    /* YELLOW */
-
     if(Math.random()<.018){
 
         const starters=Object.values(lineup)
@@ -1813,8 +2113,6 @@ function simulateMinute(){
             "yellow"
         );
     }
-
-    /* DEFENSE */
 
     if(
         Math.random()<.025 &&
@@ -2053,10 +2351,6 @@ function finishMatch(){
     career.goalsFor+=matchState.homeScore;
     career.goalsAgainst+=matchState.awayScore;
 
-    /*
-       جدول واقعی مسابقه
-    */
-
     updateLeagueAfterMatch(
         career.club,
         matchState.opponent.name,
@@ -2064,27 +2358,20 @@ function finishMatch(){
         matchState.awayScore
     );
 
-    /*
-       هفته بعد
-    */
-
     career.week++;
 
     /*
-       اگر فصل به پایان برسد، فصل بعد شروع می‌شود.
-       فعلاً لیگ 5 بازی دارد چون 6 تیم داریم.
+       16 تیم داریم.
+       برای ساده و پایدار ماندن سیستم فعلی،
+       هر فصل 15 بازی برای تیم شما در نظر گرفته می‌شود.
     */
 
-    const matchesPerSeason=5;
+    const matchesPerSeason=15;
 
     if(career.matches>=matchesPerSeason){
 
         career.season++;
         career.week=1;
-
-        /*
-           فصل جدید = جدول کاملاً صفر
-        */
 
         leagueTable=createEmptyTeamTable();
 
@@ -2142,10 +2429,6 @@ function updateLeagueAfterMatch(
     homeGoals,
     awayGoals
 ){
-
-    /*
-       اگر تیم‌ها در جدول نبودند ایجادشان می‌کنیم.
-    */
 
     if(!leagueTable[home]){
         leagueTable[home]={
@@ -2291,10 +2574,6 @@ function renderTable(){
     document.getElementById("tableSeason").innerText=
         career.season;
 
-    /*
-       فقط تیم‌های لیگ را نمایش می‌دهیم.
-    */
-
     const teams=leagueTeams.map(name=>{
 
         if(!leagueTable[name]){
@@ -2365,11 +2644,6 @@ SAVE
 
 function saveGame(){
 
-    /*
-       اگر هنوز باشگاه انتخاب نشده باشد هم مشکلی ندارد،
-       اما جدول همچنان جدا ذخیره می‌شود.
-    */
-
     localStorage.setItem(
         CAREER_KEY,
         JSON.stringify(career)
@@ -2420,11 +2694,6 @@ function newCareerConfirm(){
 AUTO SAVE
 ===================================================== */
 
-/*
-   فقط وقتی کریر واقعی وجود دارد ذخیره می‌کنیم.
-   بنابراین هنگام ساخت کریر جدید، سیو قبلی دوباره برنمی‌گردد.
-*/
-
 setInterval(()=>{
 
     if(hasSavedCareer()){
@@ -2438,13 +2707,8 @@ setInterval(()=>{
 INITIAL
 ===================================================== */
 
-/*
-   خیلی مهم:
-   در شروع برنامه دیگر career قبلی را خودکار Load نمی‌کنیم.
-   کاربر باید خودش «ادامه کریر» را بزند.
-*/
-
 career=createEmptyCareer();
+players=[];
 lineup={...defaultLineup};
 leagueTable=createEmptyTeamTable();
 
