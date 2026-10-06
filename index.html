@@ -1,333 +1,791 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Football Career</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Football Career</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(145deg, #07111f, #0d2435);
-            color: white;
-        }
+body {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #06111d, #0b2635);
+    color: white;
+}
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: auto;
-            padding: 25px 18px;
-        }
+.container {
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
+    padding: 20px 16px 40px;
+}
 
-        .logo {
-            text-align: center;
-            font-size: 42px;
-            margin-top: 25px;
-        }
+.hidden {
+    display: none !important;
+}
 
-        h1 {
-            text-align: center;
-            font-size: 30px;
-            margin-top: 12px;
-        }
+.logo {
+    text-align: center;
+    font-size: 55px;
+    margin-top: 20px;
+}
 
-        .subtitle {
-            text-align: center;
-            color: #a9bac8;
-            margin-top: 8px;
-            margin-bottom: 35px;
-        }
+h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 10px;
+}
 
-        .card {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 22px;
-            margin-bottom: 15px;
-            backdrop-filter: blur(10px);
-        }
+.subtitle {
+    text-align: center;
+    color: #9eb2bf;
+    margin: 8px 0 28px;
+}
 
-        .card h2 {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
+.card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
 
-        .card p {
-            color: #b7c5d0;
-            font-size: 14px;
-            line-height: 1.8;
-        }
+.card h2 {
+    margin-bottom: 10px;
+}
 
-        button {
-            width: 100%;
-            border: none;
-            border-radius: 15px;
-            padding: 16px;
-            margin-top: 12px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            background: #16c784;
-            color: white;
-        }
+.card p {
+    color: #b9c8d2;
+    line-height: 1.8;
+}
 
-        button:active {
-            transform: scale(0.98);
-        }
+button {
+    width: 100%;
+    border: 0;
+    border-radius: 14px;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #16c784;
+    color: white;
+}
 
-        .secondary {
-            background: #172f42;
-        }
+button:active {
+    transform: scale(.98);
+}
 
-        .hidden {
-            display: none;
-        }
+.secondary {
+    background: #17364a;
+}
 
-        input, select {
-            width: 100%;
-            padding: 14px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 12px;
-            background: #142a3b;
-            color: white;
-            font-size: 16px;
-        }
+.danger {
+    background: #7d2630;
+}
 
-        label {
-            display: block;
-            margin-top: 16px;
-            color: #d8e2e9;
-        }
+input, select {
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 12px;
+    background: #142b3c;
+    color: white;
+    font-size: 16px;
+}
 
-        .back {
-            background: #263c4c;
-        }
+label {
+    display: block;
+    margin-top: 15px;
+    color: #d6e1e8;
+}
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 20px;
-        }
+.header {
+    background: rgba(255,255,255,.06);
+    padding: 17px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+}
 
-        .stat {
-            background: #102536;
-            padding: 15px 5px;
-            border-radius: 14px;
-            text-align: center;
-        }
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .stat strong {
-            display: block;
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
+.club-name {
+    font-size: 21px;
+    font-weight: bold;
+}
 
-        .stat span {
-            color: #9fb1be;
-            font-size: 12px;
-        }
+.money {
+    color: #45e6a0;
+    font-weight: bold;
+}
 
-        .footer {
-            text-align: center;
-            color: #718694;
-            font-size: 12px;
-            margin-top: 35px;
-        }
-    </style>
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.menu-btn {
+    background: #102c3e;
+    padding: 20px 10px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.menu-btn span {
+    display: block;
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.stat {
+    background: #102536;
+    border-radius: 14px;
+    padding: 14px 5px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.stat small {
+    color: #91a6b4;
+}
+
+.player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #102536;
+    padding: 13px;
+    border-radius: 12px;
+    margin-top: 8px;
+}
+
+.result {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.good {
+    color: #42e39b;
+}
+
+.bad {
+    color: #ff7373;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 35px 1fr 35px 35px;
+    gap: 5px;
+    padding: 10px 5px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.table-head {
+    color: #8fa3af;
+    font-size: 12px;
+}
+
+.footer {
+    text-align: center;
+    color: #617783;
+    font-size: 11px;
+    margin-top: 30px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- صفحه اصلی -->
-    <div id="home">
+<!-- HOME -->
+<section id="home">
+    <div class="logo">⚽</div>
+    <h1>MY FOOTBALL CAREER</h1>
+    <div class="subtitle">کریر مربیگری خودت را بساز</div>
 
-        <div class="logo">⚽</div>
+    <div class="card">
+        <h2>👔 آماده‌ای، سرمربی؟</h2>
+        <p>
+            از یک مربی گمنام شروع کن، باشگاهت را انتخاب کن،
+            تیم را مدیریت کن و به یکی از بزرگ‌ترین مربیان فوتبال تبدیل شو.
+        </p>
 
-        <h1>MY FOOTBALL CAREER</h1>
-
-        <div class="subtitle">
-            کریر فوتبالی خودت را بساز
-        </div>
-
-        <div class="card">
-            <h2>🏟️ آماده‌ای برای شروع؟</h2>
-            <p>
-                از یک بازیکن جوان شروع کن، پست خودت را انتخاب کن،
-                پیشرفت کن و به یک ستاره فوتبال تبدیل شو.
-            </p>
-
-            <button onclick="showCreatePlayer()">
-                ▶️ شروع کریر
-            </button>
-        </div>
-
-        <div class="card">
-            <h2>🎮 My Football Career</h2>
-            <p>
-                تصمیم‌های تو مسیر حرفه‌ای شدنت را مشخص می‌کنند.
-            </p>
-        </div>
-
+        <button onclick="showCoach()">🚀 شروع کریر</button>
     </div>
 
+    <div class="card">
+        <h2>🎮 My Football Career</h2>
+        <p>
+            تصمیم‌های تو، آینده باشگاه را می‌سازند.
+        </p>
+    </div>
+</section>
 
-    <!-- ساخت بازیکن -->
-    <div id="createPlayer" class="hidden">
 
-        <div class="card">
+<!-- CREATE COACH -->
+<section id="coach" class="hidden">
 
-            <h2>👤 ساخت بازیکن</h2>
+    <div class="card">
+        <h2>👔 ساخت مربی</h2>
 
-            <label>نام بازیکن</label>
-            <input id="playerName" type="text" placeholder="مثلاً سعید">
+        <label>نام مربی</label>
+        <input id="coachName" placeholder="مثلاً سعید">
 
-            <label>پست</label>
+        <label>سن</label>
+        <input id="coachAge" type="number" value="35" min="25" max="70">
 
-            <select id="position">
-                <option value="ST">مهاجم</option>
-                <option value="LW">وینگر چپ</option>
-                <option value="RW">وینگر راست</option>
-                <option value="CAM">هافبک هجومی</option>
-                <option value="CM">هافبک مرکزی</option>
-                <option value="CDM">هافبک دفاعی</option>
-                <option value="LB">دفاع چپ</option>
-                <option value="CB">دفاع وسط</option>
-                <option value="RB">دفاع راست</option>
-                <option value="GK">دروازه‌بان</option>
-            </select>
+        <label>ملیت</label>
+        <select id="nationality">
+            <option>ایران</option>
+            <option>انگلیس</option>
+            <option>اسپانیا</option>
+            <option>آلمان</option>
+            <option>ایتالیا</option>
+            <option>فرانسه</option>
+            <option>برزیل</option>
+            <option>آرژانتین</option>
+        </select>
 
-            <label>شماره پیراهن</label>
-            <input id="number" type="number" min="1" max="99" value="3">
+        <label>سبک مربیگری</label>
+        <select id="style">
+            <option value="attack">⚡ هجومی</option>
+            <option value="balanced">⚖️ متعادل</option>
+            <option value="defensive">🛡️ دفاعی</option>
+        </select>
 
-            <button onclick="createCareer()">
-                ⚽ ساخت بازیکن
-            </button>
-
-            <button class="back" onclick="goHome()">
-                ↩️ بازگشت
-            </button>
-
-        </div>
-
+        <button onclick="createCoach()">ادامه ➡️</button>
+        <button class="secondary" onclick="goHome()">بازگشت</button>
     </div>
 
+</section>
 
-    <!-- پروفایل بازیکن -->
-    <div id="profile" class="hidden">
 
-        <div class="card">
+<!-- CLUB SELECT -->
+<section id="clubs" class="hidden">
 
-            <h2 id="welcome"></h2>
+    <div class="card">
+        <h2>🏟️ انتخاب باشگاه</h2>
+        <p>اولین مقصد مربیگری خودت را انتخاب کن.</p>
 
-            <p id="playerInfo"></p>
+        <button onclick="selectClub('پیشتازان', 5000000, 62, 'بقا در لیگ')">
+            🟢 پیشتازان
+            <br>
+            <small>قدرت 62 | بودجه €5M</small>
+        </button>
 
-            <div class="stats">
+        <button onclick="selectClub('پارس فوتبال', 8000000, 67, 'قرار گرفتن در نیمه بالای جدول')">
+            🔵 پارس فوتبال
+            <br>
+            <small>قدرت 67 | بودجه €8M</small>
+        </button>
 
-                <div class="stat">
-                    <strong>60</strong>
-                    <span>ریتینگ</span>
-                </div>
+        <button onclick="selectClub('آریا اسپرت', 12000000, 72, 'کسب سهمیه آسیا')">
+            🟡 آریا اسپرت
+            <br>
+            <small>قدرت 72 | بودجه €12M</small>
+        </button>
 
-                <div class="stat">
-                    <strong>17</strong>
-                    <span>سن</span>
-                </div>
+        <button onclick="selectClub('تهران یونایتد', 20000000, 78, 'قهرمانی')">
+            🔴 تهران یونایتد
+            <br>
+            <small>قدرت 78 | بودجه €20M</small>
+        </button>
+    </div>
 
-                <div class="stat">
-                    <strong>0</strong>
-                    <span>گل</span>
-                </div>
+</section>
 
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="hidden">
+
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <div id="dashCoach">👔 مربی</div>
+                <div class="club-name" id="dashClub">باشگاه</div>
             </div>
 
-            <button onclick="alert('سیستم مسابقات در نسخه بعدی اضافه می‌شود!')">
-                🏆 مسابقات
-            </button>
+            <div class="money" id="dashMoney">€0M</div>
+        </div>
+    </div>
 
-            <button onclick="alert('سیستم تمرین در نسخه بعدی اضافه می‌شود!')">
-                💪 تمرین
-            </button>
+    <div class="card">
+        <h2>📊 وضعیت فصل</h2>
 
-            <button onclick="alert('سیستم نقل‌وانتقالات در نسخه بعدی اضافه می‌شود!')">
-                🔄 نقل‌وانتقالات
-            </button>
+        <div class="stat-grid">
+            <div class="stat">
+                <strong id="season">1</strong>
+                <small>فصل</small>
+            </div>
 
-            <button class="back" onclick="goHome()">
-                🏠 صفحه اصلی
-            </button>
+            <div class="stat">
+                <strong id="points">0</strong>
+                <small>امتیاز</small>
+            </div>
 
+            <div class="stat">
+                <strong id="reputation">1</strong>
+                <small>اعتبار</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🎯 هدف باشگاه</h2>
+        <p id="clubGoal"></p>
+    </div>
+
+    <div class="grid">
+
+        <button class="menu-btn" onclick="showSection('team')">
+            <span>👥</span>
+            تیم
+        </button>
+
+        <button class="menu-btn" onclick="showSection('tactics')">
+            <span>🧠</span>
+            تاکتیک
+        </button>
+
+        <button class="menu-btn" onclick="train()">
+            <span>🏋️</span>
+            تمرین
+        </button>
+
+        <button class="menu-btn" onclick="match()">
+            <span>⚽</span>
+            مسابقه
+        </button>
+
+        <button class="menu-btn" onclick="showSection('transfers')">
+            <span>🔄</span>
+            نقل‌وانتقالات
+        </button>
+
+        <button class="menu-btn" onclick="showSection('table')">
+            <span>🏆</span>
+            جدول لیگ
+        </button>
+
+    </div>
+
+    <button class="secondary" onclick="newCareer()">
+        🔄 شروع کریر جدید
+    </button>
+
+</section>
+
+
+<!-- TEAM -->
+<section id="team" class="hidden">
+
+    <div class="card">
+        <h2>👥 تیم</h2>
+
+        <div class="player">
+            <span>🧤 دروازه‌بان</span>
+            <b>70</b>
         </div>
 
+        <div class="player">
+            <span>🛡️ مدافع</span>
+            <b>68</b>
+        </div>
+
+        <div class="player">
+            <span>🧠 هافبک</span>
+            <b>67</b>
+        </div>
+
+        <div class="player">
+            <span>⚡ مهاجم</span>
+            <b>71</b>
+        </div>
+
+        <button class="secondary" onclick="backDashboard()">بازگشت</button>
     </div>
 
+</section>
 
-    <div class="footer">
-        MY FOOTBALL CAREER © 2026
+
+<!-- TACTICS -->
+<section id="tactics" class="hidden">
+
+    <div class="card">
+        <h2>🧠 تاکتیک</h2>
+
+        <label>سیستم بازی</label>
+
+        <select id="formation">
+            <option>4-3-3</option>
+            <option>4-2-3-1</option>
+            <option>4-4-2</option>
+            <option>3-5-2</option>
+            <option>5-3-2</option>
+        </select>
+
+        <label>ذهنیت</label>
+
+        <select id="mentality">
+            <option value="attack">هجومی ⚡</option>
+            <option value="balanced">متعادل ⚖️</option>
+            <option value="defensive">دفاعی 🛡️</option>
+        </select>
+
+        <button onclick="saveTactics()">💾 ذخیره تاکتیک</button>
+        <button class="secondary" onclick="backDashboard()">بازگشت</button>
     </div>
+
+</section>
+
+
+<!-- TRANSFERS -->
+<section id="transfers" class="hidden">
+
+    <div class="card">
+        <h2>🔄 نقل‌وانتقالات</h2>
+
+        <p>
+            بازار نقل‌وانتقالات هنوز در نسخه اول ساده است.
+            بازیکنان بیشتری در نسخه‌های بعد اضافه می‌شوند.
+        </p>
+
+        <button onclick="transferPlayer(2000000)">
+            ⚡ خرید بازیکن — €2M
+        </button>
+
+        <button onclick="transferPlayer(-1500000)">
+            💰 فروش بازیکن — €1.5M
+        </button>
+
+        <button class="secondary" onclick="backDashboard()">
+            بازگشت
+        </button>
+    </div>
+
+</section>
+
+
+<!-- TABLE -->
+<section id="table" class="hidden">
+
+    <div class="card">
+        <h2>🏆 جدول لیگ</h2>
+
+        <div class="table-row table-head">
+            <span>#</span>
+            <span>تیم</span>
+            <span>بازی</span>
+            <span>امتیاز</span>
+        </div>
+
+        <div class="table-row">
+            <span>1</span>
+            <span>تهران یونایتد</span>
+            <span>1</span>
+            <span>3</span>
+        </div>
+
+        <div class="table-row">
+            <span>2</span>
+            <span>آریا اسپرت</span>
+            <span>1</span>
+            <span>3</span>
+        </div>
+
+        <div class="table-row">
+            <span>3</span>
+            <span id="tableClub">باشگاه تو</span>
+            <span>1</span>
+            <span id="tablePoints">0</span>
+        </div>
+
+        <div class="table-row">
+            <span>4</span>
+            <span>پارس فوتبال</span>
+            <span>1</span>
+            <span>0</span>
+        </div>
+
+        <button class="secondary" onclick="backDashboard()">
+            بازگشت
+        </button>
+    </div>
+
+</section>
+
+
+<div class="footer">
+    MY FOOTBALL CAREER © 2026
+</div>
 
 </div>
 
 
 <script>
 
-    function showCreatePlayer() {
-        document.getElementById("home").classList.add("hidden");
-        document.getElementById("createPlayer").classList.remove("hidden");
+let career = {
+    coach: "",
+    age: 35,
+    nationality: "",
+    style: "",
+    club: "",
+    money: 0,
+    power: 0,
+    goal: "",
+    season: 1,
+    points: 0,
+    reputation: 1,
+    formation: "4-3-3",
+    mentality: "balanced"
+};
+
+
+function hideAll() {
+    document.querySelectorAll("section").forEach(section => {
+        section.classList.add("hidden");
+    });
+}
+
+
+function showHome() {
+    hideAll();
+    document.getElementById("home").classList.remove("hidden");
+}
+
+
+function showCoach() {
+    hideAll();
+    document.getElementById("coach").classList.remove("hidden");
+}
+
+
+function goHome() {
+    showHome();
+}
+
+
+function createCoach() {
+
+    const name = document.getElementById("coachName").value.trim();
+
+    if (!name) {
+        alert("لطفاً نام مربی را وارد کن.");
+        return;
     }
 
-    function goHome() {
-        document.getElementById("createPlayer").classList.add("hidden");
-        document.getElementById("profile").classList.add("hidden");
-        document.getElementById("home").classList.remove("hidden");
+    career.coach = name;
+    career.age = document.getElementById("coachAge").value;
+    career.nationality = document.getElementById("nationality").value;
+    career.style = document.getElementById("style").value;
+
+    hideAll();
+
+    document.getElementById("clubs").classList.remove("hidden");
+}
+
+
+function selectClub(name, money, power, goal) {
+
+    career.club = name;
+    career.money = money;
+    career.power = power;
+    career.goal = goal;
+
+    updateDashboard();
+
+    hideAll();
+    document.getElementById("dashboard").classList.remove("hidden");
+}
+
+
+function updateDashboard() {
+
+    document.getElementById("dashCoach").innerText =
+        "👔 " + career.coach;
+
+    document.getElementById("dashClub").innerText =
+        career.club;
+
+    document.getElementById("dashMoney").innerText =
+        "€" + (career.money / 1000000).toFixed(1) + "M";
+
+    document.getElementById("season").innerText =
+        career.season;
+
+    document.getElementById("points").innerText =
+        career.points;
+
+    document.getElementById("reputation").innerText =
+        career.reputation;
+
+    document.getElementById("clubGoal").innerText =
+        career.goal;
+
+    document.getElementById("tableClub").innerText =
+        career.club;
+
+    document.getElementById("tablePoints").innerText =
+        career.points;
+}
+
+
+function showSection(id) {
+
+    hideAll();
+
+    document.getElementById(id).classList.remove("hidden");
+}
+
+
+function backDashboard() {
+
+    updateDashboard();
+
+    hideAll();
+
+    document.getElementById("dashboard").classList.remove("hidden");
+}
+
+
+function saveTactics() {
+
+    career.formation =
+        document.getElementById("formation").value;
+
+    career.mentality =
+        document.getElementById("mentality").value;
+
+    alert(
+        "تاکتیک ذخیره شد!\n\n" +
+        "سیستم: " + career.formation
+    );
+
+    backDashboard();
+}
+
+
+function train() {
+
+    career.reputation += 1;
+
+    alert(
+        "🏋️ تمرین تیم انجام شد!\n\n" +
+        "اعتبار مربی +1"
+    );
+
+    updateDashboard();
+}
+
+
+function match() {
+
+    const random = Math.random();
+
+    let result = "";
+
+    if (random > 0.62) {
+
+        career.points += 3;
+        career.reputation += 2;
+
+        result = "🎉 بردی! +3 امتیاز";
+
+    } else if (random > 0.30) {
+
+        career.points += 1;
+        career.reputation += 1;
+
+        result = "🤝 بازی مساوی شد! +1 امتیاز";
+
+    } else {
+
+        result = "😔 باختی! این بار امتیازی نگرفتی.";
     }
 
-    function createCareer() {
+    updateDashboard();
 
-        const name = document.getElementById("playerName").value.trim();
-        const position = document.getElementById("position").value;
-        const number = document.getElementById("number").value;
+    alert(
+        "⚽ نتیجه مسابقه\n\n" +
+        career.club +
+        "\n\n" +
+        result
+    );
+}
 
-        if (!name) {
-            alert("لطفاً نام بازیکن را وارد کن!");
-            return;
-        }
 
-        const positions = {
-            ST: "مهاجم",
-            LW: "وینگر چپ",
-            RW: "وینگر راست",
-            CAM: "هافبک هجومی",
-            CM: "هافبک مرکزی",
-            CDM: "هافبک دفاعی",
-            LB: "دفاع چپ",
-            CB: "دفاع وسط",
-            RB: "دفاع راست",
-            GK: "دروازه‌بان"
-        };
+function transferPlayer(amount) {
 
-        document.getElementById("welcome").innerText =
-            "🔥 خوش آمدی، " + name;
+    if (amount > 0 && career.money < amount) {
 
-        document.getElementById("playerInfo").innerText =
-            "پست: " + positions[position] +
-            " | شماره: " + number;
-
-        document.getElementById("createPlayer").classList.add("hidden");
-        document.getElementById("profile").classList.remove("hidden");
+        alert("❌ بودجه کافی نیست.");
+        return;
     }
+
+    career.money += amount;
+
+    updateDashboard();
+
+    if (amount > 0) {
+        alert("⚡ بازیکن با موفقیت خریداری شد!");
+    } else {
+        alert("💰 بازیکن فروخته شد!");
+    }
+}
+
+
+function newCareer() {
+
+    if (!confirm("کریر فعلی پاک شود و کریر جدید شروع شود؟")) {
+        return;
+    }
+
+    career = {
+        coach: "",
+        age: 35,
+        nationality: "",
+        style: "",
+        club: "",
+        money: 0,
+        power: 0,
+        goal: "",
+        season: 1,
+        points: 0,
+        reputation: 1,
+        formation: "4-3-3",
+        mentality: "balanced"
+    };
+
+    showHome();
+}
 
 </script>
 
 </body>
-  </html>
+            </html>
