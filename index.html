@@ -8,213 +8,320 @@
 <style>
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
 }
 
 body {
-    min-height: 100vh;
-    background: linear-gradient(145deg, #06111d, #0b2635);
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background: #10131a;
     color: white;
+}
+
+button, select, input {
+    font-family: inherit;
 }
 
 .container {
-    width: 100%;
-    max-width: 520px;
+    max-width: 900px;
     margin: auto;
-    padding: 20px 16px 40px;
+    padding: 20px;
 }
 
-.hidden {
-    display: none !important;
+.screen {
+    display: none;
 }
 
-.logo {
-    text-align: center;
-    font-size: 55px;
-    margin-top: 20px;
-}
-
-h1 {
-    text-align: center;
-    font-size: 30px;
-    margin-top: 10px;
-}
-
-.subtitle {
-    text-align: center;
-    color: #9eb2bf;
-    margin: 8px 0 28px;
+.screen.active {
+    display: block;
 }
 
 .card {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
+    background: #191e28;
+    border-radius: 18px;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
 }
 
-.card h2 {
-    margin-bottom: 10px;
+h1, h2, h3 {
+    margin-top: 0;
 }
 
-.card p {
-    color: #b9c8d2;
-    line-height: 1.8;
+.title {
+    text-align: center;
+    margin: 35px 0;
 }
 
-button {
-    width: 100%;
+.title h1 {
+    font-size: 38px;
+}
+
+.subtitle {
+    color: #aeb7c7;
+}
+
+.btn {
     border: 0;
-    border-radius: 14px;
-    padding: 15px;
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    background: #16c784;
+    border-radius: 12px;
+    padding: 13px 18px;
+    margin: 5px;
+    background: #168f55;
     color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
 }
 
-button:active {
-    transform: scale(.98);
+.btn:hover {
+    opacity: .88;
 }
 
-.secondary {
-    background: #17364a;
+.btn.secondary {
+    background: #303846;
 }
 
-.danger {
-    background: #7d2630;
+.btn.danger {
+    background: #a93636;
 }
 
 input, select {
     width: 100%;
-    padding: 14px;
-    margin-top: 8px;
-    border: 0;
-    border-radius: 12px;
-    background: #142b3c;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid #394252;
+    background: #11151c;
     color: white;
-    font-size: 16px;
-}
-
-label {
-    display: block;
-    margin-top: 15px;
-    color: #d6e1e8;
-}
-
-.header {
-    background: rgba(255,255,255,.06);
-    padding: 17px;
-    border-radius: 18px;
-    margin-bottom: 15px;
-}
-
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.club-name {
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.money {
-    color: #45e6a0;
-    font-weight: bold;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.menu-btn {
-    background: #102c3e;
-    padding: 20px 10px;
-    border-radius: 16px;
-    text-align: center;
-}
-
-.menu-btn span {
-    display: block;
-    font-size: 27px;
-    margin-bottom: 8px;
+    margin: 7px 0 15px;
 }
 
 .stat-grid {
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.stat-box {
+    background: #222936;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat-box strong {
+    display: block;
+    font-size: 21px;
+    margin-top: 5px;
+}
+
+.menu {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.menu button {
+    width: 100%;
+}
+
+/* TEAM */
+
+.team-layout {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 18px;
+}
+
+.pitch {
+    position: relative;
+    min-height: 650px;
+    border-radius: 20px;
+    overflow: hidden;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #167844 0,
+            #167844 50px,
+            #19834b 50px,
+            #19834b 100px
+        );
+    border: 4px solid #e8e8e8;
+}
+
+.pitch::before {
+    content: "";
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 5%;
+    bottom: 5%;
+    border: 2px solid rgba(255,255,255,.8);
+    border-radius: 5px;
+}
+
+.center-line {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: rgba(255,255,255,.8);
+}
+
+.center-circle {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border: 2px solid rgba(255,255,255,.8);
+    border-radius: 50%;
+    top: calc(50% - 65px);
+    left: calc(50% - 65px);
+}
+
+.player {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 82px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.player-card {
+    width: 48px;
+    height: 55px;
+    margin: auto;
+    border-radius: 10px;
+    background: #151922;
+    border: 2px solid #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 12px rgba(0,0,0,.35);
+}
+
+.player-card .number {
+    font-size: 11px;
+    color: #bfc7d4;
+}
+
+.player-card .ovr {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.player-name {
+    background: rgba(0,0,0,.72);
+    border-radius: 7px;
+    margin-top: 4px;
+    padding: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.gk  { bottom: 7%; left: 50%; }
+.lb  { bottom: 25%; left: 18%; }
+.lcb { bottom: 27%; left: 38%; }
+.rcb { bottom: 27%; left: 62%; }
+.rb  { bottom: 25%; left: 82%; }
+
+.cdm { bottom: 43%; left: 50%; }
+.lcm { bottom: 55%; left: 32%; }
+.rcm { bottom: 55%; left: 68%; }
+
+.lw { top: 30%; left: 18%; }
+.st { top: 19%; left: 50%; }
+.rw { top: 30%; left: 82%; }
+
+.roster {
+    max-height: 650px;
+    overflow-y: auto;
+}
+
+.player-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: #222936;
+    padding: 10px;
+    border-radius: 11px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.player-row:hover {
+    background: #2b3443;
+}
+
+.jersey {
+    width: 34px;
+    height: 34px;
+    background: #11151c;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.player-info {
+    flex: 1;
+}
+
+.player-info small {
+    color: #9da8ba;
+}
+
+.ovr-badge {
+    background: #168f55;
+    padding: 7px 9px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.role-box {
+    background: #222936;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+    line-height: 1.8;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
 }
 
 .stat {
-    background: #102536;
-    border-radius: 14px;
-    padding: 14px 5px;
-    text-align: center;
-}
-
-.stat strong {
-    display: block;
-    font-size: 21px;
-    margin-bottom: 5px;
-}
-
-.stat small {
-    color: #91a6b4;
-}
-
-.player {
+    background: #222936;
+    padding: 9px;
+    border-radius: 9px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background: #102536;
-    padding: 13px;
-    border-radius: 12px;
-    margin-top: 8px;
 }
 
-.result {
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin: 20px 0;
+.section-title {
+    margin-top: 25px;
+    border-bottom: 1px solid #303846;
+    padding-bottom: 10px;
 }
 
-.good {
-    color: #42e39b;
-}
+@media(max-width: 750px) {
+    .team-layout {
+        grid-template-columns: 1fr;
+    }
 
-.bad {
-    color: #ff7373;
-}
+    .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-.table-row {
-    display: grid;
-    grid-template-columns: 35px 1fr 35px 35px;
-    gap: 5px;
-    padding: 10px 5px;
-    border-bottom: 1px solid rgba(255,255,255,.07);
-}
+    .menu {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-.table-head {
-    color: #8fa3af;
-    font-size: 12px;
-}
-
-.footer {
-    text-align: center;
-    color: #617783;
-    font-size: 11px;
-    margin-top: 30px;
+    .pitch {
+        min-height: 570px;
+    }
 }
 </style>
 </head>
@@ -224,97 +331,71 @@ label {
 <div class="container">
 
 <!-- HOME -->
-<section id="home">
-    <div class="logo">⚽</div>
-    <h1>MY FOOTBALL CAREER</h1>
-    <div class="subtitle">کریر مربیگری خودت را بساز</div>
+<section id="home" class="screen active">
 
-    <div class="card">
-        <h2>👔 آماده‌ای، سرمربی؟</h2>
-        <p>
-            از یک مربی گمنام شروع کن، باشگاهت را انتخاب کن،
-            تیم را مدیریت کن و به یکی از بزرگ‌ترین مربیان فوتبال تبدیل شو.
-        </p>
-
-        <button onclick="showCoach()">🚀 شروع کریر</button>
+    <div class="title">
+        <h1>⚽ My Football Career</h1>
+        <p class="subtitle">CREATE • COMPETE • CONQUER</p>
     </div>
 
     <div class="card">
-        <h2>🎮 My Football Career</h2>
-        <p>
-            تصمیم‌های تو، آینده باشگاه را می‌سازند.
-        </p>
+        <h2>🎮 شروع حرفه فوتبالی</h2>
+        <p>یک مربی بساز، تیم خودت را انتخاب کن و برای قهرمانی بجنگ!</p>
+        <button class="btn" onclick="showCoach()">شروع Career</button>
     </div>
+
 </section>
 
 
-<!-- CREATE COACH -->
-<section id="coach" class="hidden">
+<!-- COACH -->
+<section id="coach" class="screen">
 
     <div class="card">
-        <h2>👔 ساخت مربی</h2>
+        <h2>🧑‍💼 ساخت مربی</h2>
 
         <label>نام مربی</label>
         <input id="coachName" placeholder="مثلاً سعید">
 
         <label>سن</label>
-        <input id="coachAge" type="number" value="35" min="25" max="70">
+        <input id="coachAge" type="number" value="30">
 
         <label>ملیت</label>
-        <select id="nationality">
-            <option>ایران</option>
-            <option>انگلیس</option>
-            <option>اسپانیا</option>
-            <option>آلمان</option>
-            <option>ایتالیا</option>
-            <option>فرانسه</option>
-            <option>برزیل</option>
-            <option>آرژانتین</option>
-        </select>
+        <input id="coachNationality" value="ایران">
 
         <label>سبک مربیگری</label>
-        <select id="style">
-            <option value="attack">⚡ هجومی</option>
-            <option value="balanced">⚖️ متعادل</option>
-            <option value="defensive">🛡️ دفاعی</option>
+        <select id="coachStyle">
+            <option value="attacking">هجومی ⚡</option>
+            <option value="balanced">متعادل ⚖️</option>
+            <option value="defensive">دفاعی 🛡️</option>
         </select>
 
-        <button onclick="createCoach()">ادامه ➡️</button>
-        <button class="secondary" onclick="goHome()">بازگشت</button>
+        <button class="btn" onclick="createCoach()">ادامه</button>
     </div>
 
 </section>
 
 
-<!-- CLUB SELECT -->
-<section id="clubs" class="hidden">
+<!-- CLUBS -->
+<section id="clubs" class="screen">
 
     <div class="card">
         <h2>🏟️ انتخاب باشگاه</h2>
-        <p>اولین مقصد مربیگری خودت را انتخاب کن.</p>
+        <p class="subtitle">هر باشگاه هدف متفاوتی دارد.</p>
 
-        <button onclick="selectClub('پیشتازان', 5000000, 62, 'بقا در لیگ')">
-            🟢 پیشتازان
-            <br>
-            <small>قدرت 62 | بودجه €5M</small>
+        <button class="btn" onclick="selectClub('پیشتازان',5,62,'بقا در لیگ')">
+            پیشتازان — قدرت 62
         </button>
 
-        <button onclick="selectClub('پارس فوتبال', 8000000, 67, 'قرار گرفتن در نیمه بالای جدول')">
-            🔵 پارس فوتبال
-            <br>
-            <small>قدرت 67 | بودجه €8M</small>
+        <button class="btn" onclick="selectClub('پارس فوتبال',8,67,'قرار گرفتن در نیمه بالای جدول')">
+            پارس فوتبال — قدرت 67
         </button>
 
-        <button onclick="selectClub('آریا اسپرت', 12000000, 72, 'کسب سهمیه آسیا')">
-            🟡 آریا اسپرت
-            <br>
-            <small>قدرت 72 | بودجه €12M</small>
+        <button class="btn" onclick="selectClub('آریا اسپرت',12,72,'کسب سهمیه آسیا')">
+            آریا اسپرت — قدرت 72
         </button>
 
-        <button onclick="selectClub('تهران یونایتد', 20000000, 78, 'قهرمانی')">
-            🔴 تهران یونایتد
-            <br>
-            <small>قدرت 78 | بودجه €20M</small>
+        <button class="btn" onclick="selectClub('تهران یونایتد',20,78,'قهرمانی')">
+            تهران یونایتد — قدرت 78
         </button>
     </div>
 
@@ -322,294 +403,692 @@ label {
 
 
 <!-- DASHBOARD -->
-<section id="dashboard" class="hidden">
-
-    <div class="header">
-        <div class="header-top">
-            <div>
-                <div id="dashCoach">👔 مربی</div>
-                <div class="club-name" id="dashClub">باشگاه</div>
-            </div>
-
-            <div class="money" id="dashMoney">€0M</div>
-        </div>
-    </div>
+<section id="dashboard" class="screen">
 
     <div class="card">
-        <h2>📊 وضعیت فصل</h2>
+        <h2 id="welcome"></h2>
 
         <div class="stat-grid">
-            <div class="stat">
+            <div class="stat-box">
+                فصل
                 <strong id="season">1</strong>
-                <small>فصل</small>
             </div>
 
-            <div class="stat">
+            <div class="stat-box">
+                امتیاز
                 <strong id="points">0</strong>
-                <small>امتیاز</small>
             </div>
 
-            <div class="stat">
-                <strong id="reputation">1</strong>
-                <small>اعتبار</small>
+            <div class="stat-box">
+                اعتبار
+                <strong id="reputation">50</strong>
+            </div>
+
+            <div class="stat-box">
+                قدرت تیم
+                <strong id="teamPower">62</strong>
             </div>
         </div>
+
+        <div class="card">
+            <b>🎯 هدف:</b>
+            <span id="goal"></span>
+        </div>
+
+        <div class="menu">
+            <button class="btn" onclick="showSection('team')">👥 تیم</button>
+            <button class="btn" onclick="showSection('tactics')">🧠 تاکتیک</button>
+            <button class="btn" onclick="train()">🏋️ تمرین</button>
+            <button class="btn" onclick="match()">⚽ مسابقه</button>
+            <button class="btn" onclick="showSection('transfers')">🔄 نقل‌وانتقالات</button>
+            <button class="btn" onclick="showSection('table')">📊 جدول</button>
+        </div>
     </div>
-
-    <div class="card">
-        <h2>🎯 هدف باشگاه</h2>
-        <p id="clubGoal"></p>
-    </div>
-
-    <div class="grid">
-
-        <button class="menu-btn" onclick="showSection('team')">
-            <span>👥</span>
-            تیم
-        </button>
-
-        <button class="menu-btn" onclick="showSection('tactics')">
-            <span>🧠</span>
-            تاکتیک
-        </button>
-
-        <button class="menu-btn" onclick="train()">
-            <span>🏋️</span>
-            تمرین
-        </button>
-
-        <button class="menu-btn" onclick="match()">
-            <span>⚽</span>
-            مسابقه
-        </button>
-
-        <button class="menu-btn" onclick="showSection('transfers')">
-            <span>🔄</span>
-            نقل‌وانتقالات
-        </button>
-
-        <button class="menu-btn" onclick="showSection('table')">
-            <span>🏆</span>
-            جدول لیگ
-        </button>
-
-    </div>
-
-    <button class="secondary" onclick="newCareer()">
-        🔄 شروع کریر جدید
-    </button>
 
 </section>
 
 
 <!-- TEAM -->
-<section id="team" class="hidden">
+<section id="team" class="screen">
 
     <div class="card">
-        <h2>👥 تیم</h2>
+        <h2>👥 تیم و ترکیب</h2>
 
-        <div class="player">
-            <span>🧤 دروازه‌بان</span>
-            <b>70</b>
+        <button class="btn secondary" onclick="backDashboard()">⬅️ برگشت</button>
+
+        <div class="team-layout">
+
+            <!-- PITCH -->
+            <div>
+
+                <h3>🏟️ ترکیب اصلی — 4-3-3</h3>
+
+                <div class="pitch">
+
+                    <div class="center-line"></div>
+                    <div class="center-circle"></div>
+
+                    <div class="player gk" onclick="showPlayer('سمیع')">
+                        <div class="player-card">
+                            <span class="number">1</span>
+                            <span class="ovr">68</span>
+                        </div>
+                        <div class="player-name">سمیع</div>
+                    </div>
+
+                    <div class="player lb" onclick="showPlayer('میکاییل خجاو')">
+                        <div class="player-card">
+                            <span class="number">16</span>
+                            <span class="ovr">68</span>
+                        </div>
+                        <div class="player-name">میکاییل</div>
+                    </div>
+
+                    <div class="player lcb" onclick="showPlayer('رسول ایری')">
+                        <div class="player-card">
+                            <span class="number">4</span>
+                            <span class="ovr">74</span>
+                        </div>
+                        <div class="player-name">رسول</div>
+                    </div>
+
+                    <div class="player rcb" onclick="showPlayer('ارکان قاضیانی')">
+                        <div class="player-card">
+                            <span class="number">5</span>
+                            <span class="ovr">71</span>
+                        </div>
+                        <div class="player-name">ارکان</div>
+                    </div>
+
+                    <div class="player rb" onclick="showPlayer('طاها ارنظری')">
+                        <div class="player-card">
+                            <span class="number">15</span>
+                            <span class="ovr">70</span>
+                        </div>
+                        <div class="player-name">طاها ارنظری</div>
+                    </div>
+
+                    <div class="player cdm" onclick="showPlayer('محمدرضا صنایعی')">
+                        <div class="player-card">
+                            <span class="number">6</span>
+                            <span class="ovr">67</span>
+                        </div>
+                        <div class="player-name">صنایعی</div>
+                    </div>
+
+                    <div class="player lcm" onclick="showPlayer('محمد طاها مکرری')">
+                        <div class="player-card">
+                            <span class="number">14</span>
+                            <span class="ovr">75</span>
+                        </div>
+                        <div class="player-name">مکرری ⭐</div>
+                    </div>
+
+                    <div class="player rcm" onclick="showPlayer('طاها منوچهر')">
+                        <div class="player-card">
+                            <span class="number">8</span>
+                            <span class="ovr">69</span>
+                        </div>
+                        <div class="player-name">منوچهر</div>
+                    </div>
+
+                    <div class="player lw" onclick="showPlayer('مصطفی بیناگر')">
+                        <div class="player-card">
+                            <span class="number">11</span>
+                            <span class="ovr">73</span>
+                        </div>
+                        <div class="player-name">مصطفی</div>
+                    </div>
+
+                    <div class="player st" onclick="showPlayer('محمدرضا کر')">
+                        <div class="player-card">
+                            <span class="number">10</span>
+                            <span class="ovr">66</span>
+                        </div>
+                        <div class="player-name">محمدرضا کر</div>
+                    </div>
+
+                    <div class="player rw" onclick="showPlayer('صادق وطن‌دوست')">
+                        <div class="player-card">
+                            <span class="number">7</span>
+                            <span class="ovr">70</span>
+                        </div>
+                        <div class="player-name">صادق</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ROSTER -->
+            <div>
+
+                <h3>📋 بازیکنان</h3>
+
+                <div id="roster" class="roster"></div>
+
+                <div class="role-box">
+                    👑 <b>کاپیتان:</b> محمد طاها مکرری<br>
+                    🎯 <b>کرنر:</b> محمد طاها مکرری<br>
+                    🥅 <b>پنالتی:</b> محمد طاها مکرری<br>
+                    🦶 <b>ضربه آزاد:</b> مصطفی بیناگر
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="player">
-            <span>🛡️ مدافع</span>
-            <b>68</b>
-        </div>
+    </div>
 
-        <div class="player">
-            <span>🧠 هافبک</span>
-            <b>67</b>
-        </div>
+</section>
 
-        <div class="player">
-            <span>⚡ مهاجم</span>
-            <b>71</b>
-        </div>
 
-        <button class="secondary" onclick="backDashboard()">بازگشت</button>
+<!-- PLAYER MODAL -->
+<section id="player" class="screen">
+
+    <div class="card">
+
+        <button class="btn secondary" onclick="showSection('team')">⬅️ برگشت به تیم</button>
+
+        <h2 id="playerTitle"></h2>
+
+        <div id="playerStats" class="stats"></div>
+
     </div>
 
 </section>
 
 
 <!-- TACTICS -->
-<section id="tactics" class="hidden">
+<section id="tactics" class="screen">
 
     <div class="card">
+
         <h2>🧠 تاکتیک</h2>
 
-        <label>سیستم بازی</label>
+        <label>آرایش</label>
 
         <select id="formation">
-            <option>4-3-3</option>
-            <option>4-2-3-1</option>
-            <option>4-4-2</option>
-            <option>3-5-2</option>
-            <option>5-3-2</option>
+            <option value="4-3-3">4-3-3</option>
+            <option value="4-2-3-1">4-2-3-1</option>
+            <option value="4-4-2">4-4-2</option>
+            <option value="3-5-2">3-5-2</option>
+            <option value="5-3-2">5-3-2</option>
         </select>
 
         <label>ذهنیت</label>
 
         <select id="mentality">
-            <option value="attack">هجومی ⚡</option>
+            <option value="attacking">هجومی ⚡</option>
             <option value="balanced">متعادل ⚖️</option>
             <option value="defensive">دفاعی 🛡️</option>
         </select>
 
-        <button onclick="saveTactics()">💾 ذخیره تاکتیک</button>
-        <button class="secondary" onclick="backDashboard()">بازگشت</button>
+        <button class="btn" onclick="saveTactics()">💾 ذخیره تاکتیک</button>
+        <button class="btn secondary" onclick="backDashboard()">⬅️ برگشت</button>
+
     </div>
 
 </section>
 
 
 <!-- TRANSFERS -->
-<section id="transfers" class="hidden">
+<section id="transfers" class="screen">
 
     <div class="card">
+
         <h2>🔄 نقل‌وانتقالات</h2>
 
-        <p>
-            بازار نقل‌وانتقالات هنوز در نسخه اول ساده است.
-            بازیکنان بیشتری در نسخه‌های بعد اضافه می‌شوند.
+        <p>💰 بودجه:
+            <b><span id="money">5</span>M €</b>
         </p>
 
-        <button onclick="transferPlayer(2000000)">
-            ⚡ خرید بازیکن — €2M
+        <button class="btn" onclick="transferPlayer(2)">
+            خرید بازیکن — 2M €
         </button>
 
-        <button onclick="transferPlayer(-1500000)">
-            💰 فروش بازیکن — €1.5M
+        <button class="btn" onclick="transferPlayer(-1)">
+            فروش بازیکن — دریافت 1M €
         </button>
 
-        <button class="secondary" onclick="backDashboard()">
-            بازگشت
-        </button>
+        <button class="btn secondary" onclick="backDashboard()">⬅️ برگشت</button>
+
     </div>
 
 </section>
 
 
 <!-- TABLE -->
-<section id="table" class="hidden">
+<section id="table" class="screen">
 
     <div class="card">
-        <h2>🏆 جدول لیگ</h2>
 
-        <div class="table-row table-head">
-            <span>#</span>
-            <span>تیم</span>
-            <span>بازی</span>
-            <span>امتیاز</span>
-        </div>
+        <h2>📊 جدول لیگ</h2>
 
-        <div class="table-row">
-            <span>1</span>
-            <span>تهران یونایتد</span>
-            <span>1</span>
-            <span>3</span>
-        </div>
+        <table style="width:100%; border-collapse:collapse; text-align:center;">
+            <tr>
+                <th>تیم</th>
+                <th>بازی</th>
+                <th>امتیاز</th>
+            </tr>
 
-        <div class="table-row">
-            <span>2</span>
-            <span>آریا اسپرت</span>
-            <span>1</span>
-            <span>3</span>
-        </div>
+            <tr>
+                <td>پیشتازان</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
 
-        <div class="table-row">
-            <span>3</span>
-            <span id="tableClub">باشگاه تو</span>
-            <span>1</span>
-            <span id="tablePoints">0</span>
-        </div>
+            <tr>
+                <td>پارس فوتبال</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
 
-        <div class="table-row">
-            <span>4</span>
-            <span>پارس فوتبال</span>
-            <span>1</span>
-            <span>0</span>
-        </div>
+            <tr>
+                <td>آریا اسپرت</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
 
-        <button class="secondary" onclick="backDashboard()">
-            بازگشت
-        </button>
+            <tr>
+                <td>تهران یونایتد</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        </table>
+
+        <br>
+
+        <button class="btn secondary" onclick="backDashboard()">⬅️ برگشت</button>
+
     </div>
 
 </section>
-
-
-<div class="footer">
-    MY FOOTBALL CAREER © 2026
-</div>
 
 </div>
 
 
 <script>
 
+/* =========================
+   PLAYERS
+========================= */
+
+const players = [
+
+    {
+        number: 1,
+        name: "سمیع",
+        position: "GK",
+        ovr: 68,
+        pac: 58,
+        sho: 25,
+        pas: 45,
+        dri: 35,
+        def: 25,
+        phy: 55
+    },
+
+    {
+        number: 22,
+        name: "محمد امین برون‌سرا",
+        position: "GK",
+        ovr: 67,
+        pac: 55,
+        sho: 20,
+        pas: 40,
+        dri: 30,
+        def: 20,
+        phy: 50
+    },
+
+    {
+        number: 3,
+        name: "سعید نیازی",
+        position: "CB",
+        ovr: 72,
+        pac: 78,
+        sho: 35,
+        pas: 48,
+        dri: 45,
+        def: 91,
+        phy: 55
+    },
+
+    {
+        number: 5,
+        name: "ارکان قاضیانی",
+        position: "CB",
+        ovr: 71,
+        pac: 65,
+        sho: 40,
+        pas: 78,
+        dri: 62,
+        def: 79,
+        phy: 68
+    },
+
+    {
+        number: 4,
+        name: "رسول ایری",
+        position: "CB",
+        ovr: 74,
+        pac: 62,
+        sho: 35,
+        pas: 50,
+        dri: 42,
+        def: 83,
+        phy: 94
+    },
+
+    {
+        number: 16,
+        name: "میکاییل خجاو",
+        position: "LB / چندپسته",
+        ovr: 68,
+        pac: 78,
+        sho: 55,
+        pas: 74,
+        dri: 68,
+        def: 60,
+        phy: 58
+    },
+
+    {
+        number: 12,
+        name: "اصف ایری",
+        position: "LB / LW",
+        ovr: 69,
+        pac: 72,
+        sho: 82,
+        pas: 65,
+        dri: 73,
+        def: 62,
+        phy: 68
+    },
+
+    {
+        number: 15,
+        name: "طاها ارنظری",
+        position: "RB / CM",
+        ovr: 70,
+        pac: 69,
+        sho: 45,
+        pas: 58,
+        dri: 52,
+        def: 84,
+        phy: 78
+    },
+
+    {
+        number: 13,
+        name: "رامین جاهد",
+        position: "RB / CM",
+        ovr: 68,
+        pac: 70,
+        sho: 50,
+        pas: 62,
+        dri: 60,
+        def: 64,
+        phy: 65
+    },
+
+    {
+        number: 14,
+        name: "محمد طاها مکرری",
+        position: "CM",
+        ovr: 75,
+        pac: 78,
+        sho: 70,
+        pas: 92,
+        dri: 94,
+        def: 45,
+        phy: 62
+    },
+
+    {
+        number: 6,
+        name: "محمدرضا صنایعی",
+        position: "CDM",
+        ovr: 67,
+        pac: 55,
+        sho: 30,
+        pas: 50,
+        dri: 42,
+        def: 68,
+        phy: 90
+    },
+
+    {
+        number: 8,
+        name: "طاها منوچهر",
+        position: "CM",
+        ovr: 69,
+        pac: 68,
+        sho: 45,
+        pas: 65,
+        dri: 78,
+        def: 40,
+        phy: 60
+    },
+
+    {
+        number: 17,
+        name: "بصیر کر",
+        position: "CM",
+        ovr: 68,
+        pac: 65,
+        sho: 45,
+        pas: 62,
+        dri: 65,
+        def: 48,
+        phy: 62
+    },
+
+    {
+        number: 18,
+        name: "بصیر اونق",
+        position: "CM",
+        ovr: 67,
+        pac: 50,
+        sho: 65,
+        pas: 72,
+        dri: 48,
+        def: 35,
+        phy: 70
+    },
+
+    {
+        number: 7,
+        name: "صادق وطن‌دوست",
+        position: "RW / ST",
+        ovr: 70,
+        pac: 96,
+        sho: 55,
+        pas: 48,
+        dri: 50,
+        def: 30,
+        phy: 55
+    },
+
+    {
+        number: 11,
+        name: "مصطفی بیناگر",
+        position: "LW / چندپسته",
+        ovr: 73,
+        pac: 88,
+        sho: 78,
+        pas: 65,
+        dri: 91,
+        def: 35,
+        phy: 68
+    },
+
+    {
+        number: 10,
+        name: "محمدرضا کر",
+        position: "ST",
+        ovr: 66,
+        pac: 55,
+        sho: 60,
+        pas: 40,
+        dri: 42,
+        def: 20,
+        phy: 55
+    },
+
+    {
+        number: 19,
+        name: "طاها ریاحی",
+        position: "ST",
+        ovr: 68,
+        pac: 48,
+        sho: 82,
+        pas: 42,
+        dri: 45,
+        def: 20,
+        phy: 65
+    },
+
+    {
+        number: 9,
+        name: "سیاوش",
+        position: "ST",
+        ovr: 71,
+        pac: 72,
+        sho: 70,
+        pas: 48,
+        dri: 55,
+        def: 30,
+        phy: 84
+    },
+
+    {
+        number: 2,
+        name: "عدنان ال‌جلیل",
+        position: "LW",
+        ovr: 67,
+        pac: 73,
+        sho: 55,
+        pas: 50,
+        dri: 62,
+        def: 25,
+        phy: 55
+    }
+
+];
+
+
+/* =========================
+   CAREER
+========================= */
+
 let career = {
     coach: "",
-    age: 35,
-    nationality: "",
-    style: "",
+    age: 30,
+    nationality: "ایران",
+    style: "balanced",
+
     club: "",
-    money: 0,
-    power: 0,
+    money: 5,
+    power: 62,
     goal: "",
+
     season: 1,
     points: 0,
-    reputation: 1,
+    reputation: 50,
+
     formation: "4-3-3",
     mentality: "balanced"
 };
 
 
+/* =========================
+   NAVIGATION
+========================= */
+
 function hideAll() {
-    document.querySelectorAll("section").forEach(section => {
-        section.classList.add("hidden");
+
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
     });
+
 }
 
 
 function showHome() {
+
     hideAll();
-    document.getElementById("home").classList.remove("hidden");
+    document.getElementById("home").classList.add("active");
+
 }
 
 
 function showCoach() {
+
     hideAll();
-    document.getElementById("coach").classList.remove("hidden");
+    document.getElementById("coach").classList.add("active");
+
 }
 
 
 function goHome() {
+
     showHome();
+
 }
 
 
-function createCoach() {
-
-    const name = document.getElementById("coachName").value.trim();
-
-    if (!name) {
-        alert("لطفاً نام مربی را وارد کن.");
-        return;
-    }
-
-    career.coach = name;
-    career.age = document.getElementById("coachAge").value;
-    career.nationality = document.getElementById("nationality").value;
-    career.style = document.getElementById("style").value;
+function showSection(id) {
 
     hideAll();
 
-    document.getElementById("clubs").classList.remove("hidden");
+    document.getElementById(id).classList.add("active");
+
+    if (id === "team") {
+        renderRoster();
+    }
+
 }
 
+
+function backDashboard() {
+
+    hideAll();
+    document.getElementById("dashboard").classList.add("active");
+
+}
+
+
+/* =========================
+   CREATE COACH
+========================= */
+
+function createCoach() {
+
+    career.coach =
+        document.getElementById("coachName").value.trim() || "مربی جدید";
+
+    career.age =
+        Number(document.getElementById("coachAge").value) || 30;
+
+    career.nationality =
+        document.getElementById("coachNationality").value || "ایران";
+
+    career.style =
+        document.getElementById("coachStyle").value;
+
+    hideAll();
+
+    document.getElementById("clubs").classList.add("active");
+
+}
+
+
+/* =========================
+   CLUB
+========================= */
 
 function selectClub(name, money, power, goal) {
 
@@ -621,20 +1100,16 @@ function selectClub(name, money, power, goal) {
     updateDashboard();
 
     hideAll();
-    document.getElementById("dashboard").classList.remove("hidden");
+
+    document.getElementById("dashboard").classList.add("active");
+
 }
 
 
 function updateDashboard() {
 
-    document.getElementById("dashCoach").innerText =
-        "👔 " + career.coach;
-
-    document.getElementById("dashClub").innerText =
-        career.club;
-
-    document.getElementById("dashMoney").innerText =
-        "€" + (career.money / 1000000).toFixed(1) + "M";
+    document.getElementById("welcome").innerText =
+        `سلام ${career.coach} 👋 | ${career.club}`;
 
     document.getElementById("season").innerText =
         career.season;
@@ -645,34 +1120,124 @@ function updateDashboard() {
     document.getElementById("reputation").innerText =
         career.reputation;
 
-    document.getElementById("clubGoal").innerText =
+    document.getElementById("teamPower").innerText =
+        career.power;
+
+    document.getElementById("goal").innerText =
         career.goal;
 
-    document.getElementById("tableClub").innerText =
-        career.club;
+    document.getElementById("money").innerText =
+        career.money;
 
-    document.getElementById("tablePoints").innerText =
-        career.points;
 }
 
 
-function showSection(id) {
+/* =========================
+   ROSTER
+========================= */
+
+function renderRoster() {
+
+    const roster =
+        document.getElementById("roster");
+
+    roster.innerHTML = "";
+
+    players
+        .sort((a,b) => a.number - b.number)
+        .forEach(player => {
+
+            const row =
+                document.createElement("div");
+
+            row.className = "player-row";
+
+            row.onclick = () =>
+                showPlayer(player.name);
+
+            row.innerHTML = `
+
+                <div class="jersey">
+                    ${player.number}
+                </div>
+
+                <div class="player-info">
+                    <b>${player.name}</b>
+                    <br>
+                    <small>${player.position}</small>
+                </div>
+
+                <div class="ovr-badge">
+                    ${player.ovr}
+                </div>
+
+            `;
+
+            roster.appendChild(row);
+
+        });
+
+}
+
+
+/* =========================
+   PLAYER DETAILS
+========================= */
+
+function showPlayer(name) {
+
+    const player =
+        players.find(p => p.name === name);
+
+    if (!player) return;
+
+    document.getElementById("playerTitle").innerHTML =
+        `#${player.number} ${player.name} — ${player.position} | OVR ${player.ovr}`;
+
+    document.getElementById("playerStats").innerHTML = `
+
+        <div class="stat">
+            <span>PAC ⚡</span>
+            <b>${player.pac}</b>
+        </div>
+
+        <div class="stat">
+            <span>SHO 🎯</span>
+            <b>${player.sho}</b>
+        </div>
+
+        <div class="stat">
+            <span>PAS 🎯</span>
+            <b>${player.pas}</b>
+        </div>
+
+        <div class="stat">
+            <span>DRI 🪄</span>
+            <b>${player.dri}</b>
+        </div>
+
+        <div class="stat">
+            <span>DEF 🛡️</span>
+            <b>${player.def}</b>
+        </div>
+
+        <div class="stat">
+            <span>PHY 💪</span>
+            <b>${player.phy}</b>
+        </div>
+
+    `;
 
     hideAll();
 
-    document.getElementById(id).classList.remove("hidden");
+    document.getElementById("player").classList.add("active");
+
 }
 
 
-function backDashboard() {
-
-    updateDashboard();
-
-    hideAll();
-
-    document.getElementById("dashboard").classList.remove("hidden");
-}
-
+/* =========================
+   TACTICS
+========================= */
 
 function saveTactics() {
 
@@ -683,109 +1248,122 @@ function saveTactics() {
         document.getElementById("mentality").value;
 
     alert(
-        "تاکتیک ذخیره شد!\n\n" +
-        "سیستم: " + career.formation
+        `تاکتیک ذخیره شد! ⚽\nآرایش: ${career.formation}`
     );
 
     backDashboard();
+
 }
 
+
+/* =========================
+   TRAINING
+========================= */
 
 function train() {
 
     career.reputation += 1;
 
     alert(
-        "🏋️ تمرین تیم انجام شد!\n\n" +
-        "اعتبار مربی +1"
+        "تمرین انجام شد! 🏋️\nاعتبار مربی +1"
     );
 
     updateDashboard();
+
 }
 
 
+/* =========================
+   MATCH
+========================= */
+
 function match() {
 
-    const random = Math.random();
+    const random =
+        Math.random();
 
-    let result = "";
+    let result;
 
     if (random > 0.62) {
+
+        result = "برد 🟢";
 
         career.points += 3;
         career.reputation += 2;
 
-        result = "🎉 بردی! +3 امتیاز";
+    }
+    else if (random > 0.30) {
 
-    } else if (random > 0.30) {
+        result = "مساوی 🟡";
 
         career.points += 1;
         career.reputation += 1;
 
-        result = "🤝 بازی مساوی شد! +1 امتیاز";
-
-    } else {
-
-        result = "😔 باختی! این بار امتیازی نگرفتی.";
     }
+    else {
+
+        result = "باخت 🔴";
+
+    }
+
+    alert(
+        `نتیجه مسابقه:\n${result}`
+    );
 
     updateDashboard();
 
-    alert(
-        "⚽ نتیجه مسابقه\n\n" +
-        career.club +
-        "\n\n" +
-        result
-    );
 }
 
+
+/* =========================
+   TRANSFERS
+========================= */
 
 function transferPlayer(amount) {
 
-    if (amount > 0 && career.money < amount) {
+    career.money -= amount;
 
-        alert("❌ بودجه کافی نیست.");
-        return;
+    if (career.money < 0) {
+
+        career.money = 0;
+
+        alert("بودجه کافی نیست! 💰");
+
     }
+    else {
 
-    career.money += amount;
+        if (amount > 0) {
+            alert("بازیکن خریداری شد! 🔄");
+        }
+        else {
+            alert("بازیکن فروخته شد! 💰");
+        }
+
+    }
 
     updateDashboard();
 
-    if (amount > 0) {
-        alert("⚡ بازیکن با موفقیت خریداری شد!");
-    } else {
-        alert("💰 بازیکن فروخته شد!");
-    }
 }
 
+
+/* =========================
+   NEW CAREER
+========================= */
 
 function newCareer() {
 
-    if (!confirm("کریر فعلی پاک شود و کریر جدید شروع شود؟")) {
-        return;
-    }
+    location.reload();
 
-    career = {
-        coach: "",
-        age: 35,
-        nationality: "",
-        style: "",
-        club: "",
-        money: 0,
-        power: 0,
-        goal: "",
-        season: 1,
-        points: 0,
-        reputation: 1,
-        formation: "4-3-3",
-        mentality: "balanced"
-    };
-
-    showHome();
 }
+
+
+/* =========================
+   START
+========================= */
+
+renderRoster();
 
 </script>
 
 </body>
-            </html>
+    </html>
