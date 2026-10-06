@@ -13,415 +13,260 @@
 body {
     margin: 0;
     font-family: Tahoma, Arial, sans-serif;
-    background: #10131a;
+    background: #101318;
     color: white;
 }
 
-button, select, input {
-    font-family: inherit;
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .container {
-    max-width: 950px;
+    max-width: 900px;
     margin: auto;
-    padding: 20px;
-}
-
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
+    padding: 15px;
 }
 
 .card {
-    background: #191e28;
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+    background: #191e26;
+    border: 1px solid #2c333d;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
 }
 
 .title {
     text-align: center;
-    margin: 35px 0;
-}
-
-.title h1 {
-    font-size: 38px;
-}
-
-.subtitle {
-    color: #aeb7c7;
+    font-size: 30px;
+    margin: 25px 0;
 }
 
 .btn {
-    border: 0;
-    border-radius: 12px;
-    padding: 13px 18px;
-    margin: 5px;
-    background: #168f55;
+    background: #16a085;
     color: white;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
+    width: 100%;
+    margin-top: 8px;
 }
 
 .btn:hover {
-    opacity: .88;
+    opacity: .85;
 }
 
-.btn.secondary {
-    background: #303846;
+.btn-danger {
+    background: #c0392b;
 }
 
-.btn.danger {
-    background: #a93636;
+.btn-blue {
+    background: #2980b9;
 }
 
-input,
-select {
-    width: 100%;
-    padding: 13px;
-    border-radius: 10px;
-    border: 1px solid #394252;
-    background: #11151c;
-    color: white;
-    margin: 7px 0 15px;
+.btn-gray {
+    background: #34495e;
 }
 
-.stat-grid {
+.hidden {
+    display: none !important;
+}
+
+.stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
-.stat-box {
-    background: #222936;
-    padding: 14px;
-    border-radius: 12px;
+.stat {
+    background: #222832;
+    border-radius: 10px;
+    padding: 12px;
     text-align: center;
 }
 
-.stat-box strong {
+.stat strong {
     display: block;
-    font-size: 21px;
+    font-size: 22px;
     margin-top: 5px;
 }
 
-.menu {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.player {
+    background: #222832;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.player:hover {
+    background: #2b333e;
+}
+
+.player-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
 }
 
-.menu button {
-    width: 100%;
+.position {
+    color: #8bd5ca;
+    font-size: 12px;
 }
 
-/* =========================
-   TEAM
-========================= */
-
-.team-layout {
-    display: grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap: 18px;
+.ovr {
+    background: #16a085;
+    border-radius: 8px;
+    padding: 7px 9px;
+    font-weight: bold;
 }
 
 .pitch {
     position: relative;
-    min-height: 650px;
-    border-radius: 20px;
+    width: 100%;
+    max-width: 700px;
+    height: 650px;
+    margin: auto;
+    background: #146b3a;
+    border: 4px solid white;
+    border-radius: 8px;
     overflow: hidden;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #167844 0,
-            #167844 50px,
-            #19834b 50px,
-            #19834b 100px
-        );
-    border: 4px solid #e8e8e8;
 }
 
 .pitch::before {
     content: "";
     position: absolute;
-    left: 5%;
-    right: 5%;
-    top: 5%;
-    bottom: 5%;
-    border: 2px solid rgba(255,255,255,.8);
-    border-radius: 5px;
-}
-
-.center-line {
-    position: absolute;
+    left: 0;
+    right: 0;
     top: 50%;
-    left: 5%;
-    right: 5%;
-    height: 2px;
-    background: rgba(255,255,255,.8);
+    border-top: 2px solid rgba(255,255,255,.8);
 }
 
 .center-circle {
     position: absolute;
     width: 130px;
     height: 130px;
-    border: 2px solid rgba(255,255,255,.8);
+    border: 2px solid white;
     border-radius: 50%;
-    top: calc(50% - 65px);
-    left: calc(50% - 65px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.player {
+.slot {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: 88px;
     text-align: center;
+    width: 95px;
     cursor: pointer;
-    z-index: 5;
 }
 
-.player-card {
-    width: 50px;
-    height: 56px;
-    margin: auto;
-    border-radius: 10px;
-    background: #151922;
-    border: 2px solid #fff;
+.slot-ball {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: white;
+    color: #111;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    box-shadow: 0 5px 12px rgba(0,0,0,.35);
-}
-
-.player-card .number {
-    font-size: 11px;
-    color: #bfc7d4;
-}
-
-.player-card .ovr {
-    font-size: 18px;
+    justify-content: center;
+    margin: auto;
     font-weight: bold;
+    border: 3px solid #16a085;
 }
 
-.player-name {
-    background: rgba(0,0,0,.72);
-    border-radius: 7px;
-    margin-top: 4px;
+.slot-name {
+    background: rgba(0,0,0,.7);
+    border-radius: 6px;
+    margin-top: 5px;
     padding: 4px;
     font-size: 11px;
-    white-space: nowrap;
 }
 
-.player.selected .player-card {
-    border: 3px solid #ffd43b;
-    box-shadow: 0 0 15px rgba(255,212,59,.7);
+.selected .slot-ball {
+    background: #f1c40f;
 }
-
-.gk {
-    bottom: 7%;
-    left: 50%;
-}
-
-.lb {
-    bottom: 25%;
-    left: 18%;
-}
-
-.lcb {
-    bottom: 27%;
-    left: 38%;
-}
-
-.rcb {
-    bottom: 27%;
-    left: 62%;
-}
-
-.rb {
-    bottom: 25%;
-    left: 82%;
-}
-
-.cdm {
-    bottom: 43%;
-    left: 50%;
-}
-
-.lcm {
-    bottom: 55%;
-    left: 32%;
-}
-
-.rcm {
-    bottom: 55%;
-    left: 68%;
-}
-
-.lw {
-    top: 30%;
-    left: 18%;
-}
-
-.st {
-    top: 19%;
-    left: 50%;
-}
-
-.rw {
-    top: 30%;
-    left: 82%;
-}
-
-/* =========================
-   ROSTER
-========================= */
-
-.roster {
-    max-height: 650px;
-    overflow-y: auto;
-}
-
-.player-row {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    background: #222936;
-    padding: 10px;
-    border-radius: 11px;
-    margin-bottom: 8px;
-    cursor: pointer;
-}
-
-.player-row:hover {
-    background: #2b3443;
-}
-
-.player-row.disabled {
-    opacity: .45;
-    cursor: not-allowed;
-}
-
-.jersey {
-    width: 34px;
-    height: 34px;
-    background: #11151c;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-}
-
-.player-info {
-    flex: 1;
-}
-
-.player-info small {
-    color: #9da8ba;
-}
-
-.ovr-badge {
-    background: #168f55;
-    padding: 7px 9px;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-.role-box {
-    background: #222936;
-    border-radius: 12px;
-    padding: 12px;
-    margin-top: 12px;
-    line-height: 1.8;
-}
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-}
-
-.stat {
-    background: #222936;
-    padding: 9px;
-    border-radius: 9px;
-    display: flex;
-    justify-content: space-between;
-}
-
-/* =========================
-   SUBSTITUTION PANEL
-========================= */
 
 .sub-panel {
-    background: #11151c;
-    border: 1px solid #394252;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 18px;
+    margin-top: 15px;
 }
 
-.sub-panel h3 {
-    margin-top: 0;
-}
-
-.sub-target {
-    background: #222936;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.available-player {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #222936;
+.event {
     padding: 10px;
-    border-radius: 10px;
-    margin: 7px 0;
+    border-bottom: 1px solid #303741;
 }
 
-.available-player button {
-    margin: 0;
-    padding: 8px 12px;
+.event:last-child {
+    border-bottom: none;
 }
 
-.notice {
-    color: #aeb7c7;
-    font-size: 13px;
+.scoreboard {
+    text-align: center;
+    background: #151a20;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 15px;
 }
 
-.section-title {
-    margin-top: 25px;
-    border-bottom: 1px solid #303846;
-    padding-bottom: 10px;
+.score {
+    font-size: 45px;
+    font-weight: bold;
+    margin: 10px;
 }
 
-@media(max-width: 750px) {
+.team-name {
+    font-size: 18px;
+    color: #8bd5ca;
+}
 
-    .team-layout {
-        grid-template-columns: 1fr;
-    }
+.rating {
+    float: left;
+    background: #16a085;
+    padding: 5px 8px;
+    border-radius: 7px;
+}
 
-    .stat-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-    .menu {
-        grid-template-columns: repeat(2, 1fr);
-    }
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #303741;
+    text-align: center;
+}
 
-    .pitch {
-        min-height: 570px;
-    }
+select, input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #3a424d;
+    background: #222832;
+    color: white;
+    margin-top: 7px;
+}
 
+.small {
+    color: #9aa4b2;
+    font-size: 12px;
+}
+
+.big-number {
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.motm {
+    border: 2px solid #f1c40f;
+    background: #27251b;
 }
 </style>
 </head>
@@ -430,1057 +275,867 @@ select {
 
 <div class="container">
 
-<!-- =========================
-     HOME
-========================= -->
+    <!-- HOME -->
+    <section id="home">
+        <div class="title">⚽ My Football Career</div>
 
-<section id="home" class="screen active">
+        <div class="card">
+            <h2>🎮 به My Football Career خوش آمدی</h2>
+            <p>
+                مربی خودت باش، تیم بساز، بازیکن‌ها را مدیریت کن و برای قهرمانی بجنگ!
+            </p>
 
-    <div class="title">
-        <h1>⚽ My Football Career</h1>
-        <p class="subtitle">CREATE • COMPETE • CONQUER</p>
-    </div>
+            <button class="btn" onclick="showScreen('coach')">
+                شروع کریر
+            </button>
 
-    <div class="card">
-        <h2>🎮 شروع حرفه فوتبالی</h2>
-
-        <p>
-            یک مربی بساز، تیم خودت را انتخاب کن
-            و برای قهرمانی بجنگ!
-        </p>
-
-        <button class="btn" onclick="showCoach()">
-            شروع Career
-        </button>
-    </div>
-
-</section>
+            <button class="btn btn-blue" onclick="showScreen('dashboard')">
+                ادامه کریر
+            </button>
+        </div>
+    </section>
 
 
-<!-- =========================
-     COACH
-========================= -->
+    <!-- COACH -->
+    <section id="coach" class="hidden">
 
-<section id="coach" class="screen">
+        <h2>👔 ساخت مربی</h2>
 
-    <div class="card">
+        <div class="card">
 
-        <h2>🧑‍💼 ساخت مربی</h2>
+            <label>نام مربی</label>
+            <input id="coachName" placeholder="مثلاً سعید">
 
-        <label>نام مربی</label>
-        <input id="coachName" placeholder="مثلاً سعید">
+            <label>سن مربی</label>
+            <input id="coachAge" type="number" value="35">
 
-        <label>سن</label>
-        <input id="coachAge" type="number" value="30">
+            <label>ملیت</label>
+            <input id="coachNationality" value="Iran">
 
-        <label>ملیت</label>
-        <input id="coachNationality" value="ایران">
+            <label>سبک مربیگری</label>
+            <select id="coachStyle">
+                <option value="balanced">متعادل</option>
+                <option value="attacking">هجومی</option>
+                <option value="defensive">دفاعی</option>
+            </select>
 
-        <label>سبک مربیگری</label>
+            <button class="btn" onclick="createCoach()">
+                ساخت مربی
+            </button>
 
-        <select id="coachStyle">
-            <option value="attacking">هجومی ⚡</option>
-            <option value="balanced">متعادل ⚖️</option>
-            <option value="defensive">دفاعی 🛡️</option>
-        </select>
+        </div>
 
-        <button class="btn" onclick="createCoach()">
-            ادامه
-        </button>
-
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =========================
-     CLUBS
-========================= -->
-
-<section id="clubs" class="screen">
-
-    <div class="card">
+    <!-- CLUB -->
+    <section id="club" class="hidden">
 
         <h2>🏟️ انتخاب باشگاه</h2>
 
-        <p class="subtitle">
-            هر باشگاه هدف متفاوتی دارد.
-        </p>
+        <div class="card">
 
-        <button class="btn"
-            onclick="selectClub('پیشتازان',5,62,'بقا در لیگ')">
-            پیشتازان — قدرت 62
-        </button>
+            <button class="btn" onclick="selectClub('پیشتازان بندرترکمن')">
+                پیشتازان بندرترکمن
+            </button>
 
-        <button class="btn"
-            onclick="selectClub('پارس فوتبال',8,67,'قرار گرفتن در نیمه بالای جدول')">
-            پارس فوتبال — قدرت 67
-        </button>
+            <button class="btn" onclick="selectClub('پارس فوتبال')">
+                پارس فوتبال
+            </button>
 
-        <button class="btn"
-            onclick="selectClub('آریا اسپرت',12,72,'کسب سهمیه آسیا')">
-            آریا اسپرت — قدرت 72
-        </button>
+            <button class="btn" onclick="selectClub('آریا اسپرت')">
+                آریا اسپرت
+            </button>
 
-        <button class="btn"
-            onclick="selectClub('تهران یونایتد',20,78,'قهرمانی')">
-            تهران یونایتد — قدرت 78
-        </button>
+            <button class="btn" onclick="selectClub('تهران یونایتد')">
+                تهران یونایتد
+            </button>
 
-    </div>
+        </div>
 
-</section>
+    </section>
 
 
-<!-- =========================
-     DASHBOARD
-========================= -->
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="hidden">
 
-<section id="dashboard" class="screen">
+        <h2>📊 داشبورد</h2>
 
-    <div class="card">
+        <div class="card">
 
-        <h2 id="welcome"></h2>
+            <h3 id="dashboardCoach">مربی</h3>
 
-        <div class="stat-grid">
+            <p id="dashboardClub">باشگاه</p>
 
-            <div class="stat-box">
-                فصل
-                <strong id="season">1</strong>
+            <div class="stats">
+
+                <div class="stat">
+                    امتیاز
+                    <strong id="points">0</strong>
+                </div>
+
+                <div class="stat">
+                    اعتبار
+                    <strong id="reputation">50</strong>
+                </div>
+
+                <div class="stat">
+                    برد
+                    <strong id="wins">0</strong>
+                </div>
+
+                <div class="stat">
+                    بازی
+                    <strong id="matches">0</strong>
+                </div>
+
             </div>
 
-            <div class="stat-box">
-                امتیاز
-                <strong id="points">0</strong>
-            </div>
+        </div>
 
-            <div class="stat-box">
-                اعتبار
-                <strong id="reputation">50</strong>
-            </div>
+        <button class="btn" onclick="showScreen('team')">
+            👥 تیم
+        </button>
 
-            <div class="stat-box">
-                قدرت تیم
-                <strong id="teamPower">62</strong>
-            </div>
+        <button class="btn" onclick="showScreen('tactics')">
+            🧠 تاکتیک
+        </button>
+
+        <button class="btn" onclick="startMatch()">
+            ⚽ بازی بعدی
+        </button>
+
+        <button class="btn" onclick="showScreen('transfers')">
+            🔄 نقل‌وانتقالات
+        </button>
+
+        <button class="btn" onclick="showScreen('table')">
+            🏆 جدول لیگ
+        </button>
+
+    </section>
+
+
+    <!-- TEAM -->
+    <section id="team" class="hidden">
+
+        <h2>👥 تیم</h2>
+
+        <div class="card">
+
+            <h3>ترکیب اصلی</h3>
+
+            <div id="pitchContainer"></div>
 
         </div>
 
         <div class="card">
 
-            <b>🎯 هدف:</b>
-            <span id="goal"></span>
+            <h3>👥 بازیکنان</h3>
+
+            <div id="roster"></div>
 
         </div>
 
-        <div class="menu">
+        <div id="substitutionPanel"></div>
 
-            <button class="btn"
-                onclick="showSection('team')">
-                👥 تیم
-            </button>
-
-            <button class="btn"
-                onclick="showSection('tactics')">
-                🧠 تاکتیک
-            </button>
-
-            <button class="btn"
-                onclick="train()">
-                🏋️ تمرین
-            </button>
-
-            <button class="btn"
-                onclick="match()">
-                ⚽ مسابقه
-            </button>
-
-            <button class="btn"
-                onclick="showSection('transfers')">
-                🔄 نقل‌وانتقالات
-            </button>
-
-            <button class="btn"
-                onclick="showSection('table')">
-                📊 جدول
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     TEAM
-========================= -->
-
-<section id="team" class="screen">
-
-    <div class="card">
-
-        <h2>👥 تیم و ترکیب</h2>
-
-        <button class="btn secondary"
-            onclick="backDashboard()">
-            ⬅️ برگشت
+        <button class="btn btn-gray" onclick="showScreen('dashboard')">
+            بازگشت
         </button>
 
-        <div class="sub-panel">
+    </section>
 
-            <h3>🔄 تعویض بازیکن</h3>
 
-            <div id="substitutionPanel">
-                <p class="notice">
-                    برای تعویض، روی یکی از بازیکنان ترکیب اصلی بزن.
-                </p>
+    <!-- PLAYER -->
+    <section id="player" class="hidden">
+
+        <div class="card">
+
+            <h2 id="playerName"></h2>
+
+            <p id="playerPosition"></p>
+
+            <div class="big-number" id="playerOVR"></div>
+
+            <div class="stats">
+
+                <div class="stat">PAC <strong id="playerPAC"></strong></div>
+                <div class="stat">SHO <strong id="playerSHO"></strong></div>
+                <div class="stat">PAS <strong id="playerPAS"></strong></div>
+                <div class="stat">DRI <strong id="playerDRI"></strong></div>
+                <div class="stat">DEF <strong id="playerDEF"></strong></div>
+                <div class="stat">PHY <strong id="playerPHY"></strong></div>
+
             </div>
+
+            <button class="btn btn-gray" onclick="showScreen('team')">
+                بازگشت
+            </button>
 
         </div>
 
-        <div class="team-layout">
-
-            <!-- PITCH -->
-
-            <div>
-
-                <h3>
-                    🏟️ ترکیب اصلی —
-                    <span id="formationLabel">4-3-3</span>
-                </h3>
-
-                <div class="pitch">
-
-                    <div class="center-line"></div>
-                    <div class="center-circle"></div>
-
-                    <div
-                        id="slot-gk"
-                        class="player gk"
-                        onclick="selectStarter('gk')">
-                    </div>
-
-                    <div
-                        id="slot-lb"
-                        class="player lb"
-                        onclick="selectStarter('lb')">
-                    </div>
-
-                    <div
-                        id="slot-lcb"
-                        class="player lcb"
-                        onclick="selectStarter('lcb')">
-                    </div>
-
-                    <div
-                        id="slot-rcb"
-                        class="player rcb"
-                        onclick="selectStarter('rcb')">
-                    </div>
-
-                    <div
-                        id="slot-rb"
-                        class="player rb"
-                        onclick="selectStarter('rb')">
-                    </div>
-
-                    <div
-                        id="slot-cdm"
-                        class="player cdm"
-                        onclick="selectStarter('cdm')">
-                    </div>
-
-                    <div
-                        id="slot-lcm"
-                        class="player lcm"
-                        onclick="selectStarter('lcm')">
-                    </div>
-
-                    <div
-                        id="slot-rcm"
-                        class="player rcm"
-                        onclick="selectStarter('rcm')">
-                    </div>
-
-                    <div
-                        id="slot-lw"
-                        class="player lw"
-                        onclick="selectStarter('lw')">
-                    </div>
-
-                    <div
-                        id="slot-st"
-                        class="player st"
-                        onclick="selectStarter('st')">
-                    </div>
-
-                    <div
-                        id="slot-rw"
-                        class="player rw"
-                        onclick="selectStarter('rw')">
-                    </div>
-
-                </div>
-
-            </div>
+    </section>
 
 
-            <!-- ROSTER -->
-
-            <div>
-
-                <h3>📋 بازیکنان</h3>
-
-                <div id="roster" class="roster"></div>
-
-                <div class="role-box">
-
-                    👑 <b>کاپیتان:</b>
-                    محمد طاها مکرری
-                    <br>
-
-                    🎯 <b>کرنر:</b>
-                    محمد طاها مکرری
-                    <br>
-
-                    🥅 <b>پنالتی:</b>
-                    محمد طاها مکرری
-                    <br>
-
-                    🦶 <b>ضربه آزاد:</b>
-                    مصطفی بیناگر
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     PLAYER
-========================= -->
-
-<section id="player" class="screen">
-
-    <div class="card">
-
-        <button
-            class="btn secondary"
-            onclick="showSection('team')">
-            ⬅️ برگشت به تیم
-        </button>
-
-        <h2 id="playerTitle"></h2>
-
-        <div id="playerStats" class="stats"></div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     TACTICS
-========================= -->
-
-<section id="tactics" class="screen">
-
-    <div class="card">
+    <!-- TACTICS -->
+    <section id="tactics" class="hidden">
 
         <h2>🧠 تاکتیک</h2>
 
-        <label>آرایش</label>
+        <div class="card">
 
-        <select id="formation">
+            <label>آرایش</label>
 
-            <option value="4-3-3">
-                4-3-3
-            </option>
+            <select id="formationSelect" onchange="changeFormation()">
+                <option value="4-3-3">4-3-3</option>
+                <option value="4-4-2">4-4-2</option>
+                <option value="4-2-3-1">4-2-3-1</option>
+                <option value="3-5-2">3-5-2</option>
+                <option value="5-3-2">5-3-2</option>
+            </select>
 
-            <option value="4-2-3-1">
-                4-2-3-1
-            </option>
+            <label>ذهنیت</label>
 
-            <option value="4-4-2">
-                4-4-2
-            </option>
+            <select id="mentalitySelect" onchange="changeMentality()">
+                <option value="balanced">متعادل</option>
+                <option value="attacking">هجومی</option>
+                <option value="defensive">دفاعی</option>
+            </select>
 
-            <option value="3-5-2">
-                3-5-2
-            </option>
+        </div>
 
-            <option value="5-3-2">
-                5-3-2
-            </option>
-
-        </select>
-
-        <label>ذهنیت</label>
-
-        <select id="mentality">
-
-            <option value="attacking">
-                هجومی ⚡
-            </option>
-
-            <option value="balanced">
-                متعادل ⚖️
-            </option>
-
-            <option value="defensive">
-                دفاعی 🛡️
-            </option>
-
-        </select>
-
-        <button class="btn"
-            onclick="saveTactics()">
-            💾 ذخیره تاکتیک
+        <button class="btn btn-gray" onclick="showScreen('dashboard')">
+            بازگشت
         </button>
 
-        <button class="btn secondary"
-            onclick="backDashboard()">
-            ⬅️ برگشت
+    </section>
+
+
+    <!-- MATCH -->
+    <section id="match" class="hidden">
+
+        <h2>🏟️ Match Center</h2>
+
+        <div class="scoreboard">
+
+            <div class="team-name" id="matchHome">
+                تیم شما
+            </div>
+
+            <div class="score">
+                <span id="homeScore">0</span>
+                -
+                <span id="awayScore">0</span>
+            </div>
+
+            <div class="team-name" id="matchAway">
+                حریف
+            </div>
+
+            <p id="matchResult"></p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>⏱️ اتفاقات بازی</h3>
+
+            <div id="matchEvents"></div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>⭐ نمرات بازیکنان</h3>
+
+            <div id="matchRatings"></div>
+
+        </div>
+
+        <div class="card motm">
+
+            <h3>🏆 بهترین بازیکن مسابقه</h3>
+
+            <div id="motm"></div>
+
+        </div>
+
+        <button class="btn" onclick="showScreen('dashboard')">
+            ادامه کریر
         </button>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =========================
-     TRANSFERS
-========================= -->
-
-<section id="transfers" class="screen">
-
-    <div class="card">
+    <!-- TRANSFERS -->
+    <section id="transfers" class="hidden">
 
         <h2>🔄 نقل‌وانتقالات</h2>
 
-        <p>
-            💰 بودجه:
-            <b>
-                <span id="money">5</span>M €
-            </b>
-        </p>
+        <div class="card">
 
-        <button class="btn"
-            onclick="transferPlayer(2)">
-            خرید بازیکن — 2M €
+            <p>بازار نقل‌وانتقالات به‌زودی فعال می‌شود.</p>
+
+        </div>
+
+        <button class="btn btn-gray" onclick="showScreen('dashboard')">
+            بازگشت
         </button>
 
-        <button class="btn"
-            onclick="transferPlayer(-1)">
-            فروش بازیکن — دریافت 1M €
+    </section>
+
+
+    <!-- TABLE -->
+    <section id="table" class="hidden">
+
+        <h2>🏆 جدول لیگ</h2>
+
+        <div class="card">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>تیم</th>
+                        <th>بازی</th>
+                        <th>امتیاز</th>
+                    </tr>
+                </thead>
+
+                <tbody id="leagueTable"></tbody>
+
+            </table>
+
+        </div>
+
+        <button class="btn btn-gray" onclick="showScreen('dashboard')">
+            بازگشت
         </button>
 
-        <button class="btn secondary"
-            onclick="backDashboard()">
-            ⬅️ برگشت
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     TABLE
-========================= -->
-
-<section id="table" class="screen">
-
-    <div class="card">
-
-        <h2>📊 جدول لیگ</h2>
-
-        <table
-            style="width:100%;border-collapse:collapse;text-align:center;">
-
-            <tr>
-                <th>تیم</th>
-                <th>بازی</th>
-                <th>امتیاز</th>
-            </tr>
-
-            <tr>
-                <td>پیشتازان</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-
-            <tr>
-                <td>پارس فوتبال</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-
-            <tr>
-                <td>آریا اسپرت</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-
-            <tr>
-                <td>تهران یونایتد</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-
-        </table>
-
-        <br>
-
-        <button
-            class="btn secondary"
-            onclick="backDashboard()">
-            ⬅️ برگشت
-        </button>
-
-    </div>
-
-</section>
+    </section>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   PLAYERS
-===================================================== */
+/* =========================================================
+   بازیکنان
+========================================================= */
 
 const players = [
 
-    {
-        number: 1,
-        name: "سمیع",
-        position: "GK",
-        ovr: 68,
-        pac: 58,
-        sho: 25,
-        pas: 45,
-        dri: 35,
-        def: 25,
-        phy: 55
-    },
+{
+id: 1,
+number: 1,
+name: "سمیع",
+position: "GK",
+ovr: 68,
+pac: 58,
+sho: 25,
+pas: 45,
+dri: 35,
+def: 25,
+phy: 55
+},
 
-    {
-        number: 22,
-        name: "محمد امین برون‌سرا",
-        position: "GK",
-        ovr: 67,
-        pac: 55,
-        sho: 20,
-        pas: 40,
-        dri: 30,
-        def: 20,
-        phy: 50
-    },
+{
+id: 22,
+number: 22,
+name: "محمد امین برون‌سرا",
+position: "GK",
+ovr: 67,
+pac: 55,
+sho: 20,
+pas: 40,
+dri: 30,
+def: 20,
+phy: 50
+},
 
-    {
-        number: 3,
-        name: "سعید نیازی",
-        position: "CB",
-        ovr: 72,
-        pac: 78,
-        sho: 35,
-        pas: 48,
-        dri: 45,
-        def: 91,
-        phy: 55
-    },
+{
+id: 3,
+number: 3,
+name: "سعید نیازی",
+position: "CB",
+ovr: 72,
+pac: 78,
+sho: 35,
+pas: 48,
+dri: 45,
+def: 91,
+phy: 55
+},
 
-    {
-        number: 5,
-        name: "ارکان قاضیانی",
-        position: "CB",
-        ovr: 71,
-        pac: 65,
-        sho: 40,
-        pas: 78,
-        dri: 62,
-        def: 79,
-        phy: 68
-    },
+{
+id: 5,
+number: 5,
+name: "ارکان قاضیانی",
+position: "CB",
+ovr: 71,
+pac: 65,
+sho: 40,
+pas: 78,
+dri: 62,
+def: 79,
+phy: 68
+},
 
-    {
-        number: 4,
-        name: "رسول ایری",
-        position: "CB",
-        ovr: 74,
-        pac: 62,
-        sho: 35,
-        pas: 50,
-        dri: 42,
-        def: 83,
-        phy: 94
-    },
+{
+id: 4,
+number: 4,
+name: "رسول ایری",
+position: "CB",
+ovr: 74,
+pac: 62,
+sho: 35,
+pas: 50,
+dri: 42,
+def: 83,
+phy: 94
+},
 
-    {
-        number: 16,
-        name: "میکاییل خجاو",
-        position: "LB / چندپسته",
-        ovr: 68,
-        pac: 78,
-        sho: 55,
-        pas: 74,
-        dri: 68,
-        def: 60,
-        phy: 58
-    },
+{
+id: 16,
+number: 16,
+name: "میکاییل خجاو",
+position: "LB/CB",
+ovr: 68,
+pac: 78,
+sho: 55,
+pas: 74,
+dri: 68,
+def: 60,
+phy: 58
+},
 
-    {
-        number: 12,
-        name: "اصف ایری",
-        position: "LB / LW",
-        ovr: 69,
-        pac: 72,
-        sho: 82,
-        pas: 65,
-        dri: 73,
-        def: 62,
-        phy: 68
-    },
+{
+id: 12,
+number: 12,
+name: "اصف ایری",
+position: "LB/LW",
+ovr: 69,
+pac: 72,
+sho: 82,
+pas: 65,
+dri: 73,
+def: 62,
+phy: 68
+},
 
-    {
-        number: 15,
-        name: "طاها ارنظری",
-        position: "RB / CM",
-        ovr: 70,
-        pac: 69,
-        sho: 45,
-        pas: 58,
-        dri: 52,
-        def: 84,
-        phy: 78
-    },
+{
+id: 15,
+number: 15,
+name: "طاها ارنظری",
+position: "RB/CM",
+ovr: 70,
+pac: 69,
+sho: 45,
+pas: 58,
+dri: 52,
+def: 84,
+phy: 78
+},
 
-    {
-        number: 13,
-        name: "رامین جاهد",
-        position: "RB / CM",
-        ovr: 68,
-        pac: 70,
-        sho: 50,
-        pas: 62,
-        dri: 60,
-        def: 64,
-        phy: 65
-    },
+{
+id: 13,
+number: 13,
+name: "رامین جاهد",
+position: "RB/CM",
+ovr: 68,
+pac: 70,
+sho: 50,
+pas: 62,
+dri: 60,
+def: 64,
+phy: 65
+},
 
-    {
-        number: 14,
-        name: "محمد طاها مکرری",
-        position: "CM",
-        ovr: 75,
-        pac: 78,
-        sho: 70,
-        pas: 92,
-        dri: 94,
-        def: 45,
-        phy: 62
-    },
+{
+id: 14,
+number: 14,
+name: "محمد طاها مکرری",
+position: "CM",
+ovr: 75,
+pac: 78,
+sho: 70,
+pas: 92,
+dri: 94,
+def: 45,
+phy: 62
+},
 
-    {
-        number: 6,
-        name: "محمدرضا صنایعی",
-        position: "CDM",
-        ovr: 67,
-        pac: 55,
-        sho: 30,
-        pas: 50,
-        dri: 42,
-        def: 68,
-        phy: 90
-    },
+{
+id: 6,
+number: 6,
+name: "محمدرضا صنایعی",
+position: "CDM",
+ovr: 67,
+pac: 55,
+sho: 30,
+pas: 50,
+dri: 42,
+def: 68,
+phy: 90
+},
 
-    {
-        number: 8,
-        name: "طاها منوچهر",
-        position: "CM",
-        ovr: 69,
-        pac: 68,
-        sho: 45,
-        pas: 65,
-        dri: 78,
-        def: 40,
-        phy: 60
-    },
+{
+id: 8,
+number: 8,
+name: "طاها منوچهر",
+position: "CM",
+ovr: 69,
+pac: 68,
+sho: 45,
+pas: 65,
+dri: 78,
+def: 40,
+phy: 60
+},
 
-    {
-        number: 17,
-        name: "بصیر کر",
-        position: "CM",
-        ovr: 68,
-        pac: 65,
-        sho: 45,
-        pas: 62,
-        dri: 65,
-        def: 48,
-        phy: 62
-    },
+{
+id: 17,
+number: 17,
+name: "بصیر کر",
+position: "CM",
+ovr: 68,
+pac: 65,
+sho: 45,
+pas: 62,
+dri: 65,
+def: 48,
+phy: 62
+},
 
-    {
-        number: 18,
-        name: "بصیر اونق",
-        position: "CM",
-        ovr: 67,
-        pac: 50,
-        sho: 65,
-        pas: 72,
-        dri: 48,
-        def: 35,
-        phy: 70
-    },
+{
+id: 18,
+number: 18,
+name: "بصیر اونق",
+position: "CM",
+ovr: 67,
+pac: 50,
+sho: 65,
+pas: 72,
+dri: 48,
+def: 35,
+phy: 70
+},
 
-    {
-        number: 7,
-        name: "صادق وطن‌دوست",
-        position: "RW / ST",
-        ovr: 70,
-        pac: 96,
-        sho: 55,
-        pas: 48,
-        dri: 50,
-        def: 30,
-        phy: 55
-    },
+{
+id: 7,
+number: 7,
+name: "صادق وطن‌دوست",
+position: "RW/ST",
+ovr: 70,
+pac: 96,
+sho: 55,
+pas: 48,
+dri: 50,
+def: 30,
+phy: 55
+},
 
-    {
-        number: 11,
-        name: "مصطفی بیناگر",
-        position: "LW / چندپسته",
-        ovr: 73,
-        pac: 88,
-        sho: 78,
-        pas: 65,
-        dri: 91,
-        def: 35,
-        phy: 68
-    },
+{
+id: 11,
+number: 11,
+name: "مصطفی بیناگر",
+position: "LW/ST",
+ovr: 73,
+pac: 88,
+sho: 78,
+pas: 65,
+dri: 91,
+def: 35,
+phy: 68
+},
 
-    {
-        number: 10,
-        name: "محمدرضا کر",
-        position: "ST",
-        ovr: 66,
-        pac: 55,
-        sho: 60,
-        pas: 40,
-        dri: 42,
-        def: 20,
-        phy: 55
-    },
+{
+id: 10,
+number: 10,
+name: "محمدرضا کر",
+position: "ST",
+ovr: 66,
+pac: 55,
+sho: 60,
+pas: 40,
+dri: 42,
+def: 20,
+phy: 55
+},
 
-    {
-        number: 19,
-        name: "طاها ریاحی",
-        position: "ST",
-        ovr: 68,
-        pac: 48,
-        sho: 82,
-        pas: 42,
-        dri: 45,
-        def: 20,
-        phy: 65
-    },
+{
+id: 19,
+number: 19,
+name: "طاها ریاحی",
+position: "ST",
+ovr: 68,
+pac: 48,
+sho: 82,
+pas: 42,
+dri: 45,
+def: 20,
+phy: 65
+},
 
-    {
-        number: 9,
-        name: "سیاوش",
-        position: "ST",
-        ovr: 71,
-        pac: 72,
-        sho: 70,
-        pas: 48,
-        dri: 55,
-        def: 30,
-        phy: 84
-    },
+{
+id: 9,
+number: 9,
+name: "سیاوش",
+position: "ST",
+ovr: 71,
+pac: 72,
+sho: 70,
+pas: 48,
+dri: 55,
+def: 30,
+phy: 84
+},
 
-    {
-        number: 2,
-        name: "عدنان ال‌جلیل",
-        position: "LW",
-        ovr: 67,
-        pac: 73,
-        sho: 55,
-        pas: 50,
-        dri: 62,
-        def: 25,
-        phy: 55
-    }
+{
+id: 2,
+number: 2,
+name: "عدنان ال‌جلیل",
+position: "LW",
+ovr: 67,
+pac: 73,
+sho: 55,
+pas: 50,
+dri: 62,
+def: 25,
+phy: 55
+}
 
 ];
 
 
-/* =====================================================
-   DEFAULT STARTING XI
-===================================================== */
-
-const defaultLineup = {
-
-    gk: 1,
-
-    lb: 16,
-    lcb: 4,
-    rcb: 5,
-    rb: 15,
-
-    cdm: 6,
-    lcm: 14,
-    rcm: 8,
-
-    lw: 11,
-    st: 10,
-    rw: 7
-
-};
-
-
-/* =====================================================
-   LOAD SAVED LINEUP
-===================================================== */
-
-let lineup =
-    JSON.parse(
-        localStorage.getItem("mfc_lineup")
-    ) || {...defaultLineup};
-
-
-/* =====================================================
-   CAREER
-===================================================== */
+/* =========================================================
+   کریر
+========================================================= */
 
 let career = {
 
-    coach: "",
-    age: 30,
-    nationality: "ایران",
-    style: "balanced",
+coach: "",
+age: 35,
+nationality: "Iran",
+style: "balanced",
 
-    club: "",
-    money: 5,
-    power: 62,
-    goal: "",
+club: "پیشتازان بندرترکمن",
 
-    season: 1,
-    points: 0,
-    reputation: 50,
+money: 1000000,
+power: 70,
 
-    formation: "4-3-3",
-    mentality: "balanced"
+goal: "قهرمانی",
+season: 1,
+
+points: 0,
+reputation: 50,
+
+formation: "4-3-3",
+mentality: "balanced",
+
+matches: 0,
+wins: 0,
+draws: 0,
+losses: 0,
+
+goalsFor: 0,
+goalsAgainst: 0
 
 };
 
 
-/* =====================================================
-   SELECTED SLOT
-===================================================== */
+/* =========================================================
+   ترکیب
+========================================================= */
+
+const defaultLineup = {
+
+gk: 1,
+
+lb: 16,
+
+lcb: 4,
+
+rcb: 5,
+
+rb: 15,
+
+cdm: 6,
+
+lcm: 14,
+
+rcm: 8,
+
+lw: 11,
+
+st: 10,
+
+rw: 7
+
+};
+
+let lineup =
+JSON.parse(
+localStorage.getItem("mfc_lineup")
+) || {...defaultLineup};
 
 let selectedSlot = null;
 
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function hideAll() {
-
-    document
-        .querySelectorAll(".screen")
-        .forEach(screen => {
-
-            screen.classList.remove("active");
-
-        });
-
-}
-
-
-function showHome() {
-
-    hideAll();
-
-    document
-        .getElementById("home")
-        .classList.add("active");
-
-}
-
-
-function showCoach() {
-
-    hideAll();
-
-    document
-        .getElementById("coach")
-        .classList.add("active");
-
-}
-
-
-function showSection(id) {
-
-    hideAll();
-
-    document
-        .getElementById(id)
-        .classList.add("active");
-
-    if (id === "team") {
-
-        renderTeam();
-
-    }
-
-}
-
-
-function backDashboard() {
-
-    hideAll();
-
-    document
-        .getElementById("dashboard")
-        .classList.add("active");
-
-}
-
-
-/* =====================================================
-   COACH
-===================================================== */
-
-function createCoach() {
-
-    career.coach =
-        document
-        .getElementById("coachName")
-        .value
-        .trim() || "مربی جدید";
-
-    career.age =
-        Number(
-            document
-            .getElementById("coachAge")
-            .value
-        ) || 30;
-
-    career.nationality =
-        document
-        .getElementById("coachNationality")
-        .value || "ایران";
-
-    career.style =
-        document
-        .getElementById("coachStyle")
-        .value;
-
-    hideAll();
-
-    document
-        .getElementById("clubs")
-        .classList.add("active");
-
-}
-
-
-/* =====================================================
-   CLUB
-===================================================== */
-
-function selectClub(
-    name,
-    money,
-    power,
-    goal
-) {
-
-    career.club = name;
-    career.money = money;
-    career.power = power;
-    career.goal = goal;
-
-    updateDashboard();
-
-    hideAll();
-
-    document
-        .getElementById("dashboard")
-        .classList.add("active");
-
-}
-
-
-/* =====================================================
-   DASHBOARD
-===================================================== */
-
-function updateDashboard() {
-
-    document
-        .getElementById("welcome")
-        .innerText =
-        `سلام ${career.coach} 👋 | ${career.club}`;
-
-    document
-        .getElementById("season")
-        .innerText =
-        career.season;
-
-    document
-        .getElementById("points")
-        .innerText =
-        career.points;
-
-    document
-        .getElementById("reputation")
-        .innerText =
-        career.reputation;
-
-    document
-        .getElementById("teamPower")
-        .innerText =
-        career.power;
-
-    document
-        .getElementById("goal")
-        .innerText =
-        career.goal;
-
-    document
-        .getElementById("money")
-        .innerText =
-        career.money;
-
-}
-
-
-/* =====================================================
-   GET PLAYER
-===================================================== */
+/* =========================================================
+   ابزار
+========================================================= */
 
 function getPlayer(id) {
 
     return players.find(
-        player => player.number === id
+        p => p.id === id
     );
 
 }
 
 
-/* =====================================================
-   RENDER TEAM
-===================================================== */
+function average(arr) {
+
+    if (!arr.length) return 0;
+
+    return arr.reduce(
+        (a,b) => a + b,
+        0
+    ) / arr.length;
+
+}
+
+
+function randomBetween(min, max) {
+
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
+
+}
+
+
+/* =========================================================
+   صفحات
+========================================================= */
+
+function showScreen(screen) {
+
+    document
+        .querySelectorAll("section")
+        .forEach(
+            s => s.classList.add("hidden")
+        );
+
+    document
+        .getElementById(screen)
+        .classList.remove("hidden");
+
+    if (screen === "dashboard") {
+        updateDashboard();
+    }
+
+    if (screen === "team") {
+        renderTeam();
+    }
+
+    if (screen === "table") {
+        renderTable();
+    }
+
+}
+
+
+/* =========================================================
+   ساخت مربی
+========================================================= */
+
+function createCoach() {
+
+    career.coach =
+        document.getElementById("coachName").value
+        || "مربی جدید";
+
+    career.age =
+        Number(
+            document.getElementById("coachAge").value
+        ) || 35;
+
+    career.nationality =
+        document.getElementById(
+            "coachNationality"
+        ).value || "Iran";
+
+    career.style =
+        document.getElementById(
+            "coachStyle"
+        ).value;
+
+    career.mentality =
+        career.style;
+
+    showScreen("club");
+
+}
+
+
+/* =========================================================
+   انتخاب باشگاه
+========================================================= */
+
+function selectClub(club) {
+
+    career.club = club;
+
+    showScreen("dashboard");
+
+}
+
+
+/* =========================================================
+   داشبورد
+========================================================= */
+
+function updateDashboard() {
+
+    document.getElementById(
+        "dashboardCoach"
+    ).innerText =
+        `👔 ${career.coach || "مربی"}`;
+
+    document.getElementById(
+        "dashboardClub"
+    ).innerText =
+        `🏟️ ${career.club}`;
+
+    document.getElementById(
+        "points"
+    ).innerText =
+        career.points;
+
+    document.getElementById(
+        "reputation"
+    ).innerText =
+        career.reputation;
+
+    document.getElementById(
+        "wins"
+    ).innerText =
+        career.wins;
+
+    document.getElementById(
+        "matches"
+    ).innerText =
+        career.matches;
+
+}
+
+
+/* =========================================================
+   تیم
+========================================================= */
 
 function renderTeam() {
 
@@ -1490,153 +1145,137 @@ function renderTeam() {
 
     updateSubstitutionPanel();
 
-    document
-        .getElementById("formationLabel")
-        .innerText =
-        career.formation;
-
 }
 
-
-/* =====================================================
-   RENDER PITCH
-===================================================== */
 
 function renderPitch() {
 
-    Object
-        .keys(lineup)
-        .forEach(slot => {
+    const container =
+        document.getElementById(
+            "pitchContainer"
+        );
 
-            const element =
-                document
-                .getElementById(
-                    "slot-" + slot
-                );
+    const positions = {
 
-            if (!element) return;
+        gk: [50, 91],
 
-            const player =
-                getPlayer(lineup[slot]);
+        lb: [12, 72],
+        lcb: [37, 76],
+        rcb: [63, 76],
+        rb: [88, 72],
 
-            if (!player) return;
+        cdm: [50, 60],
 
-            element.innerHTML = `
+        lcm: [32, 47],
+        rcm: [68, 47],
 
-                <div class="player-card">
+        lw: [15, 23],
+        st: [50, 17],
+        rw: [85, 23]
 
-                    <span class="number">
-                        ${player.number}
-                    </span>
+    };
 
-                    <span class="ovr">
-                        ${player.ovr}
-                    </span>
+    let html =
+        `<div class="pitch">
+            <div class="center-circle"></div>`;
 
-                </div>
+    for (
+        const slot in lineup
+    ) {
 
-                <div class="player-name">
-                    ${player.name}
-                </div>
+        const player =
+            getPlayer(lineup[slot]);
 
-            `;
+        const pos =
+            positions[slot];
 
-            element.classList.toggle(
-                "selected",
-                selectedSlot === slot
-            );
+        if (!player) continue;
 
-        });
+        html += `
+
+        <div
+            class="slot ${selectedSlot === slot ? "selected" : ""}"
+            style="
+                left:${pos[0]}%;
+                top:${pos[1]}%;
+            "
+            onclick="selectStarter('${slot}')"
+        >
+
+            <div class="slot-ball">
+                ${player.number}
+            </div>
+
+            <div class="slot-name">
+                ${player.name}
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    html += `</div>`;
+
+    container.innerHTML = html;
 
 }
 
-
-/* =====================================================
-   RENDER ROSTER
-===================================================== */
 
 function renderRoster() {
 
-    const roster =
-        document.getElementById("roster");
+    const container =
+        document.getElementById(
+            "roster"
+        );
 
-    roster.innerHTML = "";
+    const starterIds =
+        Object.values(lineup);
 
-    players
-        .sort(
-            (a,b) =>
-            a.number - b.number
-        )
-        .forEach(player => {
+    container.innerHTML =
+        players.map(
+            p => `
 
-            const isStarter =
-                Object
-                .values(lineup)
-                .includes(player.number);
+            <div
+                class="player"
+                onclick="showPlayer(${p.id})"
+            >
 
-            const row =
-                document.createElement("div");
+                <div class="player-row">
 
-            row.className =
-                "player-row" +
-                (isStarter ? " disabled" : "");
+                    <div>
 
-            row.onclick = function() {
+                        <strong>
+                            #${p.number}
+                            ${p.name}
+                        </strong>
 
-                if (!isStarter) {
+                        <div class="position">
+                            ${p.position}
+                        </div>
 
-                    showPlayer(
-                        player.name
-                    );
+                    </div>
 
-                }
-
-            };
-
-            row.innerHTML = `
-
-                <div class="jersey">
-                    ${player.number}
-                </div>
-
-                <div class="player-info">
-
-                    <b>
-                        ${player.name}
-                    </b>
-
-                    <br>
-
-                    <small>
-                        ${player.position}
-                        ${isStarter ? " • اصلی" : " • ذخیره"}
-                    </small>
+                    <div class="ovr">
+                        ${p.ovr}
+                    </div>
 
                 </div>
 
-                <div class="ovr-badge">
-                    ${player.ovr}
-                </div>
+            </div>
 
-            `;
-
-            roster.appendChild(row);
-
-        });
+            `
+        ).join("");
 
 }
 
 
-/* =====================================================
-   SELECT STARTER
-===================================================== */
+/* =========================================================
+   انتخاب بازیکن اصلی
+========================================================= */
 
 function selectStarter(slot) {
-
-    const player =
-        getPlayer(lineup[slot]);
-
-    if (!player) return;
 
     selectedSlot = slot;
 
@@ -1647,9 +1286,9 @@ function selectStarter(slot) {
 }
 
 
-/* =====================================================
-   SUBSTITUTION PANEL
-===================================================== */
+/* =========================================================
+   پنل تعویض
+========================================================= */
 
 function updateSubstitutionPanel() {
 
@@ -1661,193 +1300,93 @@ function updateSubstitutionPanel() {
     if (!selectedSlot) {
 
         panel.innerHTML = `
-            <p class="notice">
-                برای تعویض، روی یکی از بازیکنان
-                ترکیب اصلی بزن.
-            </p>
+            <div class="card">
+                یک بازیکن روی زمین را انتخاب کن
+                تا بتوانی تعویضش کنی.
+            </div>
         `;
 
         return;
 
     }
+
+    const starterIds =
+        Object.values(lineup);
+
+    const available =
+        players.filter(
+            p => !starterIds.includes(p.id)
+        );
 
     const current =
         getPlayer(
             lineup[selectedSlot]
         );
 
-    const substitutes =
-        players.filter(
-            player =>
-            !Object
-            .values(lineup)
-            .includes(player.number)
-        );
-
     panel.innerHTML = `
 
-        <div class="sub-target">
+        <div class="card sub-panel">
 
-            <b>
-                پست انتخاب‌شده:
-            </b>
+            <h3>
+                🔄 تعویض
+            </h3>
 
-            ${getPositionName(selectedSlot)}
-
-            <br>
-
-            <b>
+            <p>
                 بازیکن فعلی:
-            </b>
+                <strong>
+                    ${current.name}
+                </strong>
+            </p>
 
-            #${current.number}
-            ${current.name}
-            — OVR ${current.ovr}
+            ${
+                available.map(
+                    p => `
+
+                    <button
+                        class="btn"
+                        onclick="makeSubstitution(${p.id})"
+                    >
+                        #${p.number}
+                        ${p.name}
+                        — OVR ${p.ovr}
+                    </button>
+
+                    `
+                ).join("")
+            }
+
+            <button
+                class="btn btn-danger"
+                onclick="cancelSubstitution()"
+            >
+                لغو
+            </button>
 
         </div>
 
-        <p class="notice">
-            بازیکن جدید را انتخاب کن:
-        </p>
-
-        <div id="availablePlayers"></div>
-
-        <button
-            class="btn secondary"
-            onclick="cancelSubstitution()">
-            لغو
-        </button>
-
     `;
 
-    const container =
-        document.getElementById(
-            "availablePlayers"
-        );
-
-    substitutes.forEach(player => {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "available-player";
-
-        item.innerHTML = `
-
-            <div>
-
-                <b>
-                    #${player.number}
-                    ${player.name}
-                </b>
-
-                <br>
-
-                <span class="notice">
-                    ${player.position}
-                    — OVR ${player.ovr}
-                </span>
-
-            </div>
-
-            <button
-                class="btn"
-                onclick="makeSubstitution(${player.number})">
-                تعویض
-            </button>
-
-        `;
-
-        container.appendChild(item);
-
-    });
-
 }
 
 
-/* =====================================================
-   POSITION NAME
-===================================================== */
-
-function getPositionName(slot) {
-
-    const names = {
-
-        gk: "دروازه‌بان",
-
-        lb: "دفاع چپ",
-        lcb: "دفاع وسط چپ",
-        rcb: "دفاع وسط راست",
-        rb: "دفاع راست",
-
-        cdm: "هافبک دفاعی",
-
-        lcm: "هافبک مرکزی چپ",
-        rcm: "هافبک مرکزی راست",
-
-        lw: "وینگر چپ",
-        st: "مهاجم",
-
-        rw: "وینگر راست"
-
-    };
-
-    return names[slot] || slot;
-
-}
-
-
-/* =====================================================
-   MAKE SUBSTITUTION
-===================================================== */
-
-function makeSubstitution(newPlayerId) {
+function makeSubstitution(playerId) {
 
     if (!selectedSlot) return;
 
-    const newPlayer =
-        getPlayer(newPlayerId);
-
-    if (!newPlayer) return;
-
-    const alreadyStarter =
-        Object
-        .values(lineup)
-        .includes(newPlayerId);
-
-    if (alreadyStarter) {
-
-        alert(
-            "این بازیکن همین الان در ترکیب اصلی است!"
-        );
-
-        return;
-
-    }
-
     lineup[selectedSlot] =
-        newPlayerId;
+        playerId;
 
-    saveLineup();
-
-    const changedPosition =
-        getPositionName(selectedSlot);
+    localStorage.setItem(
+        "mfc_lineup",
+        JSON.stringify(lineup)
+    );
 
     selectedSlot = null;
 
     renderTeam();
 
-    alert(
-        `تعویض انجام شد! 🔄\n\n${changedPosition}: ${newPlayer.name}`
-    );
-
 }
 
-
-/* =====================================================
-   CANCEL
-===================================================== */
 
 function cancelSubstitution() {
 
@@ -1858,11 +1397,1261 @@ function cancelSubstitution() {
 }
 
 
-/* =====================================================
-   SAVE LINEUP
-===================================================== */
+function resetLineup() {
 
-function saveLineup() {
+    lineup =
+        {...defaultLineup};
+
+    localStorage.setItem(
+        "mfc_lineup",
+        JSON.stringify(lineup)
+    );
+
+    renderTeam();
+
+}
+
+
+/* =========================================================
+   بازیکن
+========================================================= */
+
+function showPlayer(id) {
+
+    const p =
+        getPlayer(id);
+
+    if (!p) return;
+
+    document.getElementById(
+        "playerName"
+    ).innerText =
+        `#${p.number} ${p.name}`;
+
+    document.getElementById(
+        "playerPosition"
+    ).innerText =
+        p.position;
+
+    document.getElementById(
+        "playerOVR"
+    ).innerText =
+        `OVR ${p.ovr}`;
+
+    document.getElementById(
+        "playerPAC"
+    ).innerText =
+        p.pac;
+
+    document.getElementById(
+        "playerSHO"
+    ).innerText =
+        p.sho;
+
+    document.getElementById(
+        "playerPAS"
+    ).innerText =
+        p.pas;
+
+    document.getElementById(
+        "playerDRI"
+    ).innerText =
+        p.dri;
+
+    document.getElementById(
+        "playerDEF"
+    ).innerText =
+        p.def;
+
+    document.getElementById(
+        "playerPHY"
+    ).innerText =
+        p.phy;
+
+    showScreen("player");
+
+}
+
+
+/* =========================================================
+   تاکتیک
+========================================================= */
+
+function changeFormation() {
+
+    career.formation =
+        document.getElementById(
+            "formationSelect"
+        ).value;
+
+}
+
+
+function changeMentality() {
+
+    career.mentality =
+        document.getElementById(
+            "mentalitySelect"
+        ).value;
+
+}
+
+
+/* =========================================================
+   موتور مسابقه
+========================================================= */
+
+function calculateTeamPower() {
+
+    const attackPlayers = [
+
+        getPlayer(lineup.lw),
+        getPlayer(lineup.st),
+        getPlayer(lineup.rw)
+
+    ].filter(Boolean);
+
+
+    const midfieldPlayers = [
+
+        getPlayer(lineup.cdm),
+        getPlayer(lineup.lcm),
+        getPlayer(lineup.rcm)
+
+    ].filter(Boolean);
+
+
+    const defensePlayers = [
+
+        getPlayer(lineup.lb),
+        getPlayer(lineup.lcb),
+        getPlayer(lineup.rcb),
+        getPlayer(lineup.rb)
+
+    ].filter(Boolean);
+
+
+    const goalkeeper =
+        getPlayer(lineup.gk);
+
+
+    const attack =
+        average(
+            attackPlayers.map(
+                p =>
+                    p.pac * 0.20 +
+                    p.sho * 0.45 +
+                    p.dri * 0.25 +
+                    p.pas * 0.10
+            )
+        );
+
+
+    const midfield =
+        average(
+            midfieldPlayers.map(
+                p =>
+                    p.pas * 0.40 +
+                    p.dri * 0.25 +
+                    p.def * 0.15 +
+                    p.phy * 0.20
+            )
+        );
+
+
+    const defense =
+        average(
+            defensePlayers.map(
+                p =>
+                    p.def * 0.50 +
+                    p.phy * 0.25 +
+                    p.pac * 0.15 +
+                    p.pas * 0.10
+            )
+        );
+
+
+    const goalkeeperPower =
+        goalkeeper
+            ? (
+                goalkeeper.def * 0.55 +
+                goalkeeper.phy * 0.20 +
+                goalkeeper.pac * 0.10 +
+                goalkeeper.pas * 0.15
+            )
+            : 50;
+
+
+    let attackModifier = 1;
+    let defenseModifier = 1;
+
+
+    if (
+        career.mentality ===
+        "attacking"
+    ) {
+
+        attackModifier = 1.08;
+        defenseModifier = 0.94;
+
+    }
+
+
+    if (
+        career.mentality ===
+        "defensive"
+    ) {
+
+        attackModifier = 0.94;
+        defenseModifier = 1.08;
+
+    }
+
+
+    let formationModifier = 1;
+
+
+    if (
+        career.formation ===
+        "4-3-3"
+    ) {
+
+        formationModifier = 1.03;
+
+    }
+
+    else if (
+        career.formation ===
+        "4-2-3-1"
+    ) {
+
+        formationModifier = 1.02;
+
+    }
+
+    else if (
+        career.formation ===
+        "3-5-2"
+    ) {
+
+        formationModifier = 1.01;
+
+    }
+
+    else if (
+        career.formation ===
+        "5-3-2"
+    ) {
+
+        formationModifier = .98;
+
+    }
+
+
+    const finalAttack =
+        attack *
+        attackModifier *
+        formationModifier;
+
+
+    const finalMidfield =
+        midfield *
+        formationModifier;
+
+
+    const finalDefense =
+        defense *
+        defenseModifier *
+        formationModifier;
+
+
+    const total =
+        finalAttack * .38 +
+        finalMidfield * .27 +
+        finalDefense * .25 +
+        goalkeeperPower * .10;
+
+
+    return {
+
+        attack,
+        midfield,
+        defense,
+        goalkeeperPower,
+
+        finalAttack,
+        finalMidfield,
+        finalDefense,
+
+        total
+
+    };
+
+}
+
+
+/* =========================================================
+   انتخاب حریف
+========================================================= */
+
+function getOpponent() {
+
+    const opponents = [
+
+        {
+            name: "پارس فوتبال",
+            strength: 66
+        },
+
+        {
+            name: "آریا اسپرت",
+            strength: 69
+        },
+
+        {
+            name: "گرگان یونایتد",
+            strength: 71
+        },
+
+        {
+            name: "تهران یونایتد",
+            strength: 75
+        },
+
+        {
+            name: "استقلال جوانان",
+            strength: 77
+        }
+
+    ];
+
+
+    const available =
+        opponents.filter(
+            o => o.name !== career.club
+        );
+
+
+    return available[
+        Math.floor(
+            Math.random() *
+            available.length
+        )
+    ];
+
+}
+
+
+/* =========================================================
+   انتخاب گلزن
+========================================================= */
+
+function chooseScorer() {
+
+    const candidates = [
+
+        getPlayer(lineup.lw),
+        getPlayer(lineup.st),
+        getPlayer(lineup.rw),
+        getPlayer(lineup.lcm),
+        getPlayer(lineup.rcm)
+
+    ].filter(Boolean);
+
+
+    const weights =
+        candidates.map(
+            p =>
+                Math.max(
+                    1,
+                    p.sho +
+                    p.dri * .35 +
+                    p.pac * .20
+                )
+        );
+
+
+    let total =
+        weights.reduce(
+            (a,b) => a + b,
+            0
+        );
+
+
+    let random =
+        Math.random() * total;
+
+
+    for (
+        let i = 0;
+        i < candidates.length;
+        i++
+    ) {
+
+        random -= weights[i];
+
+        if (random <= 0) {
+
+            return candidates[i];
+
+        }
+
+    }
+
+
+    return candidates[0];
+
+}
+
+
+/* =========================================================
+   انتخاب پاسور
+========================================================= */
+
+function chooseAssist(scorer) {
+
+    const candidates = [
+
+        getPlayer(lineup.lw),
+        getPlayer(lineup.st),
+        getPlayer(lineup.rw),
+        getPlayer(lineup.lcm),
+        getPlayer(lineup.rcm),
+        getPlayer(lineup.cdm)
+
+    ].filter(
+        p => p && p.id !== scorer.id
+    );
+
+
+    if (!candidates.length) {
+        return null;
+    }
+
+
+    candidates.sort(
+        (a,b) =>
+            (
+                b.pas + b.dri
+            ) -
+            (
+                a.pas + a.dri
+            )
+    );
+
+
+    return candidates[
+        Math.floor(
+            Math.random() *
+            Math.min(
+                3,
+                candidates.length
+            )
+        )
+    ];
+
+}
+
+
+/* =========================================================
+   تولید گل‌ها
+========================================================= */
+
+function generateGoals(
+    count,
+    ourTeam,
+    events,
+    playerStats
+) {
+
+    for (
+        let i = 0;
+        i < count;
+        i++
+    ) {
+
+        const minute =
+            randomBetween(4, 89);
+
+
+        if (ourTeam) {
+
+            const scorer =
+                chooseScorer();
+
+            const assist =
+                chooseAssist(
+                    scorer
+                );
+
+
+            playerStats[
+                scorer.id
+            ].goals++;
+
+
+            playerStats[
+                scorer.id
+            ].rating += 0.65;
+
+
+            if (assist) {
+
+                playerStats[
+                    assist.id
+                ].assists++;
+
+
+                playerStats[
+                    assist.id
+                ].rating += 0.35;
+
+            }
+
+
+            let text =
+                `⚽ دقیقه ${minute} — گل برای ${career.club}! ` +
+                `${scorer.name}`;
+
+
+            if (assist) {
+
+                text +=
+                    ` (پاس گل: ${assist.name})`;
+
+            }
+
+
+            events.push({
+
+                minute,
+                text,
+                type: "goal"
+
+            });
+
+        }
+
+        else {
+
+            events.push({
+
+                minute,
+                text:
+                    `🔴 دقیقه ${minute} — حریف گل زد.`,
+                type: "opponent-goal"
+
+            });
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   نمرات بازیکنان
+========================================================= */
+
+function calculatePlayerRatings(
+    playerStats,
+    teamPower,
+    result
+) {
+
+    const starters =
+        Object.values(lineup)
+            .map(
+                id => getPlayer(id)
+            )
+            .filter(Boolean);
+
+
+    starters.forEach(
+        p => {
+
+            let rating =
+                6.0;
+
+
+            const stats =
+                playerStats[p.id];
+
+
+            rating +=
+                (
+                    p.ovr -
+                    teamPower.total
+                ) * 0.015;
+
+
+            rating +=
+                (Math.random() * 0.7) -
+                0.35;
+
+
+            rating +=
+                stats.goals *
+                0.65;
+
+
+            rating +=
+                stats.assists *
+                0.35;
+
+
+            if (
+                result === "win"
+            ) {
+
+                rating += .20;
+
+            }
+
+            else if (
+                result === "loss"
+            ) {
+
+                rating -= .20;
+
+            }
+
+
+            rating =
+                Math.max(
+                    5.5,
+                    Math.min(
+                        9.5,
+                        rating
+                    )
+                );
+
+
+            stats.rating =
+                rating;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   شروع مسابقه
+========================================================= */
+
+function startMatch() {
+
+    const starters =
+        Object.values(lineup)
+            .map(
+                id => getPlayer(id)
+            )
+            .filter(Boolean);
+
+
+    if (
+        starters.length !== 11
+    ) {
+
+        alert(
+            "ترکیب باید دقیقاً ۱۱ بازیکن داشته باشد! ⚠️"
+        );
+
+        return;
+
+    }
+
+
+    const teamPower =
+        calculateTeamPower();
+
+
+    const opponent =
+        getOpponent();
+
+
+    const difference =
+        teamPower.total -
+        opponent.strength;
+
+
+    let ourExpected =
+        1.15 +
+        difference * 0.035;
+
+
+    let opponentExpected =
+        1.05 -
+        difference * 0.025;
+
+
+    if (
+        career.mentality ===
+        "attacking"
+    ) {
+
+        ourExpected += .25;
+        opponentExpected += .12;
+
+    }
+
+
+    if (
+        career.mentality ===
+        "defensive"
+    ) {
+
+        ourExpected -= .15;
+        opponentExpected -= .25;
+
+    }
+
+
+    ourExpected =
+        Math.max(
+            .2,
+            Math.min(
+                3.5,
+                ourExpected
+            )
+        );
+
+
+    opponentExpected =
+        Math.max(
+            .15,
+            Math.min(
+                3.5,
+                opponentExpected
+            )
+        );
+
+
+    const ourGoals =
+        poisson(
+            ourExpected
+        );
+
+
+    const opponentGoals =
+        poisson(
+            opponentExpected
+        );
+
+
+    career.matches++;
+
+    career.goalsFor +=
+        ourGoals;
+
+    career.goalsAgainst +=
+        opponentGoals;
+
+
+    let result;
+
+
+    if (
+        ourGoals >
+        opponentGoals
+    ) {
+
+        career.wins++;
+
+        career.points += 3;
+
+        career.reputation += 2;
+
+        result = "win";
+
+    }
+
+    else if (
+        ourGoals ===
+        opponentGoals
+    ) {
+
+        career.draws++;
+
+        career.points += 1;
+
+        career.reputation += 1;
+
+        result = "draw";
+
+    }
+
+    else {
+
+        career.losses++;
+
+        career.reputation =
+            Math.max(
+                0,
+                career.reputation - 1
+            );
+
+        result = "loss";
+
+    }
+
+
+    const events = [];
+
+
+    const playerStats = {};
+
+
+    starters.forEach(
+        p => {
+
+            playerStats[p.id] = {
+
+                goals: 0,
+                assists: 0,
+                rating: 6
+
+            };
+
+        }
+    );
+
+
+    generateGoals(
+        ourGoals,
+        true,
+        events,
+        playerStats
+    );
+
+
+    generateGoals(
+        opponentGoals,
+        false,
+        events,
+        playerStats
+    );
+
+
+    // اتفاقات تاکتیکی
+
+    if (
+        teamPower.finalDefense >= 75
+    ) {
+
+        events.push({
+
+            minute:
+                randomBetween(15, 80),
+
+            text:
+                "🛡️ خط دفاعی تیم چند حمله خطرناک حریف را متوقف کرد.",
+
+            type: "defense"
+
+        });
+
+    }
+
+
+    if (
+        teamPower.finalAttack >= 75
+    ) {
+
+        events.push({
+
+            minute:
+                randomBetween(10, 75),
+
+            text:
+                "🔥 تیم حملات زیادی روی دروازه حریف ایجاد کرد.",
+
+            type: "attack"
+
+        });
+
+    }
+
+
+    // مرتب‌سازی اتفاقات
+
+    events.sort(
+        (a,b) =>
+            a.minute -
+            b.minute
+    );
+
+
+    calculatePlayerRatings(
+        playerStats,
+        teamPower,
+        result
+    );
+
+
+    renderMatch(
+        opponent,
+        ourGoals,
+        opponentGoals,
+        events,
+        playerStats,
+        result,
+        teamPower
+    );
+
+
+    showScreen("match");
+
+}
+
+
+/* =========================================================
+   توزیع گل با پواسون ساده
+========================================================= */
+
+function poisson(lambda) {
+
+    let L =
+        Math.exp(-lambda);
+
+    let k = 0;
+
+    let p = 1;
+
+    do {
+
+        k++;
+
+        p *= Math.random();
+
+    }
+
+    while (
+        p > L
+    );
+
+
+    return Math.min(
+        6,
+        k - 1
+    );
+
+}
+
+
+/* =========================================================
+   نمایش مسابقه
+========================================================= */
+
+function renderMatch(
+    opponent,
+    ourGoals,
+    opponentGoals,
+    events,
+    playerStats,
+    result,
+    teamPower
+) {
+
+    document.getElementById(
+        "matchHome"
+    ).innerText =
+        career.club;
+
+
+    document.getElementById(
+        "matchAway"
+    ).innerText =
+        opponent.name;
+
+
+    document.getElementById(
+        "homeScore"
+    ).innerText =
+        ourGoals;
+
+
+    document.getElementById(
+        "awayScore"
+    ).innerText =
+        opponentGoals;
+
+
+    let resultText;
+
+
+    if (result === "win") {
+
+        resultText =
+            "🎉 برد! +3 امتیاز";
+
+    }
+
+    else if (result === "draw") {
+
+        resultText =
+            "🤝 مساوی! +1 امتیاز";
+
+    }
+
+    else {
+
+        resultText =
+            "😔 باخت";
+
+    }
+
+
+    document.getElementById(
+        "matchResult"
+    ).innerText =
+        resultText;
+
+
+    const eventBox =
+        document.getElementById(
+            "matchEvents"
+        );
+
+
+    if (!events.length) {
+
+        eventBox.innerHTML =
+            `<div class="event">
+                بازی بدون اتفاق مهم به پایان رسید.
+            </div>`;
+
+    }
+
+    else {
+
+        eventBox.innerHTML =
+            events.map(
+                e => `
+
+                <div class="event">
+                    ${e.text}
+                </div>
+
+                `
+            ).join("");
+
+    }
+
+
+    const ratingBox =
+        document.getElementById(
+            "matchRatings"
+        );
+
+
+    const starters =
+        Object.values(lineup)
+            .map(
+                id => getPlayer(id)
+            )
+            .filter(Boolean);
+
+
+    const sorted =
+        starters.sort(
+            (a,b) =>
+                playerStats[b.id].rating -
+                playerStats[a.id].rating
+        );
+
+
+    ratingBox.innerHTML =
+        sorted.map(
+            p => {
+
+                const stats =
+                    playerStats[p.id];
+
+                return `
+
+                <div class="player">
+
+                    <div class="player-row">
+
+                        <div>
+
+                            <strong>
+                                #${p.number}
+                                ${p.name}
+                            </strong>
+
+                            <div class="position">
+
+                                ${
+                                    stats.goals
+                                    ? `⚽ ${stats.goals} `
+                                    : ""
+                                }
+
+                                ${
+                                    stats.assists
+                                    ? `🎯 ${stats.assists}`
+                                    : ""
+                                }
+
+                            </div>
+
+                        </div>
+
+                        <div class="ovr">
+
+                            ${stats.rating.toFixed(1)}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+    const motm =
+        sorted[0];
+
+
+    document.getElementById(
+        "motm"
+    ).innerHTML = `
+
+        <h2>
+            🏆 ${motm.name}
+        </h2>
+
+        <p>
+            نمره مسابقه:
+            <strong>
+                ${playerStats[motm.id].rating.toFixed(1)}
+            </strong>
+        </p>
+
+        <p>
+            ⚽ گل:
+            ${playerStats[motm.id].goals}
+        </p>
+
+        <p>
+            🎯 پاس گل:
+            ${playerStats[motm.id].assists}
+        </p>
+
+        <p class="small">
+            قدرت تیم:
+            ${teamPower.total.toFixed(1)}
+        </p>
+
+    `;
+
+}
+
+
+/* =========================================================
+   جدول
+========================================================= */
+
+function renderTable() {
+
+    const teams = [
+
+        {
+            name: career.club,
+            points: career.points,
+            played: career.matches
+        },
+
+        {
+            name: "پارس فوتبال",
+            points: 12,
+            played: 6
+        },
+
+        {
+            name: "آریا اسپرت",
+            points: 10,
+            played: 6
+        },
+
+        {
+            name: "گرگان یونایتد",
+            points: 8,
+            played: 6
+        },
+
+        {
+            name: "تهران یونایتد",
+            points: 7,
+            played: 6
+        },
+
+        {
+            name: "استقلال جوانان",
+            points: 5,
+            played: 6
+        }
+
+    ];
+
+
+    teams.sort(
+        (a,b) =>
+            b.points -
+            a.points
+    );
+
+
+    document.getElementById(
+        "leagueTable"
+    ).innerHTML =
+        teams.map(
+            (t,index) => `
+
+            <tr>
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${t.name}
+                </td>
+
+                <td>
+                    ${t.played}
+                </td>
+
+                <td>
+                    ${t.points}
+                </td>
+
+            </tr>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   ذخیره اطلاعات
+========================================================= */
+
+function saveGame() {
+
+    localStorage.setItem(
+        "mfc_career",
+        JSON.stringify(career)
+    );
 
     localStorage.setItem(
         "mfc_lineup",
@@ -1872,230 +2661,58 @@ function saveLineup() {
 }
 
 
-/* =====================================================
-   RESET LINEUP
-===================================================== */
+function loadGame() {
 
-function resetLineup() {
-
-    lineup = {
-        ...defaultLineup
-    };
-
-    saveLineup();
-
-    selectedSlot = null;
-
-    renderTeam();
-
-    alert(
-        "ترکیب به حالت اولیه برگشت. 🔄"
-    );
-
-}
-
-
-/* =====================================================
-   PLAYER DETAILS
-===================================================== */
-
-function showPlayer(name) {
-
-    const player =
-        players.find(
-            p => p.name === name
+    const savedCareer =
+        localStorage.getItem(
+            "mfc_career"
         );
 
-    if (!player) return;
 
-    document
-        .getElementById("playerTitle")
-        .innerHTML =
-        `#${player.number}
-        ${player.name}
-        — ${player.position}
-        | OVR ${player.ovr}`;
+    if (savedCareer) {
 
-    document
-        .getElementById("playerStats")
-        .innerHTML = `
-
-        <div class="stat">
-            <span>PAC ⚡</span>
-            <b>${player.pac}</b>
-        </div>
-
-        <div class="stat">
-            <span>SHO 🎯</span>
-            <b>${player.sho}</b>
-        </div>
-
-        <div class="stat">
-            <span>PAS 🎯</span>
-            <b>${player.pas}</b>
-        </div>
-
-        <div class="stat">
-            <span>DRI 🪄</span>
-            <b>${player.dri}</b>
-        </div>
-
-        <div class="stat">
-            <span>DEF 🛡️</span>
-            <b>${player.def}</b>
-        </div>
-
-        <div class="stat">
-            <span>PHY 💪</span>
-            <b>${player.phy}</b>
-        </div>
-
-    `;
-
-    hideAll();
-
-    document
-        .getElementById("player")
-        .classList.add("active");
-
-}
-
-
-/* =====================================================
-   TACTICS
-===================================================== */
-
-function saveTactics() {
-
-    career.formation =
-        document
-        .getElementById("formation")
-        .value;
-
-    career.mentality =
-        document
-        .getElementById("mentality")
-        .value;
-
-    alert(
-        `تاکتیک ذخیره شد! ⚽\nآرایش: ${career.formation}`
-    );
-
-    backDashboard();
-
-}
-
-
-/* =====================================================
-   TRAINING
-===================================================== */
-
-function train() {
-
-    career.reputation += 1;
-
-    alert(
-        "تمرین انجام شد! 🏋️\nاعتبار مربی +1"
-    );
-
-    updateDashboard();
-
-}
-
-
-/* =====================================================
-   MATCH
-===================================================== */
-
-function match() {
-
-    const random =
-        Math.random();
-
-    let result;
-
-    if (random > 0.62) {
-
-        result = "برد 🟢";
-
-        career.points += 3;
-        career.reputation += 2;
+        career =
+            {
+                ...career,
+                ...JSON.parse(
+                    savedCareer
+                )
+            };
 
     }
 
-    else if (random > 0.30) {
 
-        result = "مساوی 🟡";
-
-        career.points += 1;
-        career.reputation += 1;
-
-    }
-
-    else {
-
-        result = "باخت 🔴";
-
-    }
-
-    alert(
-        `نتیجه مسابقه:\n${result}`
-    );
-
-    updateDashboard();
-
-}
-
-
-/* =====================================================
-   TRANSFERS
-===================================================== */
-
-function transferPlayer(amount) {
-
-    career.money -= amount;
-
-    if (career.money < 0) {
-
-        career.money = 0;
-
-        alert(
-            "بودجه کافی نیست! 💰"
+    const savedLineup =
+        localStorage.getItem(
+            "mfc_lineup"
         );
 
-    }
 
-    else {
+    if (savedLineup) {
 
-        if (amount > 0) {
-
-            alert(
-                "بازیکن خریداری شد! 🔄"
+        lineup =
+            JSON.parse(
+                savedLineup
             );
 
-        }
-
-        else {
-
-            alert(
-                "بازیکن فروخته شد! 💰"
-            );
-
-        }
-
     }
-
-    updateDashboard();
 
 }
 
 
-/* =====================================================
-   START
-===================================================== */
+/* ذخیره خودکار */
 
-renderTeam();
-updateDashboard();
+setInterval(
+    saveGame,
+    3000
+);
+
+
+/* شروع */
+
+loadGame();
+
+showScreen("home");
 
 </script>
 
