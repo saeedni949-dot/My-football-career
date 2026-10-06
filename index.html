@@ -1,1 +1,333 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Football Career</title>
 
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #07111f, #0d2435);
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 42px;
+            margin-top: 25px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-top: 12px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #a9bac8;
+            margin-top: 8px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #b7c5d0;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 15px;
+            padding: 16px;
+            margin-top: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #16c784;
+            color: white;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .secondary {
+            background: #172f42;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 12px;
+            background: #142a3b;
+            color: white;
+            font-size: 16px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            color: #d8e2e9;
+        }
+
+        .back {
+            background: #263c4c;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: #102536;
+            padding: 15px 5px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .stat span {
+            color: #9fb1be;
+            font-size: 12px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #718694;
+            font-size: 12px;
+            margin-top: 35px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- صفحه اصلی -->
+    <div id="home">
+
+        <div class="logo">⚽</div>
+
+        <h1>MY FOOTBALL CAREER</h1>
+
+        <div class="subtitle">
+            کریر فوتبالی خودت را بساز
+        </div>
+
+        <div class="card">
+            <h2>🏟️ آماده‌ای برای شروع؟</h2>
+            <p>
+                از یک بازیکن جوان شروع کن، پست خودت را انتخاب کن،
+                پیشرفت کن و به یک ستاره فوتبال تبدیل شو.
+            </p>
+
+            <button onclick="showCreatePlayer()">
+                ▶️ شروع کریر
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>🎮 My Football Career</h2>
+            <p>
+                تصمیم‌های تو مسیر حرفه‌ای شدنت را مشخص می‌کنند.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- ساخت بازیکن -->
+    <div id="createPlayer" class="hidden">
+
+        <div class="card">
+
+            <h2>👤 ساخت بازیکن</h2>
+
+            <label>نام بازیکن</label>
+            <input id="playerName" type="text" placeholder="مثلاً سعید">
+
+            <label>پست</label>
+
+            <select id="position">
+                <option value="ST">مهاجم</option>
+                <option value="LW">وینگر چپ</option>
+                <option value="RW">وینگر راست</option>
+                <option value="CAM">هافبک هجومی</option>
+                <option value="CM">هافبک مرکزی</option>
+                <option value="CDM">هافبک دفاعی</option>
+                <option value="LB">دفاع چپ</option>
+                <option value="CB">دفاع وسط</option>
+                <option value="RB">دفاع راست</option>
+                <option value="GK">دروازه‌بان</option>
+            </select>
+
+            <label>شماره پیراهن</label>
+            <input id="number" type="number" min="1" max="99" value="3">
+
+            <button onclick="createCareer()">
+                ⚽ ساخت بازیکن
+            </button>
+
+            <button class="back" onclick="goHome()">
+                ↩️ بازگشت
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- پروفایل بازیکن -->
+    <div id="profile" class="hidden">
+
+        <div class="card">
+
+            <h2 id="welcome"></h2>
+
+            <p id="playerInfo"></p>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <strong>60</strong>
+                    <span>ریتینگ</span>
+                </div>
+
+                <div class="stat">
+                    <strong>17</strong>
+                    <span>سن</span>
+                </div>
+
+                <div class="stat">
+                    <strong>0</strong>
+                    <span>گل</span>
+                </div>
+
+            </div>
+
+            <button onclick="alert('سیستم مسابقات در نسخه بعدی اضافه می‌شود!')">
+                🏆 مسابقات
+            </button>
+
+            <button onclick="alert('سیستم تمرین در نسخه بعدی اضافه می‌شود!')">
+                💪 تمرین
+            </button>
+
+            <button onclick="alert('سیستم نقل‌وانتقالات در نسخه بعدی اضافه می‌شود!')">
+                🔄 نقل‌وانتقالات
+            </button>
+
+            <button class="back" onclick="goHome()">
+                🏠 صفحه اصلی
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        MY FOOTBALL CAREER © 2026
+    </div>
+
+</div>
+
+
+<script>
+
+    function showCreatePlayer() {
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("createPlayer").classList.remove("hidden");
+    }
+
+    function goHome() {
+        document.getElementById("createPlayer").classList.add("hidden");
+        document.getElementById("profile").classList.add("hidden");
+        document.getElementById("home").classList.remove("hidden");
+    }
+
+    function createCareer() {
+
+        const name = document.getElementById("playerName").value.trim();
+        const position = document.getElementById("position").value;
+        const number = document.getElementById("number").value;
+
+        if (!name) {
+            alert("لطفاً نام بازیکن را وارد کن!");
+            return;
+        }
+
+        const positions = {
+            ST: "مهاجم",
+            LW: "وینگر چپ",
+            RW: "وینگر راست",
+            CAM: "هافبک هجومی",
+            CM: "هافبک مرکزی",
+            CDM: "هافبک دفاعی",
+            LB: "دفاع چپ",
+            CB: "دفاع وسط",
+            RB: "دفاع راست",
+            GK: "دروازه‌بان"
+        };
+
+        document.getElementById("welcome").innerText =
+            "🔥 خوش آمدی، " + name;
+
+        document.getElementById("playerInfo").innerText =
+            "پست: " + positions[position] +
+            " | شماره: " + number;
+
+        document.getElementById("createPlayer").classList.add("hidden");
+        document.getElementById("profile").classList.remove("hidden");
+    }
+
+</script>
+
+</body>
+  </html>
