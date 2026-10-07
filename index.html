@@ -1027,14 +1027,12 @@ if(tg){
     }catch(e){}
 }
 
-
 /* =========================================================
    GAME VERSION
 ========================================================= */
 
 const GAME_VERSION = "4.0.0";
 const SAVE_KEY = "mfc_career_v4_master";
-
 
 /* =========================================================
    PISHTAZAN ORIGINAL SQUAD
@@ -1084,7 +1082,6 @@ const PISHTAZAN_PLAYERS = [
 
 ];
 
-
 /* =========================================================
    LEAGUE
 ========================================================= */
@@ -1111,7 +1108,6 @@ const TEAM_DEFS = [
 ];
 
 const leagueTeams = TEAM_DEFS.map(x=>x.name);
-
 
 /* =========================================================
    OTHER SQUAD NAMES
@@ -1152,7 +1148,6 @@ ST:{pac:72,sho:73,pas:43,dri:55,def:22,phy:68}
 
 };
 
-
 /* =========================================================
    HELPERS
 ========================================================= */
@@ -1174,6 +1169,42 @@ function formatMoney(v){
     return Math.round(v).toLocaleString("en-US");
 }
 
+/* =========================================================
+   REALISTIC MARKET VALUES
+========================================================= */
+
+function marketBaseValue(ovr){
+    const points=[
+        [60,600000],[66,12000000],[68,17000000],[70,23000000],
+        [72,30000000],[75,42000000],[80,60000000],[85,85000000],
+        [90,120000000],[95,170000000]
+    ];
+    const x=Number(ovr)||60;
+    if(x<=points[0][0])return points[0][1];
+    if(x>=points[points.length-1][0])return points[points.length-1][1];
+    for(let i=0;i<points.length-1;i++){
+        const [a,b]=points[i];
+        const [c,d]=points[i+1];
+        if(x>=a&&x<=c){
+            const t=(x-a)/(c-a);
+            return Math.round(b+(d-b)*t);
+        }
+    }
+    return 12000000;
+}
+
+function playerBuyPrice(p){
+    const formBonus=1+Math.max(0,(p.form||6)-6)*0.015;
+    const moraleBonus=1+Math.max(0,(p.morale||70)-70)*0.0015;
+    return Math.round(marketBaseValue(p.ovr)*1.22*formBonus*moraleBonus);
+}
+
+function playerSellPrice(p){
+    const formBonus=1+Math.max(0,(p.form||6)-6)*0.02;
+    const demandBonus=p.ovr>=75?1.08:p.ovr>=70?1.05:1.02;
+    return Math.round(marketBaseValue(p.ovr)*1.10*formBonus*demandBonus);
+}
+
 function escapeHTML(str){
     return String(str)
         .replace(/&/g,"&amp;")
@@ -1185,7 +1216,6 @@ function escapeHTML(str){
 function deepClone(obj){
     return JSON.parse(JSON.stringify(obj));
 }
-
 
 /* =========================================================
    GENERATED AI SQUADS
@@ -1265,7 +1295,6 @@ function generateSquad(teamName){
     });
 }
 
-
 /* =========================================================
    PLAYER STATS
 ========================================================= */
@@ -1299,9 +1328,7 @@ function preparePlayer(p){
 
     if(typeof p.morale!=="number")p.morale=70;
 
-    if(typeof p.value!=="number"){
-        p.value=Math.max(10000,(p.ovr-55)*25000);
-    }
+    p.value=marketBaseValue(p.ovr);
 
     if(typeof p.salary!=="number"){
         p.salary=Math.max(500,(p.ovr-55)*800);
@@ -1313,7 +1340,6 @@ function preparePlayer(p){
 
     return p;
 }
-
 
 /* =========================================================
    GLOBAL SQUADS
@@ -1335,7 +1361,6 @@ leagueTeams.forEach(team=>{
     }
 
 });
-
 
 /* =========================================================
    CAREER
@@ -1365,7 +1390,6 @@ function emptyTable(){
     return table;
 }
 
-
 function createCareer(){
 
     return {
@@ -1382,7 +1406,7 @@ function createCareer(){
 
         club:"",
 
-        money:1000000,
+        money:100000000,
 
         reputation:50,
 
@@ -1416,6 +1440,8 @@ function createCareer(){
 
         goalsAgainst:0,
 
+        points:0,
+
         transferWindowOpen:true,
 
         schedule:[],
@@ -1436,7 +1462,6 @@ function createCareer(){
 
 }
 
-
 /* =========================================================
    GAME STATE
 ========================================================= */
@@ -1456,7 +1481,6 @@ let matchTimer=null;
 let selectedSlot=null;
 
 let currentPlayerId=null;
-
 
 /* =========================================================
    FORMATIONS
@@ -1536,7 +1560,6 @@ const formationSlots={
 
 };
 
-
 /* =========================================================
    DEFAULT LINEUP
 ========================================================= */
@@ -1556,7 +1579,6 @@ st:10,
 rw:7
 
 };
-
 
 /* =========================================================
    POSITION MATCHING
@@ -1617,7 +1639,6 @@ function positionScore(player,slot){
     return 20;
 }
 
-
 /* =========================================================
    GET PLAYER
 ========================================================= */
@@ -1627,7 +1648,6 @@ function getPlayer(id){
     return players.find(p=>Number(p.id)===Number(id));
 
 }
-
 
 /* =========================================================
    CREATE DEFAULT LINEUP
@@ -1682,7 +1702,6 @@ function getDefaultLineup(club){
 
     return result;
 }
-
 
 /* =========================================================
    SCHEDULE GENERATOR
@@ -1751,7 +1770,6 @@ function generateSchedule(){
     return [...rounds,...secondHalf];
 
 }
-
 
 /* =========================================================
    SAVE
@@ -1830,7 +1848,6 @@ function updateHomeSaveStatus(){
 
 }
 
-
 /* =========================================================
    START NEW
 ========================================================= */
@@ -1870,7 +1887,6 @@ function startNewCareer(){
     showScreen("coach");
 
 }
-
 
 /* =========================================================
    CONTINUE
@@ -1920,6 +1936,10 @@ function continueCareer(){
 
         }
 
+        career.transferWindowOpen=isTransferWindowOpen(career.week);
+        career.points=Number(career.points)||0;
+        players.forEach(preparePlayer);
+
         showScreen("dashboard");
 
     }catch(e){
@@ -1931,7 +1951,6 @@ function continueCareer(){
     }
 
 }
-
 
 /* =========================================================
    COACH
@@ -1960,7 +1979,6 @@ function createCoach(){
     showScreen("club");
 
 }
-
 
 /* =========================================================
    CLUB LIST
@@ -1992,7 +2010,6 @@ function renderClubList(){
     `).join("");
 
 }
-
 
 /* =========================================================
    SELECT CLUB
@@ -2034,7 +2051,6 @@ function selectClub(club){
     showScreen("dashboard");
 
 }
-
 
 /* =========================================================
    SCREENS
@@ -2123,7 +2139,6 @@ function showScreen(screen){
 
 }
 
-
 /* =========================================================
    DASHBOARD
 ========================================================= */
@@ -2169,7 +2184,6 @@ function updateDashboard(){
 
 }
 
-
 /* =========================================================
    TEAM RENDER
 ========================================================= */
@@ -2188,7 +2202,6 @@ function renderTeam(){
     updateSubstitutionPanel();
 
 }
-
 
 /* =========================================================
    PITCH
@@ -2249,7 +2262,6 @@ function renderPitch(){
 
 }
 
-
 /* =========================================================
    ROSTER
 ========================================================= */
@@ -2305,7 +2317,6 @@ function renderRoster(){
 
 }
 
-
 /* =========================================================
    ROSTER CLICK
 ========================================================= */
@@ -2336,7 +2347,6 @@ function handleRosterClick(id){
 
 }
 
-
 /* =========================================================
    STARTER
 ========================================================= */
@@ -2352,7 +2362,6 @@ function selectStarter(slot){
     updateSubstitutionPanel();
 
 }
-
 
 /* =========================================================
    SELECTED PLAYER
@@ -2393,7 +2402,6 @@ function updateSelectedPlayerBox(){
     `;
 
 }
-
 
 /* =========================================================
    SUB PANEL
@@ -2476,7 +2484,6 @@ function updateSubstitutionPanel(){
 
 }
 
-
 function makeSubstitution(playerId){
 
     if(!selectedSlot)return;
@@ -2507,7 +2514,6 @@ function makeSubstitution(playerId){
 
 }
 
-
 function cancelSubstitution(){
 
     selectedSlot=null;
@@ -2515,7 +2521,6 @@ function cancelSubstitution(){
     renderTeam();
 
 }
-
 
 function resetLineup(){
 
@@ -2530,7 +2535,6 @@ function resetLineup(){
     renderTeam();
 
 }
-
 
 /* =========================================================
    PLAYER PAGE
@@ -2633,72 +2637,54 @@ function renderPlayerPage(){
 
 }
 
-
 /* =========================================================
    TACTICS
 ========================================================= */
 
 function changeFormation(){
 
-    career.formation=
+    const nextFormation=
         document.getElementById("formationSelect").value;
 
-    const oldPlayers=
-        Object.values(lineup)
-        .map(id=>getPlayer(id))
-        .filter(Boolean);
+    career.formation=nextFormation;
 
-    const used=[];
-
+    const slots=formationSlots[nextFormation]||[];
+    const oldIds=Object.values(lineup).map(Number).filter(Boolean);
+    const candidates=oldIds.map(getPlayer).filter(Boolean);
+    const used=new Set();
     const newLineup={};
 
-    const slots=
-        formationSlots[career.formation];
-
-    slots.forEach(slotData=>{
-
-        const slot=slotData[0];
-
-        let best=null;
-
-        let score=-1;
-
-        oldPlayers.forEach(p=>{
-
-            if(used.includes(p.id))return;
-
-            const s=positionScore(p,slot)*10+p.ovr;
-
-            if(s>score){
-
-                score=s;
-
-                best=p;
-
-            }
-
+    /* First preserve the best natural positional matches. */
+    slots.forEach(([slot])=>{
+        let best=null,bestScore=-Infinity;
+        candidates.forEach(p=>{
+            if(used.has(Number(p.id)))return;
+            const score=positionScore(p,slot)*100+p.ovr;
+            if(score>bestScore){bestScore=score;best=p;}
         });
+        if(best){newLineup[slot]=best.id;used.add(Number(best.id));}
+    });
 
-        if(best){
-
-            newLineup[slot]=best.id;
-
-            used.push(best.id);
-
-        }
-
+    /* If the old lineup was incomplete, fill remaining slots from the bench. */
+    slots.forEach(([slot])=>{
+        if(newLineup[slot])return;
+        let best=null,bestScore=-Infinity;
+        players.forEach(p=>{
+            if(used.has(Number(p.id)))return;
+            const score=positionScore(p,slot)*100+p.ovr;
+            if(score>bestScore){bestScore=score;best=p;}
+        });
+        if(best){newLineup[slot]=best.id;used.add(Number(best.id));}
     });
 
     lineup=newLineup;
-
     selectedSlot=null;
-
     saveGame();
-
     renderPitch();
-
+    updateSelectedPlayerBox();
+    updateSubstitutionPanel();
+    alert(`✅ آرایش به ${nextFormation} تغییر کرد و ترکیب به‌صورت هوشمند چیده شد.`);
 }
-
 
 function changeMentality(){
 
@@ -2710,7 +2696,6 @@ function changeMentality(){
     updateTeamPowerDetails();
 
 }
-
 
 function changeTacticValue(key){
 
@@ -2728,7 +2713,6 @@ function changeTacticValue(key){
     updateTeamPowerDetails();
 
 }
-
 
 function updateTactics(){
 
@@ -2750,7 +2734,6 @@ function updateTactics(){
     updateTeamPowerDetails();
 
 }
-
 
 function calculateTeamPower(){
 
@@ -2779,7 +2762,6 @@ function calculateTeamPower(){
     return base*modifier;
 
 }
-
 
 function updateTeamPowerDetails(){
 
@@ -2823,7 +2805,6 @@ function updateTeamPowerDetails(){
 
 }
 
-
 /* =========================================================
    SCHEDULE
 ========================================================= */
@@ -2849,7 +2830,6 @@ function getCurrentFixture(){
     );
 
 }
-
 
 /* =========================================================
    AI MATCH SIM
@@ -2890,7 +2870,6 @@ function simulateAIMatch(home,away){
 
 }
 
-
 function poissonLike(expected){
 
     const r=Math.random();
@@ -2908,7 +2887,6 @@ function poissonLike(expected){
     return 5;
 
 }
-
 
 /* =========================================================
    UPDATE TABLE
@@ -2975,7 +2953,6 @@ function updateLeagueAfterMatch(home,away,hg,ag){
 
 }
 
-
 /* =========================================================
    SIMULATE OTHER GAMES
 ========================================================= */
@@ -3010,7 +2987,6 @@ function simulateOtherGames(fixture){
 
 }
 
-
 /* =========================================================
    MATCH POWER
 ========================================================= */
@@ -3040,7 +3016,6 @@ function calculateAttackPower(){
 
 }
 
-
 function calculateDefensePower(){
 
     const list=Object.values(lineup)
@@ -3063,7 +3038,6 @@ function calculateDefensePower(){
     );
 
 }
-
 
 /* =========================================================
    START MATCH
@@ -3290,7 +3264,6 @@ function startMatch(){
 
 }
 
-
 /* =========================================================
    MATCH TICK
 ========================================================= */
@@ -3399,7 +3372,6 @@ function matchTick(){
 
 }
 
-
 /* =========================================================
    GOAL FUNCTIONS
 ========================================================= */
@@ -3472,7 +3444,6 @@ function scoreForTeam(minute){
 
 }
 
-
 function scoreAgainstTeam(minute){
 
     if(Math.random()<.35)return;
@@ -3495,7 +3466,6 @@ function scoreAgainstTeam(minute){
     );
 
 }
-
 
 /* =========================================================
    SCORER
@@ -3547,7 +3517,6 @@ function chooseScorer(){
 
 }
 
-
 function chooseAssist(scorer){
 
     const candidates=
@@ -3575,7 +3544,6 @@ function chooseAssist(scorer){
     ];
 
 }
-
 
 /* =========================================================
    RANDOM EVENTS
@@ -3708,7 +3676,6 @@ function randomMatchEvent(minute){
 
 }
 
-
 /* =========================================================
    MATCH EVENT
 ========================================================= */
@@ -3725,7 +3692,6 @@ function addEvent(minute,icon,text,type){
     });
 
 }
-
 
 /* =========================================================
    MATCH UI
@@ -3784,7 +3750,6 @@ function updateMatchUI(){
     renderMatchSubPanel();
 
 }
-
 
 /* =========================================================
    LIVE RATINGS
@@ -3869,7 +3834,6 @@ function renderLiveRatings(){
 
 }
 
-
 /* =========================================================
    LIVE SUBSTITUTIONS
 ========================================================= */
@@ -3943,7 +3907,6 @@ function renderMatchSubPanel(){
 
 }
 
-
 function openLiveSub(slot){
 
     if(matchState.substitutions>=matchState.maxSubs)return;
@@ -4008,7 +3971,6 @@ function openLiveSub(slot){
     updateMatchUI();
 
 }
-
 
 /* =========================================================
    FINISH MATCH
@@ -4151,7 +4113,6 @@ function finishMatch(){
 
 }
 
-
 /* =========================================================
    PLAYER MATCH STATS
 ========================================================= */
@@ -4225,7 +4186,6 @@ function updatePlayerMatchStats(){
 
 }
 
-
 /* =========================================================
    DEVELOPMENT
 ========================================================= */
@@ -4297,7 +4257,6 @@ function applyPostMatchDevelopment(){
 
 }
 
-
 function calculateOVR(p){
 
     return Math.round(
@@ -4310,7 +4269,6 @@ function calculateOVR(p){
     );
 
 }
-
 
 /* =========================================================
    MOTM
@@ -4375,6 +4333,13 @@ function showMOTM(){
 
 }
 
+/* =========================================================
+   TRANSFER WINDOW
+========================================================= */
+
+function isTransferWindowOpen(week){
+    return (week>=1&&week<=5)||(week>=16&&week<=20);
+}
 
 /* =========================================================
    ADVANCE WEEK
@@ -4392,19 +4357,7 @@ function advanceWeek(){
 
     }
 
-    if(
-        career.week===5 ||
-        career.week===17 ||
-        career.week===25
-    ){
-
-        career.transferWindowOpen=true;
-
-    }else{
-
-        career.transferWindowOpen=false;
-
-    }
+    career.transferWindowOpen=isTransferWindowOpen(career.week);
 
     weeklyRecovery();
 
@@ -4413,7 +4366,6 @@ function advanceWeek(){
     saveGame();
 
 }
-
 
 function weeklyRecovery(){
 
@@ -4435,7 +4387,6 @@ function weeklyRecovery(){
 
 }
 
-
 /* =========================================================
    SEASON END
 ========================================================= */
@@ -4453,7 +4404,7 @@ function finishSeason(){
 
     if(position===1){
 
-        reward=500000;
+        reward=50000000;
 
         career.reputation+=10;
 
@@ -4461,13 +4412,13 @@ function finishSeason(){
 
     }else if(position<=4){
 
-        reward=250000;
+        reward=25000000;
 
         career.reputation+=5;
 
     }else{
 
-        reward=100000;
+        reward=10000000;
 
     }
 
@@ -4514,7 +4465,7 @@ function finishSeason(){
 
     leagueTable=emptyTable();
 
-    career.transferWindowOpen=true;
+    career.transferWindowOpen=isTransferWindowOpen(career.week);
 
     players.forEach(p=>{
 
@@ -4546,7 +4497,6 @@ function finishSeason(){
     );
 
 }
-
 
 /* =========================================================
    TABLE
@@ -4594,7 +4544,6 @@ function getSortedTable(){
 
 }
 
-
 function renderTable(){
 
     const table=
@@ -4638,7 +4587,6 @@ function renderTable(){
 
 }
 
-
 /* =========================================================
    TRANSFERS
 ========================================================= */
@@ -4663,17 +4611,10 @@ function renderTransfers(){
 
         squad.forEach(p=>{
 
-            if(Math.random()<.25){
-
-                market.push({
-
-                    ...deepClone(p),
-
-                    sourceClub:team
-
-                });
-
-            }
+            market.push({
+                ...deepClone(p),
+                sourceClub:team
+            });
 
         });
 
@@ -4698,7 +4639,7 @@ function renderTransfers(){
                     <div class="small">
                         ${p.position}
                         · OVR ${p.ovr}
-                        · ${formatMoney(p.value)}
+                        · خرید: ${formatMoney(playerBuyPrice(p))}
                     </div>
 
                     <div class="small">
@@ -4736,7 +4677,7 @@ function renderTransfers(){
 
                     <div class="small">
                         OVR ${p.ovr}
-                        · ${formatMoney(p.value)}
+                        · فروش تقریبی: ${formatMoney(playerSellPrice(p))}
                     </div>
                 </div>
 
@@ -4752,7 +4693,6 @@ function renderTransfers(){
         `).join("");
 
 }
-
 
 function buyPlayer(id,sourceClub){
 
@@ -4785,18 +4725,17 @@ function buyPlayer(id,sourceClub){
     }
 
     const p=source[index];
+    const purchasePrice=playerBuyPrice(p);
 
-    if(career.money<p.value){
+    if(career.money<purchasePrice){
 
-        alert("بودجه کافی نیست.");
+        alert(`بودجه کافی نیست. قیمت خرید ${formatMoney(purchasePrice)} است.`);
 
         return;
 
     }
 
-    const oldId=p.id;
-
-    career.money-=p.value;
+    career.money-=purchasePrice;
 
     const newPlayer=deepClone(p);
 
@@ -4816,7 +4755,7 @@ function buyPlayer(id,sourceClub){
 
     addNews(
         "🔄",
-        `${p.name} با مبلغ ${formatMoney(p.value)} به تیم پیوست.`
+        `${p.name} با مبلغ ${formatMoney(purchasePrice)} به تیم پیوست.`
     );
 
     saveGame();
@@ -4828,7 +4767,6 @@ function buyPlayer(id,sourceClub){
     renderTransfers();
 
 }
-
 
 function sellPlayer(id){
 
@@ -4862,7 +4800,7 @@ function sellPlayer(id){
 
     const p=players[index];
 
-    const fee=Math.round(p.value*.75);
+    const fee=playerSellPrice(p);
 
     career.money+=fee;
 
@@ -4879,7 +4817,6 @@ function sellPlayer(id){
 
 }
 
-
 function getFreeNumber(){
 
     const used=players.map(p=>p.number);
@@ -4893,7 +4830,6 @@ function getFreeNumber(){
     return 99;
 
 }
-
 
 function lineupRepair(){
 
@@ -4920,7 +4856,6 @@ function lineupRepair(){
     });
 
 }
-
 
 /* =========================================================
    SEASON STATS
@@ -5002,7 +4937,6 @@ function renderSeasonStats(){
 
 }
 
-
 function renderPlayerRanking(list,valueFn){
 
     return list.slice(0,10).map((p,i)=>`
@@ -5032,7 +4966,6 @@ function renderPlayerRanking(list,valueFn){
 
 }
 
-
 /* =========================================================
    NEWS
 ========================================================= */
@@ -5058,7 +4991,6 @@ function addNews(icon,text){
 
 }
 
-
 function createMatchNews(result,forGoals,againstGoals){
 
     addNews(
@@ -5067,7 +4999,6 @@ function createMatchNews(result,forGoals,againstGoals){
     );
 
 }
-
 
 function generateWeeklyNews(){
 
@@ -5097,7 +5028,6 @@ function generateWeeklyNews(){
     }
 
 }
-
 
 function renderNews(){
 
@@ -5133,7 +5063,6 @@ function renderNews(){
 
 }
 
-
 function renderDashboardNews(){
 
     const box=
@@ -5154,7 +5083,6 @@ function renderDashboardNews(){
         :`<p class="info">هنوز خبری نیست.</p>`;
 
 }
-
 
 /* =========================================================
    OBJECTIVES
@@ -5200,7 +5128,6 @@ function createObjectives(){
 
 }
 
-
 function getObjectiveProgress(obj){
 
     if(obj.type==="wins")
@@ -5222,7 +5149,6 @@ function getObjectiveProgress(obj){
     return 0;
 
 }
-
 
 function renderDashboardObjective(){
 
@@ -5269,7 +5195,6 @@ function renderDashboardObjective(){
 
 }
 
-
 function updateObjectivesAfterMatch(result,goals){
 
     career.objectives.forEach(o=>{
@@ -5301,7 +5226,6 @@ function updateObjectivesAfterMatch(result,goals){
     });
 
 }
-
 
 /* =========================================================
    ACHIEVEMENTS
@@ -5341,7 +5265,6 @@ desc:"قهرمان لیگ شوی."
 
 ];
 
-
 function unlockAchievement(id){
 
     if(career.achievements.includes(id))
@@ -5362,7 +5285,6 @@ function unlockAchievement(id){
     }
 
 }
-
 
 function checkAchievements(){
 
@@ -5412,7 +5334,6 @@ function checkAchievements(){
     }
 
 }
-
 
 function renderObjectives(){
 
@@ -5491,7 +5412,6 @@ function renderObjectives(){
         }).join("");
 
 }
-
 
 /* =========================================================
    HISTORY
@@ -5573,7 +5493,6 @@ function renderHistory(){
 
 }
 
-
 /* =========================================================
    HOME INITIAL
 ========================================================= */
@@ -5581,7 +5500,6 @@ function renderHistory(){
 updateHomeSaveStatus();
 
 showScreen("home");
-
 
 /* =========================================================
    AUTO SAVE
@@ -5597,7 +5515,6 @@ setInterval(()=>{
 
 },10000);
 
-
 /* =========================================================
    ACHIEVEMENT CHECK
 ========================================================= */
@@ -5611,7 +5528,6 @@ setInterval(()=>{
     }
 
 },5000);
-
 
 /* =========================================================
    NEW CAREER CONFIRM
@@ -5630,4 +5546,4 @@ function newCareerConfirm(){
 </script>
 
 </body>
-    </html>
+</html>
