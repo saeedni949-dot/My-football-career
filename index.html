@@ -3225,6 +3225,8 @@ function startMatch(){
 
             reds:0,
 
+            sentOff:false,
+
             saves:0,
 
             minutes:0
@@ -3478,6 +3480,7 @@ function chooseScorer(){
         .map(id=>getPlayer(id))
         .filter(p=>
             p &&
+            !matchState.playerStats[p.id]?.sentOff &&
             /ST|LW|RW|CM/.test(p.position)
         );
 
@@ -3524,6 +3527,7 @@ function chooseAssist(scorer){
         .map(id=>getPlayer(id))
         .filter(p=>
             p &&
+            !matchState.playerStats[p.id]?.sentOff &&
             p.id!==scorer.id &&
             p.pas>40
         );
@@ -3565,18 +3569,35 @@ function randomMatchEvent(minute){
 
         const ps=matchState.playerStats[p.id];
 
-        if(ps){
+        if(ps && !ps.sentOff){
 
             ps.yellows++;
 
             ps.rating-=.12;
 
-            addEvent(
-                minute,
-                "🟨",
-                `${p.name} کارت زرد گرفت.`,
-                "yellow"
-            );
+            if(ps.yellows>=2){
+
+                ps.reds++;
+                ps.sentOff=true;
+                ps.rating-=.35;
+
+                addEvent(
+                    minute,
+                    "🟥",
+                    `${p.name} با دریافت کارت زرد دوم اخراج شد!`,
+                    "second-yellow-red"
+                );
+
+            }else{
+
+                addEvent(
+                    minute,
+                    "🟨",
+                    `${p.name} کارت زرد گرفت.`,
+                    "yellow"
+                );
+
+            }
 
         }
 
