@@ -7,16 +7,25 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
     margin:0;
     background:#0d1117;
     color:#fff;
     font-family:Tahoma,Arial,sans-serif;
 }
-.container{max-width:900px;margin:auto;padding:15px}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:15px
+}
+
 section{margin-bottom:20px}
 .hidden{display:none!important}
+
 h1,h2,h3{margin-top:0}
+
 button{
     border:0;
     border-radius:10px;
@@ -25,40 +34,57 @@ button{
     cursor:pointer;
     color:#fff;
 }
-button:disabled{opacity:.45;cursor:not-allowed}
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed
+}
+
 .btn{
     width:100%;
     margin-top:8px;
     background:#149c7d;
 }
+
 .btn:hover{opacity:.85}
 .btn-blue{background:#287fc0}
 .btn-gray{background:#34404d}
 .btn-red{background:#b83b32}
-.title{text-align:center;font-size:30px;margin:25px 0}
+.btn-gold{background:#a87d16}
+
+.title{
+    text-align:center;
+    font-size:30px;
+    margin:25px 0
+}
+
 .card{
     background:#171d25;
     border:1px solid #29313b;
     border-radius:15px;
     padding:15px;
-    margin-bottom:15px;
+    margin-bottom:15px
 }
+
 .stats{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    gap:10px
 }
+
 .stat{
     background:#222a34;
     border-radius:10px;
     padding:12px;
-    text-align:center;
+    text-align:center
 }
+
 .stat strong{
     display:block;
     font-size:22px;
-    margin-top:5px;
+    margin-top:5px
 }
+
 input,select{
     width:100%;
     padding:12px;
@@ -66,58 +92,84 @@ input,select{
     border-radius:8px;
     border:1px solid #394451;
     background:#222a34;
-    color:#fff;
+    color:#fff
 }
+
 .player{
     background:#222a34;
     border-radius:10px;
     padding:12px;
     margin-bottom:8px;
-    cursor:pointer;
+    cursor:pointer
 }
+
 .player:hover{background:#2b3440}
+
 .player-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
+    gap:10px
 }
-.position{color:#8bd5ca;font-size:12px;margin-top:4px}
+
+.position{
+    color:#8bd5ca;
+    font-size:12px;
+    margin-top:4px
+}
+
 .ovr{
     background:#149c7d;
     border-radius:8px;
     padding:7px 9px;
-    font-weight:bold;
+    font-weight:bold
 }
-.info{color:#9ca8b5;font-size:13px}
-.small{color:#99a4b2;font-size:12px}
-.big{font-size:35px;font-weight:bold;text-align:center}
+
+.info{
+    color:#9ca8b5;
+    font-size:13px
+}
+
+.small{
+    color:#99a4b2;
+    font-size:12px
+}
+
+.big{
+    font-size:35px;
+    font-weight:bold;
+    text-align:center
+}
 
 .club-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    gap:10px
 }
+
 .club-card{
     background:#222a34;
     border:1px solid #303944;
     border-radius:12px;
     padding:14px;
     cursor:pointer;
-    transition:.15s;
+    transition:.15s
 }
+
 .club-card:hover{
     background:#2b3440;
-    transform:translateY(-2px);
+    transform:translateY(-2px)
 }
+
 .club-name{
     font-weight:bold;
-    font-size:15px;
+    font-size:15px
 }
+
 .club-strength{
     color:#8bd5ca;
     font-size:12px;
-    margin-top:5px;
+    margin-top:5px
 }
 
 .pitch{
@@ -128,16 +180,18 @@ input,select{
     background:#126538;
     border:4px solid white;
     border-radius:8px;
-    overflow:hidden;
+    overflow:hidden
 }
+
 .pitch:before{
     content:"";
     position:absolute;
     left:0;
     right:0;
     top:50%;
-    border-top:2px solid rgba(255,255,255,.8);
+    border-top:2px solid rgba(255,255,255,.8)
 }
+
 .center-circle{
     position:absolute;
     width:125px;
@@ -146,15 +200,17 @@ input,select{
     border-radius:50%;
     left:50%;
     top:50%;
-    transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%)
 }
+
 .slot{
     position:absolute;
     transform:translate(-50%,-50%);
     width:100px;
     text-align:center;
-    cursor:pointer;
+    cursor:pointer
 }
+
 .slot-ball{
     width:53px;
     height:53px;
@@ -166,119 +222,278 @@ input,select{
     justify-content:center;
     align-items:center;
     font-weight:bold;
-    border:3px solid #149c7d;
+    border:3px solid #149c7d
 }
+
 .slot-name{
     background:rgba(0,0,0,.75);
     border-radius:6px;
     margin-top:4px;
     padding:4px;
-    font-size:10px;
+    font-size:10px
 }
+
 .selected .slot-ball{
     background:#f1c40f;
-    border-color:#f1c40f;
+    border-color:#f1c40f
 }
 
 .match-header{
     background:#151b23;
     border-radius:16px;
     padding:20px;
-    text-align:center;
+    text-align:center
 }
+
 .match-teams{
     display:flex;
     justify-content:space-around;
     align-items:center;
-    gap:10px;
+    gap:10px
 }
-.match-team{width:35%;font-weight:bold}
-.match-score{font-size:48px;font-weight:bold}
+
+.match-team{
+    width:35%;
+    font-weight:bold
+}
+
+.match-score{
+    font-size:48px;
+    font-weight:bold
+}
+
 .match-minute{
     font-size:25px;
     color:#f1c40f;
-    margin-bottom:8px;
+    margin-bottom:8px
 }
+
 .match-status{color:#9ca8b5}
+
 .live-box{
     max-height:430px;
     overflow-y:auto;
     background:#11161c;
     border-radius:12px;
-    padding:5px;
+    padding:5px
 }
+
 .live-event{
     padding:11px;
     border-bottom:1px solid #29313b;
-    font-size:14px;
+    font-size:14px
 }
+
 .live-event:last-child{border-bottom:0}
 .goal{font-weight:bold}
+
 .match-stat-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    gap:10px
 }
+
 .match-stat{
     background:#222a34;
     border-radius:10px;
     padding:12px;
-    text-align:center;
+    text-align:center
 }
+
 .rating{
     float:left;
     background:#149c7d;
     border-radius:7px;
-    padding:5px 8px;
+    padding:5px 8px
 }
+
 .motm{
     border:2px solid #f1c40f;
-    background:#272518;
+    background:#272518
 }
+
 .selected-info{
     border:1px solid #f1c40f;
     background:#292719;
     border-radius:10px;
     padding:12px;
-    margin-bottom:10px;
+    margin-bottom:10px
 }
-.bench-title{margin-top:15px;color:#8bd5ca}
+
+.bench-title{
+    margin-top:15px;
+    color:#8bd5ca
+}
+
 .save-status{
     text-align:center;
     color:#8bd5ca;
     font-size:13px;
-    margin-top:10px;
+    margin-top:10px
 }
+
 .season-box{
     background:#202833;
     border-radius:10px;
     padding:12px;
-    margin-top:10px;
+    margin-top:10px
 }
+
+.money-box{
+    background:#183b35;
+    border:1px solid #149c7d;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+    margin-bottom:15px
+}
+
+.money-value{
+    color:#7ff0c9;
+    font-size:28px;
+    font-weight:bold;
+    margin-top:7px
+}
+
+.transfer-card{
+    background:#222a34;
+    border:1px solid #303944;
+    border-radius:12px;
+    padding:13px;
+    margin-bottom:10px
+}
+
+.transfer-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px
+}
+
+.transfer-name{
+    font-weight:bold;
+    font-size:15px
+}
+
+.transfer-meta{
+    color:#9ca8b5;
+    font-size:12px;
+    margin-top:5px;
+    line-height:1.8
+}
+
+.price{
+    color:#f1c40f;
+    font-weight:bold
+}
+
+.transfer-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px
+}
+
+.transfer-actions button{
+    width:100%;
+    margin:0
+}
+
+.market-filters{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px
+}
+
+.market-filters input,
+.market-filters select{
+    margin:0
+}
+
+.transfer-tabs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-bottom:12px
+}
+
+.transfer-tabs button{
+    background:#34404d
+}
+
+.transfer-tabs button.active{
+    background:#149c7d
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 7px;
+    border-radius:6px;
+    background:#34404d;
+    font-size:11px
+}
+
+.badge-green{
+    background:#155b49;
+    color:#8ff1d1
+}
+
+.badge-red{
+    background:#69302b;
+    color:#ffb4ac
+}
+
+.empty-box{
+    text-align:center;
+    color:#9ca8b5;
+    padding:25px
+}
+
 table{
     width:100%;
     border-collapse:collapse;
-    font-size:12px;
+    font-size:12px
 }
+
 th,td{
     padding:10px 5px;
     border-bottom:1px solid #303944;
-    text-align:center;
+    text-align:center
 }
+
 tr.my-team{
     background:#183b35;
-    font-weight:bold;
+    font-weight:bold
 }
 
 @media(max-width:600px){
+
     .pitch{height:560px}
+
     .slot{width:80px}
+
     .slot-name{font-size:9px}
-    .slot-ball{width:47px;height:47px}
+
+    .slot-ball{
+        width:47px;
+        height:47px
+    }
+
     .match-score{font-size:40px}
-    .club-grid{grid-template-columns:1fr}
+
+    .club-grid{
+        grid-template-columns:1fr
+    }
+
+    .market-filters{
+        grid-template-columns:1fr
+    }
+
     table{font-size:10px}
-    th,td{padding:7px 2px}
+
+    th,td{
+        padding:7px 2px
+    }
 }
 </style>
 </head>
@@ -306,10 +521,13 @@ tr.my-team{
     </div>
 </section>
 
+
 <section id="coach" class="hidden">
+
     <h2>👔 ساخت مربی</h2>
 
     <div class="card">
+
         <label>نام مربی</label>
         <input id="coachName" placeholder="مثلاً سعید">
 
@@ -320,6 +538,7 @@ tr.my-team{
         <input id="coachNationality" value="Iran">
 
         <label>سبک مربیگری</label>
+
         <select id="coachStyle">
             <option value="balanced">متعادل</option>
             <option value="attacking">هجومی</option>
@@ -329,27 +548,43 @@ tr.my-team{
         <button class="btn" onclick="createCoach()">
             ساخت مربی
         </button>
+
     </div>
 </section>
 
+
 <section id="club" class="hidden">
+
     <h2>🏟️ انتخاب باشگاه</h2>
 
     <div class="card">
+
         <p class="info">
             یک باشگاه انتخاب کن. هر باشگاه اسکواد، بازیکنان و قدرت مخصوص خودش را دارد.
         </p>
 
         <div id="clubList" class="club-grid"></div>
+
     </div>
+
 </section>
 
+
 <section id="dashboard" class="hidden">
+
     <h2>📊 داشبورد</h2>
 
     <div class="card">
+
         <h3 id="dashboardCoach">مربی</h3>
         <p id="dashboardClub"></p>
+
+        <div class="money-box">
+            💰 بودجه نقل‌وانتقالات
+            <div class="money-value" id="dashboardMoney">
+                1,000,000
+            </div>
+        </div>
 
         <div class="season-box">
             🏆 فصل <strong id="seasonNumber">1</strong>
@@ -357,41 +592,92 @@ tr.my-team{
         </div>
 
         <div class="stats">
-            <div class="stat">امتیاز<strong id="points">0</strong></div>
-            <div class="stat">اعتبار<strong id="reputation">50</strong></div>
-            <div class="stat">برد<strong id="wins">0</strong></div>
-            <div class="stat">بازی<strong id="matches">0</strong></div>
-            <div class="stat">گل زده<strong id="goalsFor">0</strong></div>
-            <div class="stat">گل خورده<strong id="goalsAgainst">0</strong></div>
+
+            <div class="stat">
+                امتیاز
+                <strong id="points">0</strong>
+            </div>
+
+            <div class="stat">
+                اعتبار
+                <strong id="reputation">50</strong>
+            </div>
+
+            <div class="stat">
+                برد
+                <strong id="wins">0</strong>
+            </div>
+
+            <div class="stat">
+                بازی
+                <strong id="matches">0</strong>
+            </div>
+
+            <div class="stat">
+                گل زده
+                <strong id="goalsFor">0</strong>
+            </div>
+
+            <div class="stat">
+                گل خورده
+                <strong id="goalsAgainst">0</strong>
+            </div>
+
         </div>
+
     </div>
 
-    <button class="btn" onclick="showScreen('team')">👥 تیم</button>
-    <button class="btn" onclick="showScreen('tactics')">🧠 تاکتیک</button>
-    <button class="btn" onclick="startMatch()">⚽ بازی بعدی</button>
-    <button class="btn" onclick="showScreen('table')">🏆 جدول</button>
+    <button class="btn" onclick="showScreen('team')">
+        👥 تیم
+    </button>
+
+    <button class="btn btn-gold" onclick="showScreen('transfers')">
+        🔄 نقل‌وانتقالات
+    </button>
+
+    <button class="btn" onclick="showScreen('tactics')">
+        🧠 تاکتیک
+    </button>
+
+    <button class="btn" onclick="startMatch()">
+        ⚽ بازی بعدی
+    </button>
+
+    <button class="btn" onclick="showScreen('table')">
+        🏆 جدول
+    </button>
 
     <button class="btn btn-red" onclick="newCareerConfirm()">
         🆕 شروع کریر جدید
     </button>
+
 </section>
 
+
 <section id="team" class="hidden">
+
     <h2>👥 تیم</h2>
 
     <div class="card">
+
         <h3 id="teamTitle">ترکیب اصلی</h3>
+
         <p class="info">
             اول روی بازیکن داخل زمین بزن، سپس بازیکن نیمکت را انتخاب کن.
         </p>
+
         <div id="pitchContainer"></div>
+
     </div>
 
     <div id="selectedPlayerBox"></div>
 
     <div class="card">
+
         <h3>👥 لیست بازیکنان</h3>
+
         <div id="roster"></div>
+
     </div>
 
     <div id="substitutionPanel"></div>
@@ -403,132 +689,317 @@ tr.my-team{
     <button class="btn btn-gray" onclick="showScreen('dashboard')">
         بازگشت
     </button>
+
 </section>
 
+
 <section id="player" class="hidden">
+
     <div class="card">
+
         <h2 id="playerName"></h2>
+
         <p id="playerPosition"></p>
 
         <div class="big" id="playerOVR"></div>
 
         <div class="stats">
-            <div class="stat">PAC<strong id="playerPAC"></strong></div>
-            <div class="stat">SHO<strong id="playerSHO"></strong></div>
-            <div class="stat">PAS<strong id="playerPAS"></strong></div>
-            <div class="stat">DRI<strong id="playerDRI"></strong></div>
-            <div class="stat">DEF<strong id="playerDEF"></strong></div>
-            <div class="stat">PHY<strong id="playerPHY"></strong></div>
+
+            <div class="stat">
+                PAC
+                <strong id="playerPAC"></strong>
+            </div>
+
+            <div class="stat">
+                SHO
+                <strong id="playerSHO"></strong>
+            </div>
+
+            <div class="stat">
+                PAS
+                <strong id="playerPAS"></strong>
+            </div>
+
+            <div class="stat">
+                DRI
+                <strong id="playerDRI"></strong>
+            </div>
+
+            <div class="stat">
+                DEF
+                <strong id="playerDEF"></strong>
+            </div>
+
+            <div class="stat">
+                PHY
+                <strong id="playerPHY"></strong>
+            </div>
+
         </div>
 
         <button class="btn btn-gray" onclick="showScreen('team')">
             بازگشت
         </button>
+
     </div>
+
 </section>
 
+
+<section id="transfers" class="hidden">
+
+    <h2>🔄 بازار نقل‌وانتقالات</h2>
+
+    <div class="money-box">
+
+        💰 بودجه فعلی
+
+        <div class="money-value" id="transferMoney">
+            1,000,000
+        </div>
+
+        <div class="small">
+            قیمت‌ها با توجه به OVR بازیکنان محاسبه شده‌اند.
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="transfer-tabs">
+
+            <button
+                id="marketTab"
+                class="active"
+                onclick="setTransferTab('market')">
+                🛒 بازار
+            </button>
+
+            <button
+                id="squadTab"
+                onclick="setTransferTab('squad')">
+                👥 تیم من
+            </button>
+
+        </div>
+
+        <div id="marketFilters">
+
+            <div class="market-filters">
+
+                <input
+                    id="transferSearch"
+                    placeholder="🔍 جستجوی بازیکن..."
+                    oninput="renderTransferMarket()">
+
+                <select
+                    id="transferPosition"
+                    onchange="renderTransferMarket()">
+
+                    <option value="ALL">همه پست‌ها</option>
+                    <option value="GK">دروازه‌بان</option>
+                    <option value="LB">دفاع چپ</option>
+                    <option value="CB">دفاع وسط</option>
+                    <option value="RB">دفاع راست</option>
+                    <option value="CDM">هافبک دفاعی</option>
+                    <option value="CM">هافبک</option>
+                    <option value="LW">وینگر چپ</option>
+                    <option value="RW">وینگر راست</option>
+                    <option value="ST">مهاجم</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="transferContent"></div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+
+</section>
+
+
 <section id="tactics" class="hidden">
+
     <h2>🧠 تاکتیک</h2>
 
     <div class="card">
+
         <label>آرایش</label>
 
         <select id="formationSelect" onchange="changeFormation()">
+
             <option value="4-3-3">4-3-3</option>
             <option value="4-4-2">4-4-2</option>
             <option value="4-2-3-1">4-2-3-1</option>
             <option value="3-5-2">3-5-2</option>
             <option value="5-3-2">5-3-2</option>
+
         </select>
 
         <label>ذهنیت</label>
 
         <select id="mentalitySelect" onchange="changeMentality()">
+
             <option value="balanced">متعادل</option>
             <option value="attacking">هجومی</option>
             <option value="defensive">دفاعی</option>
+
         </select>
+
     </div>
 
     <button class="btn btn-gray" onclick="showScreen('dashboard')">
         بازگشت
     </button>
+
 </section>
 
+
 <section id="match" class="hidden">
+
     <h2>🏟️ Match Center</h2>
 
     <div class="match-header">
-        <div class="match-minute" id="matchMinute">دقیقه 0</div>
+
+        <div class="match-minute" id="matchMinute">
+            دقیقه 0
+        </div>
 
         <div class="match-teams">
+
             <div class="match-team">
                 <div id="matchHome"></div>
             </div>
 
             <div>
+
                 <div class="match-score">
-                    <span id="homeScore">0</span> -
+
+                    <span id="homeScore">0</span>
+                    -
                     <span id="awayScore">0</span>
+
                 </div>
 
                 <div class="match-status" id="matchStatus">
                     در حال آماده‌سازی...
                 </div>
+
             </div>
 
             <div class="match-team">
                 <div id="matchAway"></div>
             </div>
+
         </div>
+
     </div>
 
+
     <div class="card">
+
         <h3>📺 گزارش زنده</h3>
+
         <div id="liveEvents" class="live-box"></div>
+
     </div>
 
+
     <div class="card">
+
         <h3>📊 آمار مسابقه</h3>
 
         <div class="match-stat-grid">
-            <div class="match-stat">مالکیت شما<strong id="possessionHome">50%</strong></div>
-            <div class="match-stat">مالکیت حریف<strong id="possessionAway">50%</strong></div>
-            <div class="match-stat">شوت شما<strong id="shotsHome">0</strong></div>
-            <div class="match-stat">شوت حریف<strong id="shotsAway">0</strong></div>
-            <div class="match-stat">شوت در چارچوب شما<strong id="shotsTargetHome">0</strong></div>
-            <div class="match-stat">شوت در چارچوب حریف<strong id="shotsTargetAway">0</strong></div>
+
+            <div class="match-stat">
+                مالکیت شما
+                <strong id="possessionHome">50%</strong>
+            </div>
+
+            <div class="match-stat">
+                مالکیت حریف
+                <strong id="possessionAway">50%</strong>
+            </div>
+
+            <div class="match-stat">
+                شوت شما
+                <strong id="shotsHome">0</strong>
+            </div>
+
+            <div class="match-stat">
+                شوت حریف
+                <strong id="shotsAway">0</strong>
+            </div>
+
+            <div class="match-stat">
+                شوت در چارچوب شما
+                <strong id="shotsTargetHome">0</strong>
+            </div>
+
+            <div class="match-stat">
+                شوت در چارچوب حریف
+                <strong id="shotsTargetAway">0</strong>
+            </div>
+
         </div>
+
     </div>
+
 
     <div class="card">
+
         <h3>⭐ نمرات بازیکنان</h3>
+
         <div id="matchRatings"></div>
+
     </div>
+
 
     <div class="card motm">
+
         <h3>🏆 بهترین بازیکن</h3>
-        <div id="motm">هنوز مسابقه تمام نشده.</div>
+
+        <div id="motm">
+            هنوز مسابقه تمام نشده.
+        </div>
+
     </div>
 
-    <button id="finishMatchButton"
-            class="btn"
-            onclick="showScreen('dashboard')"
-            disabled>
+
+    <button
+        id="finishMatchButton"
+        class="btn"
+        onclick="showScreen('dashboard')"
+        disabled>
+
         ادامه کریر
+
     </button>
+
 </section>
 
+
 <section id="table" class="hidden">
+
     <h2>🏆 جدول لیگ</h2>
 
     <div class="card">
+
         <p class="info">
-            فصل <span id="tableSeason">1</span> — جدول ۱۶ تیمی
+            فصل <span id="tableSeason">1</span>
+            — جدول ۱۶ تیمی
         </p>
 
         <table>
+
             <thead>
+
                 <tr>
                     <th>#</th>
                     <th>تیم</th>
@@ -539,18 +1010,23 @@ tr.my-team{
                     <th>گل</th>
                     <th>امتیاز</th>
                 </tr>
+
             </thead>
 
             <tbody id="leagueTable"></tbody>
+
         </table>
+
     </div>
 
     <button class="btn btn-gray" onclick="showScreen('dashboard')">
         بازگشت
     </button>
+
 </section>
 
 </div>
+
 
 <script>
 
@@ -559,26 +1035,47 @@ PISHTAZAN - ORIGINAL SQUAD
 ===================================================== */
 
 const PISHTAZAN_PLAYERS=[
+
 { id:1,number:1,name:"سمیع",position:"GK",ovr:68,pac:58,sho:25,pas:45,dri:35,def:25,phy:55 },
+
 { id:22,number:22,name:"محمد امین برون‌سرا",position:"GK",ovr:67,pac:55,sho:20,pas:40,dri:30,def:20,phy:50 },
+
 { id:3,number:3,name:"سعید نیازی",position:"CB",ovr:72,pac:78,sho:35,pas:48,dri:45,def:91,phy:55 },
+
 { id:5,number:5,name:"ارکان قاضیانی",position:"CB",ovr:71,pac:65,sho:40,pas:78,dri:62,def:79,phy:68 },
+
 { id:4,number:4,name:"رسول ایری",position:"CB",ovr:74,pac:62,sho:35,pas:50,dri:42,def:83,phy:94 },
+
 { id:16,number:16,name:"میکاییل خجاو",position:"LB/CB",ovr:68,pac:78,sho:55,pas:74,dri:68,def:60,phy:58 },
+
 { id:12,number:12,name:"اصف ایری",position:"LB/LW",ovr:69,pac:72,sho:82,pas:65,dri:73,def:62,phy:68 },
+
 { id:15,number:15,name:"طاها ارنظری",position:"RB/CM",ovr:70,pac:69,sho:45,pas:58,dri:52,def:84,phy:78 },
+
 { id:13,number:13,name:"رامین جاهد",position:"RB/CM",ovr:68,pac:70,sho:50,pas:62,dri:60,def:64,phy:65 },
+
 { id:14,number:14,name:"محمد طاها مکرری",position:"CM",ovr:75,pac:78,sho:70,pas:92,dri:94,def:45,phy:62 },
+
 { id:6,number:6,name:"محمدرضا صنایعی",position:"CDM",ovr:67,pac:55,sho:30,pas:50,dri:42,def:68,phy:90 },
+
 { id:8,number:8,name:"طاها منوچهر",position:"CM",ovr:69,pac:68,sho:45,pas:65,dri:78,def:40,phy:60 },
+
 { id:17,number:17,name:"بصیر کر",position:"CM",ovr:68,pac:65,sho:45,pas:62,dri:65,def:48,phy:62 },
+
 { id:18,number:18,name:"بصیر اونق",position:"CM",ovr:67,pac:50,sho:65,pas:72,dri:48,def:35,phy:70 },
+
 { id:7,number:7,name:"صادق وطن‌دوست",position:"RW/ST",ovr:70,pac:96,sho:55,pas:48,dri:50,def:30,phy:55 },
+
 { id:11,number:11,name:"مصطفی بیناگر",position:"LW/ST",ovr:73,pac:88,sho:78,pas:65,dri:91,def:35,phy:68 },
+
 { id:10,number:10,name:"محمدرضا کر",position:"ST",ovr:66,pac:55,sho:60,pas:40,dri:42,def:20,phy:55 },
+
 { id:19,number:19,name:"طاها ریاحی",position:"ST",ovr:68,pac:48,sho:82,pas:42,dri:45,def:20,phy:65 },
+
 { id:9,number:9,name:"سیاوش",position:"ST",ovr:71,pac:72,sho:70,pas:48,dri:55,def:30,phy:84 },
+
 { id:2,number:2,name:"عدنان ال‌جلیل",position:"LW",ovr:67,pac:73,sho:55,pas:50,dri:62,def:25,phy:55 }
+
 ];
 
 
@@ -587,29 +1084,31 @@ LEAGUE TEAMS
 ===================================================== */
 
 const TEAM_DEFS=[
-    {name:"پیشتازان بندرترکمن",strength:70},
-    {name:"پارس فوتبال",strength:68},
-    {name:"آریا اسپرت",strength:69},
-    {name:"گرگان یونایتد",strength:71},
-    {name:"تهران یونایتد",strength:75},
-    {name:"استقلال",strength:77},
-    {name:"سپاهان",strength:76},
-    {name:"پرسپولیس",strength:78},
-    {name:"تراکتور",strength:74},
-    {name:"ذوب‌آهن",strength:69},
-    {name:"فولاد",strength:73},
-    {name:"گل‌گهر",strength:72},
-    {name:"نساجی",strength:68},
-    {name:"ملوان",strength:71},
-    {name:"خیبر",strength:67},
-    {name:"شمس‌آذر",strength:66}
+
+{name:"پیشتازان بندرترکمن",strength:70},
+{name:"پارس فوتبال",strength:68},
+{name:"آریا اسپرت",strength:69},
+{name:"گرگان یونایتد",strength:71},
+{name:"تهران یونایتد",strength:75},
+{name:"استقلال",strength:77},
+{name:"سپاهان",strength:76},
+{name:"پرسپولیس",strength:78},
+{name:"تراکتور",strength:74},
+{name:"ذوب‌آهن",strength:69},
+{name:"فولاد",strength:73},
+{name:"گل‌گهر",strength:72},
+{name:"نساجی",strength:68},
+{name:"ملوان",strength:71},
+{name:"خیبر",strength:67},
+{name:"شمس‌آذر",strength:66}
+
 ];
 
 const leagueTeams=TEAM_DEFS.map(t=>t.name);
 
 
 /* =====================================================
-GENERATED SQUADS
+OTHER TEAM NAMES
 ===================================================== */
 
 const OTHER_TEAM_ROSTERS={
@@ -723,33 +1222,50 @@ const OTHER_TEAM_ROSTERS={
 
 
 /* =====================================================
-SQUAD GENERATOR
+GENERATED SQUADS
 ===================================================== */
 
 const squadPositions=[
-    "GK","GK",
-    "LB","CB","CB","CB","RB","RB",
-    "CDM","CM","CM","CM","CM","CDM",
-    "LW","RW","ST","ST","LW","RW"
+"GK","GK",
+"LB","CB","CB","CB","RB","RB",
+"CDM","CM","CM","CM","CM","CDM",
+"LW","RW","ST","ST","LW","RW"
 ];
 
 const baseStats={
-    GK:{pac:57,sho:20,pas:42,dri:30,def:25,phy:55},
-    LB:{pac:72,sho:35,pas:55,dri:52,def:68,phy:62},
-    RB:{pac:71,sho:35,pas:57,dri:53,def:69,phy:64},
-    CB:{pac:62,sho:28,pas:48,dri:38,def:76,phy:76},
-    CDM:{pac:61,sho:38,pas:65,dri:50,def:70,phy:73},
-    CM:{pac:68,sho:45,pas:70,dri:66,def:48,phy:62},
-    LW:{pac:83,sho:61,pas:55,dri:76,def:28,phy:53},
-    RW:{pac:84,sho:60,pas:56,dri:74,def:29,phy:54},
-    ST:{pac:72,sho:73,pas:43,dri:55,def:22,phy:68}
+
+GK:{pac:57,sho:20,pas:42,dri:30,def:25,phy:55},
+
+LB:{pac:72,sho:35,pas:55,dri:52,def:68,phy:62},
+
+RB:{pac:71,sho:35,pas:57,dri:53,def:69,phy:64},
+
+CB:{pac:62,sho:28,pas:48,dri:38,def:76,phy:76},
+
+CDM:{pac:61,sho:38,pas:65,dri:50,def:70,phy:73},
+
+CM:{pac:68,sho:45,pas:70,dri:66,def:48,phy:62},
+
+LW:{pac:83,sho:61,pas:55,dri:76,def:28,phy:53},
+
+RW:{pac:84,sho:60,pas:56,dri:74,def:29,phy:54},
+
+ST:{pac:72,sho:73,pas:43,dri:55,def:22,phy:68}
+
 };
 
 function clampStat(value){
-    return Math.max(15,Math.min(95,Math.round(value)));
+    return Math.max(
+        15,
+        Math.min(
+            95,
+            Math.round(value)
+        )
+    );
 }
 
 function calculateGeneratedOVR(stats){
+
     return Math.round(
         stats.pac*.15+
         stats.sho*.15+
@@ -758,18 +1274,24 @@ function calculateGeneratedOVR(stats){
         stats.def*.20+
         stats.phy*.20
     );
+
 }
 
 function generateSquad(teamName){
 
     const teamIndex=leagueTeams.indexOf(teamName);
-    const teamDef=TEAM_DEFS.find(t=>t.name===teamName);
 
-    const names=OTHER_TEAM_ROSTERS[teamName] || [];
+    const teamDef=TEAM_DEFS.find(
+        t=>t.name===teamName
+    );
+
+    const names=
+        OTHER_TEAM_ROSTERS[teamName]||[];
 
     return names.map((name,index)=>{
 
         const position=squadPositions[index];
+
         const base=baseStats[position];
 
         const variance=
@@ -779,15 +1301,47 @@ function generateSquad(teamName){
             (teamDef.strength-70)*.45;
 
         const stats={
-            pac:clampStat(base.pac+variance+strengthAdjustment),
-            sho:clampStat(base.sho+variance*.7+strengthAdjustment),
-            pas:clampStat(base.pas+variance*.6+strengthAdjustment),
-            dri:clampStat(base.dri+variance*.8+strengthAdjustment),
-            def:clampStat(base.def+variance*.5+strengthAdjustment),
-            phy:clampStat(base.phy+variance*.7+strengthAdjustment)
+
+            pac:clampStat(
+                base.pac+
+                variance+
+                strengthAdjustment
+            ),
+
+            sho:clampStat(
+                base.sho+
+                variance*.7+
+                strengthAdjustment
+            ),
+
+            pas:clampStat(
+                base.pas+
+                variance*.6+
+                strengthAdjustment
+            ),
+
+            dri:clampStat(
+                base.dri+
+                variance*.8+
+                strengthAdjustment
+            ),
+
+            def:clampStat(
+                base.def+
+                variance*.5+
+                strengthAdjustment
+            ),
+
+            phy:clampStat(
+                base.phy+
+                variance*.7+
+                strengthAdjustment
+            )
+
         };
 
-        const ovr=calculateGeneratedOVR(stats);
+        const ovr=
+            calculateGeneratedOVR(stats);
 
         return{
             id:(teamIndex+1)*1000+index+1,
@@ -797,18 +1351,24 @@ function generateSquad(teamName){
             ovr,
             ...stats
         };
+
     });
+
 }
 
 
 const SQUADS={
-    "پیشتازان بندرترکمن":PISHTAZAN_PLAYERS
+    "پیشتازان بندرترکمن":
+        PISHTAZAN_PLAYERS
 };
 
 leagueTeams.forEach(team=>{
 
     if(team!=="پیشتازان بندرترکمن"){
-        SQUADS[team]=generateSquad(team);
+
+        SQUADS[team]=
+            generateSquad(team);
+
     }
 
 });
@@ -818,9 +1378,10 @@ leagueTeams.forEach(team=>{
 STORAGE
 ===================================================== */
 
-const CAREER_KEY="mfc_career_v4";
-const LINEUP_KEY="mfc_lineup_v4";
-const TABLE_KEY="mfc_table_v4";
+const CAREER_KEY="mfc_career_v5";
+const LINEUP_KEY="mfc_lineup_v5";
+const TABLE_KEY="mfc_table_v5";
+const SQUAD_KEY="mfc_squads_v5";
 
 
 /* =====================================================
@@ -834,6 +1395,7 @@ function createEmptyTeamTable(){
     leagueTeams.forEach(name=>{
 
         table[name]={
+
             played:0,
             wins:0,
             draws:0,
@@ -841,12 +1403,41 @@ function createEmptyTeamTable(){
             gf:0,
             ga:0,
             points:0
+
         };
 
     });
 
     return table;
+
 }
+
+
+/* =====================================================
+CLONE SQUADS
+===================================================== */
+
+function cloneBaseSquads(){
+
+    const result={};
+
+    leagueTeams.forEach(team=>{
+
+        result[team]=
+            JSON.parse(
+                JSON.stringify(
+                    SQUADS[team]||[]
+                )
+            );
+
+    });
+
+    return result;
+
+}
+
+
+let squads=cloneBaseSquads();
 
 
 /* =====================================================
@@ -856,32 +1447,45 @@ CAREER
 function createEmptyCareer(){
 
     return{
+
         coach:"",
         age:35,
         nationality:"Iran",
         style:"balanced",
         club:"",
         money:1000000,
+
         power:70,
+
         goal:"قهرمانی",
+
         season:1,
         week:1,
+
         points:0,
         reputation:50,
+
         formation:"4-3-3",
         mentality:"balanced",
+
         matches:0,
         wins:0,
         draws:0,
         losses:0,
+
         goalsFor:0,
         goalsAgainst:0
+
     };
 
 }
 
+
 let career=createEmptyCareer();
-let leagueTable=createEmptyTeamTable();
+
+let leagueTable=
+    createEmptyTeamTable();
+
 let players=[];
 
 
@@ -890,6 +1494,7 @@ LINEUP
 ===================================================== */
 
 const defaultLineup={
+
     gk:1,
     lb:16,
     lcb:4,
@@ -901,14 +1506,46 @@ const defaultLineup={
     lw:11,
     st:10,
     rw:7
+
 };
 
-let lineup={...defaultLineup};
+let lineup={
+    ...defaultLineup
+};
+
 let selectedSlot=null;
 
 
 /* =====================================================
-GET DEFAULT LINEUP FOR CLUB
+GET PLAYER
+===================================================== */
+
+function getPlayer(id){
+
+    return players.find(
+        p=>p.id===id
+    );
+
+}
+
+
+/* =====================================================
+GET PLAYER FROM ANY CLUB
+===================================================== */
+
+function getPlayerFromClub(club,id){
+
+    if(!squads[club])return null;
+
+    return squads[club].find(
+        p=>p.id===id
+    );
+
+}
+
+
+/* =====================================================
+DEFAULT LINEUP
 ===================================================== */
 
 function getDefaultLineupForClub(club){
@@ -917,50 +1554,97 @@ function getDefaultLineupForClub(club){
         return {...defaultLineup};
     }
 
-    const squad=SQUADS[club] || [];
+    const squad=
+        squads[club]||[];
 
-    const findPosition=(positions,used=[])=>{
+    const findPosition=(
+        positions,
+        used=[]
+    )=>{
+
         return squad.find(
-            p=>positions.includes(p.position)&&
-            !used.includes(p.id)
+            p=>
+                positions.includes(p.position)&&
+                !used.includes(p.id)
         );
+
     };
 
     const used=[];
 
     const gk=findPosition(["GK"],used);
+
+    if(!gk){
+        return fallbackLineupForSquad(squad);
+    }
+
     used.push(gk.id);
 
-    const lb=findPosition(["LB"],used);
-    used.push(lb.id);
+    const lb=findPosition(
+        ["LB","LB/CB"],
+        used
+    );
 
-    const lcb=findPosition(["CB"],used);
-    used.push(lcb.id);
+    const lcb=findPosition(
+        ["CB"],
+        used
+    );
 
-    const rcb=findPosition(["CB"],used);
-    used.push(rcb.id);
+    const rcb=findPosition(
+        ["CB"],
+        used
+    );
 
-    const rb=findPosition(["RB"],used);
-    used.push(rb.id);
+    const rb=findPosition(
+        ["RB","RB/CM"],
+        used
+    );
 
-    const cdm=findPosition(["CDM"],used);
-    used.push(cdm.id);
+    const cdm=findPosition(
+        ["CDM"],
+        used
+    );
 
-    const lcm=findPosition(["CM"],used);
-    used.push(lcm.id);
+    const lcm=findPosition(
+        ["CM"],
+        used
+    );
 
-    const rcm=findPosition(["CM"],used);
-    used.push(rcm.id);
+    const rcm=findPosition(
+        ["CM"],
+        used
+    );
 
-    const lw=findPosition(["LW"],used);
-    used.push(lw.id);
+    const lw=findPosition(
+        ["LW","LW/ST"],
+        used
+    );
 
-    const st=findPosition(["ST"],used);
-    used.push(st.id);
+    const st=findPosition(
+        ["ST","RW/ST"],
+        used
+    );
 
-    const rw=findPosition(["RW"],used);
+    const rw=findPosition(
+        ["RW","RW/ST"],
+        used
+    );
+
+    const required=[
+        gk,lb,lcb,rcb,rb,
+        cdm,lcm,rcm,lw,st,rw
+    ];
+
+    if(required.some(p=>!p)){
+        return fallbackLineupForSquad(squad);
+    }
+
+    required.forEach(
+        p=>used.push(p.id)
+    );
 
     return{
+
         gk:gk.id,
         lb:lb.id,
         lcb:lcb.id,
@@ -972,7 +1656,947 @@ function getDefaultLineupForClub(club){
         lw:lw.id,
         st:st.id,
         rw:rw.id
+
     };
+
+}
+
+
+function fallbackLineupForSquad(squad){
+
+    const selected=
+        squad.slice(0,11);
+
+    const ids=
+        selected.map(p=>p.id);
+
+    while(ids.length<11){
+
+        const extra=
+            squad.find(
+                p=>!ids.includes(p.id)
+            );
+
+        if(!extra)break;
+
+        ids.push(extra.id);
+    }
+
+    return{
+
+        gk:ids[0],
+        lb:ids[1],
+        lcb:ids[2],
+        rcb:ids[3],
+        rb:ids[4],
+        cdm:ids[5],
+        lcm:ids[6],
+        rcm:ids[7],
+        lw:ids[8],
+        st:ids[9],
+        rw:ids[10]
+
+    };
+
+}
+
+
+/* =====================================================
+TRANSFER SYSTEM
+===================================================== */
+
+let transferTab="market";
+
+
+function formatMoney(value){
+
+    return Number(value||0)
+        .toLocaleString("en-US")+
+        " 💰";
+
+}
+
+
+function getPlayerValue(player){
+
+    if(!player)return 0;
+
+    const ovr=Number(player.ovr)||50;
+
+    let value=
+        100000+
+        Math.max(
+            0,
+            ovr-60
+        )*35000;
+
+    if(ovr>=75){
+        value+=150000;
+    }
+
+    if(ovr>=80){
+        value+=250000;
+    }
+
+    return Math.round(
+        value/10000
+    )*10000;
+
+}
+
+
+function getSellValue(player){
+
+    return Math.round(
+        getPlayerValue(player)*.70
+    );
+
+}
+
+
+function getFreeNumber(club){
+
+    const squad=
+        squads[club]||[];
+
+    const used=
+        squad.map(p=>Number(p.number));
+
+    for(let n=1;n<=99;n++){
+
+        if(!used.includes(n)){
+            return n;
+        }
+
+    }
+
+    return 99;
+
+}
+
+
+function findPlayerClub(playerId){
+
+    for(const club of leagueTeams){
+
+        const found=
+            (squads[club]||[])
+            .find(p=>p.id===playerId);
+
+        if(found){
+            return club;
+        }
+
+    }
+
+    return null;
+
+}
+
+
+function saveSquads(){
+
+    localStorage.setItem(
+        SQUAD_KEY,
+        JSON.stringify(squads)
+    );
+
+}
+
+
+function loadSquads(){
+
+    const saved=
+        localStorage.getItem(
+            SQUAD_KEY
+        );
+
+    if(!saved){
+
+        squads=
+            cloneBaseSquads();
+
+        return;
+
+    }
+
+    try{
+
+        const parsed=
+            JSON.parse(saved);
+
+        squads=
+            cloneBaseSquads();
+
+        leagueTeams.forEach(team=>{
+
+            if(
+                Array.isArray(parsed[team])
+            ){
+
+                squads[team]=
+                    parsed[team];
+
+            }
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+        squads=
+            cloneBaseSquads();
+
+    }
+
+}
+
+
+function setTransferTab(tab){
+
+    transferTab=tab;
+
+    document
+        .getElementById("marketTab")
+        .classList.toggle(
+            "active",
+            tab==="market"
+        );
+
+    document
+        .getElementById("squadTab")
+        .classList.toggle(
+            "active",
+            tab==="squad"
+        );
+
+    document
+        .getElementById("marketFilters")
+        .style.display=
+            tab==="market"
+            ?"block"
+            :"none";
+
+    if(tab==="market"){
+
+        renderTransferMarket();
+
+    }else{
+
+        renderMyTransferSquad();
+
+    }
+
+}
+
+
+function renderTransfers(){
+
+    document.getElementById(
+        "transferMoney"
+    ).innerText=
+        formatMoney(career.money);
+
+    if(transferTab==="market"){
+
+        renderTransferMarket();
+
+    }else{
+
+        renderMyTransferSquad();
+
+    }
+
+}
+
+
+function positionMatches(player,filter){
+
+    if(filter==="ALL")return true;
+
+    return player.position
+        .split("/")
+        .includes(filter);
+
+}
+
+
+function renderTransferMarket(){
+
+    const container=
+        document.getElementById(
+            "transferContent"
+        );
+
+    if(!career.club){
+
+        container.innerHTML=`
+            <div class="card empty-box">
+                اول یک باشگاه انتخاب کن.
+            </div>
+        `;
+
+        return;
+    }
+
+    const search=
+        (
+            document.getElementById(
+                "transferSearch"
+            )?.value||""
+        )
+        .trim()
+        .toLowerCase();
+
+    const position=
+        document.getElementById(
+            "transferPosition"
+        )?.value||"ALL";
+
+    let market=[];
+
+    leagueTeams.forEach(club=>{
+
+        if(club===career.club)return;
+
+        (squads[club]||[])
+            .forEach(player=>{
+
+                if(
+                    search &&
+                    !player.name
+                        .toLowerCase()
+                        .includes(search)
+                ){
+                    return;
+                }
+
+                if(
+                    !positionMatches(
+                        player,
+                        position
+                    )
+                ){
+                    return;
+                }
+
+                market.push({
+                    player,
+                    club
+                });
+
+            });
+
+    });
+
+    market.sort(
+        (a,b)=>
+            b.player.ovr-
+            a.player.ovr
+    );
+
+    if(!market.length){
+
+        container.innerHTML=`
+            <div class="card empty-box">
+                🔍 بازیکنی با این مشخصات پیدا نشد.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML=`
+
+        <div class="card">
+
+            <h3>
+                🛒 بازیکنان قابل خرید
+                <span class="badge">
+                    ${market.length}
+                </span>
+            </h3>
+
+            <p class="info">
+                بازیکنان تمام ۱۵ باشگاه دیگر در بازار هستند.
+            </p>
+
+        </div>
+
+        ${
+            market.map(item=>{
+
+                const p=item.player;
+
+                const price=
+                    getPlayerValue(p);
+
+                const canBuy=
+                    career.money>=price;
+
+                return`
+
+                <div class="transfer-card">
+
+                    <div class="transfer-header">
+
+                        <div>
+
+                            <div class="transfer-name">
+                                #${p.number}
+                                ${p.name}
+                            </div>
+
+                            <div class="transfer-meta">
+
+                                📍 ${p.position}
+                                <br>
+
+                                🏟️ ${item.club}
+                                <br>
+
+                                ⭐ OVR ${p.ovr}
+
+                            </div>
+
+                        </div>
+
+                        <div class="ovr">
+                            ${p.ovr}
+                        </div>
+
+                    </div>
+
+                    <div class="transfer-meta">
+
+                        💵 قیمت:
+                        <span class="price">
+                            ${formatMoney(price)}
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="btn"
+                        ${
+                            canBuy
+                            ?""
+                            :"disabled"
+                        }
+                        onclick="buyPlayer(${p.id},'${escapeForAttribute(item.club)}')"
+                    >
+                        ${
+                            canBuy
+                            ?"🟢 خرید بازیکن"
+                            :"❌ بودجه کافی نیست"
+                        }
+                    </button>
+
+                </div>
+
+                `;
+
+            }).join("")
+        }
+
+    `;
+
+}
+
+
+function escapeForAttribute(text){
+
+    return String(text)
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+
+}
+
+
+function buyPlayer(playerId,oldClub){
+
+    if(!career.club){
+
+        alert(
+            "اول یک باشگاه انتخاب کن."
+        );
+
+        return;
+
+    }
+
+    if(oldClub===career.club){
+
+        alert(
+            "این بازیکن همین الان در تیم شماست."
+        );
+
+        return;
+
+    }
+
+    const source=
+        squads[oldClub]||[];
+
+    const index=
+        source.findIndex(
+            p=>p.id===playerId
+        );
+
+    if(index===-1){
+
+        alert(
+            "بازیکن دیگر در این باشگاه نیست."
+        );
+
+        return;
+
+    }
+
+    const player=
+        source[index];
+
+    const price=
+        getPlayerValue(player);
+
+    if(career.money<price){
+
+        alert(
+            "💰 بودجه شما برای خرید این بازیکن کافی نیست."
+        );
+
+        return;
+
+    }
+
+    const mySquad=
+        squads[career.club]||[];
+
+    if(mySquad.length>=30){
+
+        alert(
+            "⚠️ اسکواد شما پر است. حداکثر ۳۰ بازیکن می‌توانی داشته باشی."
+        );
+
+        return;
+
+    }
+
+    if(
+        !confirm(
+            `خرید ${player.name} با قیمت ${formatMoney(price)}؟`
+        )
+    ){
+
+        return;
+
+    }
+
+    source.splice(index,1);
+
+    const transferred={
+        ...player,
+        number:getFreeNumber(career.club)
+    };
+
+    mySquad.push(transferred);
+
+    squads[career.club]=
+        mySquad;
+
+    career.money-=price;
+
+    players=
+        squads[career.club];
+
+    saveSquads();
+
+    repairLineupAfterSquadChange();
+
+    saveGame();
+
+    renderTransfers();
+
+    alert(
+        `✅ انتقال انجام شد!\n\n${transferred.name} به ${career.club} پیوست.`
+    );
+
+}
+
+
+function renderMyTransferSquad(){
+
+    const container=
+        document.getElementById(
+            "transferContent"
+        );
+
+    const mySquad=
+        squads[career.club]||[];
+
+    if(!mySquad.length){
+
+        container.innerHTML=`
+            <div class="card empty-box">
+                اسکواد خالی است.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    const starters=
+        Object.values(lineup);
+
+    const sorted=
+        [...mySquad].sort(
+            (a,b)=>b.ovr-a.ovr
+        );
+
+    container.innerHTML=`
+
+        <div class="card">
+
+            <h3>
+                👥 اسکواد من
+                <span class="badge-green badge">
+                    ${mySquad.length}/30
+                </span>
+            </h3>
+
+            <p class="info">
+                فروش هر بازیکن ۷۰٪ ارزش بازار او را به بودجه اضافه می‌کند.
+            </p>
+
+        </div>
+
+        ${
+            sorted.map(p=>{
+
+                const value=
+                    getSellValue(p);
+
+                const isStarter=
+                    starters.includes(p.id);
+
+                const goalkeeper=
+                    p.position
+                    .split("/")
+                    .includes("GK");
+
+                const goalkeepers=
+                    mySquad.filter(
+                        x=>x.position
+                            .split("/")
+                            .includes("GK")
+                    ).length;
+
+                const cannotSell=
+
+                    mySquad.length<=16 ||
+
+                    (
+                        goalkeeper &&
+                        goalkeepers<=1
+                    );
+
+                return`
+
+                <div class="transfer-card">
+
+                    <div class="transfer-header">
+
+                        <div>
+
+                            <div class="transfer-name">
+
+                                #${p.number}
+                                ${p.name}
+
+                            </div>
+
+                            <div class="transfer-meta">
+
+                                📍 ${p.position}
+                                <br>
+
+                                ⭐ OVR ${p.ovr}
+
+                                <br>
+
+                                ${
+                                    isStarter
+                                    ?'<span class="badge-green badge">🟢 فیکس</span>'
+                                    :'<span class="badge">⚪ نیمکت</span>'
+                                }
+
+                            </div>
+
+                        </div>
+
+                        <div class="ovr">
+                            ${p.ovr}
+                        </div>
+
+                    </div>
+
+                    <div class="transfer-meta">
+
+                        💰 دریافتی فروش:
+                        <span class="price">
+                            ${formatMoney(value)}
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="btn btn-red"
+                        ${
+                            cannotSell
+                            ?"disabled"
+                            :""
+                        }
+                        onclick="sellPlayer(${p.id})"
+                    >
+
+                        ${
+                            cannotSell
+                            ?(
+                                mySquad.length<=16
+                                ?"🔒 حداقل ۱۶ بازیکن لازم است"
+                                :"🔒 آخرین دروازه‌بان است"
+                            )
+                            :"🔴 فروش بازیکن"
+                        }
+
+                    </button>
+
+                </div>
+
+                `;
+
+            }).join("")
+        }
+
+    `;
+
+}
+
+
+function sellPlayer(playerId){
+
+    const mySquad=
+        squads[career.club]||[];
+
+    const index=
+        mySquad.findIndex(
+            p=>p.id===playerId
+        );
+
+    if(index===-1){
+
+        alert(
+            "بازیکن پیدا نشد."
+        );
+
+        return;
+
+    }
+
+    if(mySquad.length<=16){
+
+        alert(
+            "⚠️ برای فروش باید حداقل ۱۶ بازیکن در اسکواد باقی بماند."
+        );
+
+        return;
+
+    }
+
+    const player=
+        mySquad[index];
+
+    const goalkeeper=
+        player.position
+            .split("/")
+            .includes("GK");
+
+    if(goalkeeper){
+
+        const goalkeeperCount=
+            mySquad.filter(
+                p=>p.position
+                    .split("/")
+                    .includes("GK")
+            ).length;
+
+        if(goalkeeperCount<=1){
+
+            alert(
+                "⚠️ نمی‌توانی تنها دروازه‌بان تیم را بفروشی."
+            );
+
+            return;
+
+        }
+
+    }
+
+    const sellValue=
+        getSellValue(player);
+
+    if(
+        !confirm(
+            `فروش ${player.name} با دریافتی ${formatMoney(sellValue)}؟`
+        )
+    ){
+
+        return;
+
+    }
+
+    const wasStarter=
+        Object.values(lineup)
+            .includes(player.id);
+
+    mySquad.splice(index,1);
+
+    career.money+=sellValue;
+
+    squads[career.club]=
+        mySquad;
+
+    players=
+        squads[career.club];
+
+    if(wasStarter){
+
+        repairLineupAfterSquadChange(
+            player.id
+        );
+
+    }
+
+    saveSquads();
+
+    saveGame();
+
+    renderTransfers();
+
+    alert(
+        `🔴 ${player.name} فروخته شد.\n\n💰 ${formatMoney(sellValue)} به بودجه اضافه شد.`
+    );
+
+}
+
+
+function repairLineupAfterSquadChange(
+    removedId=null
+){
+
+    const currentIds=
+        new Set(
+            players.map(p=>p.id)
+        );
+
+    Object.keys(lineup).forEach(slot=>{
+
+        if(
+            !currentIds.has(
+                lineup[slot]
+            )
+        ){
+
+            lineup[slot]=null;
+
+        }
+
+    });
+
+    const used=
+        new Set(
+            Object.values(lineup)
+                .filter(Boolean)
+        );
+
+    const slots=
+        Object.keys(lineup);
+
+    slots.forEach(slot=>{
+
+        if(lineup[slot])return;
+
+        const compatible=
+            getCompatiblePlayersForSlot(
+                slot
+            ).filter(
+                p=>!used.has(p.id)
+            );
+
+        if(compatible.length){
+
+            compatible.sort(
+                (a,b)=>b.ovr-a.ovr
+            );
+
+            lineup[slot]=
+                compatible[0].id;
+
+            used.add(
+                compatible[0].id
+            );
+
+        }
+
+    });
+
+    saveLineup();
+
+}
+
+
+function getCompatiblePlayersForSlot(slot){
+
+    const map={
+
+        gk:["GK"],
+
+        lb:["LB","LB/CB"],
+
+        lcb:["CB","LB/CB"],
+
+        rcb:["CB","RB"],
+
+        rb:["RB","RB/CM"],
+
+        cdm:["CDM","CM"],
+
+        lcm:["CM","CDM"],
+
+        rcm:["CM","CDM"],
+
+        lw:["LW","LW/ST","RW/ST"],
+
+        st:["ST","RW/ST","LW/ST"],
+
+        rw:["RW","RW/ST","LW/ST"]
+
+    };
+
+    const allowed=
+        map[slot]||[];
+
+    return players.filter(
+        p=>
+            p.position
+                .split("/")
+                .some(
+                    pos=>allowed.includes(pos)
+                )
+    );
+
 }
 
 
@@ -988,17 +2612,24 @@ let matchTimer=null;
 HELPERS
 ===================================================== */
 
-function getPlayer(id){
-    return players.find(p=>p.id===id);
-}
-
 function average(arr){
+
     if(!arr.length)return 0;
-    return arr.reduce((a,b)=>a+b,0)/arr.length;
+
+    return arr.reduce(
+        (a,b)=>a+b,
+        0
+    )/arr.length;
+
 }
 
 function randomBetween(min,max){
-    return Math.floor(Math.random()*(max-min+1))+min;
+
+    return Math.floor(
+        Math.random()*
+        (max-min+1)
+    )+min;
+
 }
 
 
@@ -1007,25 +2638,42 @@ SAVE CHECK
 ===================================================== */
 
 function hasSavedCareer(){
-    return !!localStorage.getItem(CAREER_KEY);
+
+    return !!localStorage.getItem(
+        CAREER_KEY
+    );
+
 }
+
 
 function updateHomeSaveStatus(){
 
-    const btn=document.getElementById("continueBtn");
-    const status=document.getElementById("saveStatus");
+    const btn=
+        document.getElementById(
+            "continueBtn"
+        );
+
+    const status=
+        document.getElementById(
+            "saveStatus"
+        );
 
     if(hasSavedCareer()){
 
         btn.disabled=false;
-        status.innerText="💾 یک کریر ذخیره‌شده وجود دارد.";
+
+        status.innerText=
+            "💾 یک کریر ذخیره‌شده وجود دارد.";
 
     }else{
 
         btn.disabled=true;
-        status.innerText="🆕 هنوز کریری ذخیره نشده است.";
+
+        status.innerText=
+            "🆕 هنوز کریری ذخیره نشده است.";
 
     }
+
 }
 
 
@@ -1035,14 +2683,19 @@ CLUB LIST
 
 function renderClubList(){
 
-    const container=document.getElementById("clubList");
+    const container=
+        document.getElementById(
+            "clubList"
+        );
 
-    container.innerHTML=TEAM_DEFS.map(team=>`
+    container.innerHTML=
+        TEAM_DEFS.map(team=>`
 
         <div
             class="club-card"
-            onclick="selectClub('${team.name}')"
+            onclick="selectClub('${escapeForAttribute(team.name)}')"
         >
+
             <div class="club-name">
                 ${team.name}
             </div>
@@ -1052,11 +2705,13 @@ function renderClubList(){
             </div>
 
             <div class="small">
-                👥 ${SQUADS[team.name].length} بازیکن
+                👥 ${squads[team.name].length} بازیکن
             </div>
+
         </div>
 
-    `).join("");
+        `).join("");
+
 }
 
 
@@ -1066,37 +2721,67 @@ SCREEN
 
 function showScreen(screen){
 
-    document.querySelectorAll("section").forEach(
-        s=>s.classList.add("hidden")
-    );
+    document
+        .querySelectorAll("section")
+        .forEach(
+            s=>s.classList.add("hidden")
+        );
 
-    const target=document.getElementById(screen);
+    const target=
+        document.getElementById(
+            screen
+        );
 
-    if(target)target.classList.remove("hidden");
+    if(target){
+        target.classList.remove("hidden");
+    }
 
     if(screen==="home"){
+
         updateHomeSaveStatus();
+
     }
 
     if(screen==="club"){
+
         renderClubList();
+
     }
 
     if(screen==="dashboard"){
+
         updateDashboard();
+
     }
 
     if(screen==="team"){
+
         renderTeam();
+
+    }
+
+    if(screen==="player"){
+
     }
 
     if(screen==="table"){
+
         renderTable();
+
     }
 
     if(screen==="tactics"){
+
         updateTacticInputs();
+
     }
+
+    if(screen==="transfers"){
+
+        renderTransfers();
+
+    }
+
 }
 
 
@@ -1107,31 +2792,70 @@ START NEW CAREER
 function startNewCareer(){
 
     if(matchTimer){
-        clearInterval(matchTimer);
+
+        clearInterval(
+            matchTimer
+        );
+
         matchTimer=null;
+
     }
 
-    localStorage.removeItem(CAREER_KEY);
-    localStorage.removeItem(LINEUP_KEY);
-    localStorage.removeItem(TABLE_KEY);
+    localStorage.removeItem(
+        CAREER_KEY
+    );
 
-    career=createEmptyCareer();
+    localStorage.removeItem(
+        LINEUP_KEY
+    );
+
+    localStorage.removeItem(
+        TABLE_KEY
+    );
+
+    localStorage.removeItem(
+        SQUAD_KEY
+    );
+
+    career=
+        createEmptyCareer();
+
+    squads=
+        cloneBaseSquads();
 
     players=[];
 
-    lineup={...defaultLineup};
+    lineup={
+        ...defaultLineup
+    };
 
-    leagueTable=createEmptyTeamTable();
+    leagueTable=
+        createEmptyTeamTable();
 
     selectedSlot=null;
+
     matchState=null;
 
-    document.getElementById("coachName").value="";
-    document.getElementById("coachAge").value=35;
-    document.getElementById("coachNationality").value="Iran";
-    document.getElementById("coachStyle").value="balanced";
+    transferTab="market";
+
+    document.getElementById(
+        "coachName"
+    ).value="";
+
+    document.getElementById(
+        "coachAge"
+    ).value=35;
+
+    document.getElementById(
+        "coachNationality"
+    ).value="Iran";
+
+    document.getElementById(
+        "coachStyle"
+    ).value="balanced";
 
     showScreen("coach");
+
 }
 
 
@@ -1141,37 +2865,72 @@ CONTINUE
 
 function continueCareer(){
 
-    const savedCareer=localStorage.getItem(CAREER_KEY);
+    const savedCareer=
+        localStorage.getItem(
+            CAREER_KEY
+        );
 
     if(!savedCareer){
-        alert("هنوز هیچ کریری ذخیره نشده است.");
+
+        alert(
+            "هنوز هیچ کریری ذخیره نشده است."
+        );
+
         return;
+
     }
 
     try{
 
         career={
             ...createEmptyCareer(),
-            ...JSON.parse(savedCareer)
+            ...JSON.parse(
+                savedCareer
+            )
         };
 
-        if(!career.club || !SQUADS[career.club]){
-            throw new Error("Invalid club");
+        if(
+            !career.club ||
+            !SQUADS[career.club]
+        ){
+
+            throw new Error(
+                "Invalid club"
+            );
+
         }
 
-        players=SQUADS[career.club];
+        loadSquads();
 
-        const savedLineup=localStorage.getItem(LINEUP_KEY);
+        players=
+            squads[career.club];
 
-        lineup=savedLineup
-            ? JSON.parse(savedLineup)
-            : getDefaultLineupForClub(career.club);
+        const savedLineup=
+            localStorage.getItem(
+                LINEUP_KEY
+            );
 
-        const savedTable=localStorage.getItem(TABLE_KEY);
+        lineup=
+            savedLineup
+            ?JSON.parse(savedLineup)
+            :getDefaultLineupForClub(
+                career.club
+            );
 
-        leagueTable=savedTable
-            ? {...createEmptyTeamTable(),...JSON.parse(savedTable)}
-            : createEmptyTeamTable();
+        repairLineupAfterSquadChange();
+
+        const savedTable=
+            localStorage.getItem(
+                TABLE_KEY
+            );
+
+        leagueTable=
+            savedTable
+            ?{
+                ...createEmptyTeamTable(),
+                ...JSON.parse(savedTable)
+            }
+            :createEmptyTeamTable();
 
         selectedSlot=null;
 
@@ -1186,7 +2945,9 @@ function continueCareer(){
         alert(
             "اطلاعات کریر قابل خواندن نیست. یک کریر جدید بساز."
         );
+
     }
+
 }
 
 
@@ -1196,30 +2957,53 @@ COACH
 
 function createCoach(){
 
-    career=createEmptyCareer();
+    career=
+        createEmptyCareer();
 
     career.coach=
-        document.getElementById("coachName").value.trim()
+        document
+            .getElementById(
+                "coachName"
+            )
+            .value
+            .trim()
         ||"مربی جدید";
 
     career.age=
-        Number(document.getElementById("coachAge").value)
+        Number(
+            document.getElementById(
+                "coachAge"
+            ).value
+        )
         ||35;
 
     career.nationality=
-        document.getElementById("coachNationality").value.trim()
+        document
+            .getElementById(
+                "coachNationality"
+            )
+            .value
+            .trim()
         ||"Iran";
 
     career.style=
-        document.getElementById("coachStyle").value;
+        document.getElementById(
+            "coachStyle"
+        ).value;
 
-    career.mentality=career.style;
+    career.mentality=
+        career.style;
 
-    leagueTable=createEmptyTeamTable();
+    leagueTable=
+        createEmptyTeamTable();
+
+    squads=
+        cloneBaseSquads();
 
     saveGame();
 
     showScreen("club");
+
 }
 
 
@@ -1229,22 +3013,33 @@ CLUB
 
 function selectClub(club){
 
-    if(!SQUADS[club]){
-        alert("اسکواد این باشگاه پیدا نشد.");
+    if(!squads[club]){
+
+        alert(
+            "اسکواد این باشگاه پیدا نشد."
+        );
+
         return;
+
     }
 
     career.club=club;
 
-    players=SQUADS[club];
+    players=
+        squads[club];
 
-    lineup=getDefaultLineupForClub(club);
+    lineup=
+        getDefaultLineupForClub(
+            club
+        );
 
-    leagueTable=createEmptyTeamTable();
+    leagueTable=
+        createEmptyTeamTable();
 
     saveGame();
 
     showScreen("dashboard");
+
 }
 
 
@@ -1254,35 +3049,71 @@ DASHBOARD
 
 function updateDashboard(){
 
-    document.getElementById("dashboardCoach").innerText=
-        "👔 "+(career.coach||"مربی");
+    document.getElementById(
+        "dashboardCoach"
+    ).innerText=
+        "👔 "+
+        (
+            career.coach||
+            "مربی"
+        );
 
-    document.getElementById("dashboardClub").innerText=
-        "🏟️ "+(career.club||"بدون باشگاه");
+    document.getElementById(
+        "dashboardClub"
+    ).innerText=
+        "🏟️ "+
+        (
+            career.club||
+            "بدون باشگاه"
+        );
 
-    document.getElementById("seasonNumber").innerText=
+    document.getElementById(
+        "dashboardMoney"
+    ).innerText=
+        formatMoney(
+            career.money
+        );
+
+    document.getElementById(
+        "seasonNumber"
+    ).innerText=
         career.season;
 
-    document.getElementById("weekNumber").innerText=
+    document.getElementById(
+        "weekNumber"
+    ).innerText=
         career.week;
 
-    document.getElementById("points").innerText=
+    document.getElementById(
+        "points"
+    ).innerText=
         career.points;
 
-    document.getElementById("reputation").innerText=
+    document.getElementById(
+        "reputation"
+    ).innerText=
         career.reputation;
 
-    document.getElementById("wins").innerText=
+    document.getElementById(
+        "wins"
+    ).innerText=
         career.wins;
 
-    document.getElementById("matches").innerText=
+    document.getElementById(
+        "matches"
+    ).innerText=
         career.matches;
 
-    document.getElementById("goalsFor").innerText=
+    document.getElementById(
+        "goalsFor"
+    ).innerText=
         career.goalsFor;
 
-    document.getElementById("goalsAgainst").innerText=
+    document.getElementById(
+        "goalsAgainst"
+    ).innerText=
         career.goalsAgainst;
+
 }
 
 
@@ -1292,13 +3123,19 @@ TEAM
 
 function renderTeam(){
 
-    document.getElementById("teamTitle").innerText=
+    document.getElementById(
+        "teamTitle"
+    ).innerText=
         `ترکیب اصلی — ${career.club}`;
 
     renderPitch();
+
     renderRoster();
+
     updateSelectedPlayerBox();
+
     updateSubstitutionPanel();
+
 }
 
 
@@ -1308,46 +3145,80 @@ PITCH
 
 function renderPitch(){
 
-    const container=document.getElementById("pitchContainer");
+    const container=
+        document.getElementById(
+            "pitchContainer"
+        );
 
     const positions={
+
         gk:[50,91],
+
         lb:[12,72],
+
         lcb:[37,76],
+
         rcb:[63,76],
+
         rb:[88,72],
+
         cdm:[50,60],
+
         lcm:[32,47],
+
         rcm:[68,47],
+
         lw:[15,23],
+
         st:[50,17],
+
         rw:[85,23]
+
     };
 
-    let html=`<div class="pitch"><div class="center-circle"></div>`;
+    let html=
+        `<div class="pitch">
+            <div class="center-circle"></div>`;
 
     for(const slot in lineup){
 
-        const player=getPlayer(lineup[slot]);
+        const player=
+            getPlayer(
+                lineup[slot]
+            );
+
         if(!player)continue;
 
-        const pos=positions[slot];
+        const pos=
+            positions[slot];
 
         html+=`
+
         <div
             class="slot ${selectedSlot===slot?"selected":""}"
             style="left:${pos[0]}%;top:${pos[1]}%;"
             onclick="selectStarter('${slot}')"
         >
-            <div class="slot-ball">${player.number}</div>
-            <div class="slot-name">${player.name}</div>
+
+            <div class="slot-ball">
+                ${player.number}
+            </div>
+
+            <div class="slot-name">
+                ${player.name}
+            </div>
+
         </div>
+
         `;
+
     }
 
     html+=`</div>`;
 
-    container.innerHTML=html;
+    container.innerHTML=
+        html;
+
 }
 
 
@@ -1357,39 +3228,64 @@ ROSTER
 
 function renderRoster(){
 
-    const container=document.getElementById("roster");
+    const container=
+        document.getElementById(
+            "roster"
+        );
 
-    const starterIds=Object.values(lineup);
+    const starterIds=
+        Object.values(lineup);
 
-    container.innerHTML=players.map(p=>{
+    container.innerHTML=
+        players.map(p=>{
 
-        const isStarter=starterIds.includes(p.id);
+            const isStarter=
+                starterIds.includes(
+                    p.id
+                );
 
-        return`
-        <div
-            class="player"
-            onclick="handleRosterClick(${p.id})"
-        >
-            <div class="player-row">
+            return`
 
-                <div>
-                    <strong>#${p.number} ${p.name}</strong>
+            <div
+                class="player"
+                onclick="handleRosterClick(${p.id})"
+            >
 
-                    <div class="position">
-                        ${p.position}
-                        ${isStarter
-                            ?" • 🟢 ترکیب اصلی"
-                            :" • ⚪ نیمکت"}
+                <div class="player-row">
+
+                    <div>
+
+                        <strong>
+                            #${p.number}
+                            ${p.name}
+                        </strong>
+
+                        <div class="position">
+
+                            ${p.position}
+
+                            ${
+                                isStarter
+                                ?" • 🟢 ترکیب اصلی"
+                                :" • ⚪ نیمکت"
+                            }
+
+                        </div>
+
                     </div>
+
+                    <div class="ovr">
+                        ${p.ovr}
+                    </div>
+
                 </div>
 
-                <div class="ovr">${p.ovr}</div>
-
             </div>
-        </div>
-        `;
 
-    }).join("");
+            `;
+
+        }).join("");
+
 }
 
 
@@ -1400,26 +3296,35 @@ ROSTER CLICK
 function handleRosterClick(playerId){
 
     const starterSlot=
-        Object.keys(lineup).find(
-            slot=>lineup[slot]===playerId
-        );
+        Object.keys(lineup)
+            .find(
+                slot=>
+                    lineup[slot]===
+                    playerId
+            );
 
     if(starterSlot){
 
-        selectStarter(starterSlot);
+        selectStarter(
+            starterSlot
+        );
+
         return;
 
     }
 
     if(selectedSlot){
 
-        makeSubstitution(playerId);
+        makeSubstitution(
+            playerId
+        );
+
         return;
+
     }
 
-    alert(
-        "اول روی بازیکن داخل زمین بزن، سپس این بازیکن را انتخاب کن."
-    );
+    showPlayer(playerId);
+
 }
 
 
@@ -1429,11 +3334,15 @@ SELECT STARTER
 
 function selectStarter(slot){
 
-    selectedSlot=slot;
+    selectedSlot=
+        slot;
 
     renderPitch();
+
     updateSelectedPlayerBox();
+
     updateSubstitutionPanel();
+
 }
 
 
@@ -1443,27 +3352,44 @@ SELECTED PLAYER
 
 function updateSelectedPlayerBox(){
 
-    const box=document.getElementById("selectedPlayerBox");
+    const box=
+        document.getElementById(
+            "selectedPlayerBox"
+        );
 
     if(!selectedSlot){
+
         box.innerHTML="";
+
         return;
+
     }
 
-    const player=getPlayer(lineup[selectedSlot]);
+    const player=
+        getPlayer(
+            lineup[selectedSlot]
+        );
 
     if(!player)return;
 
     box.innerHTML=`
+
     <div class="selected-info">
-        <strong>🔄 بازیکن انتخاب‌شده:</strong>
+
+        <strong>
+            🔄 بازیکن انتخاب‌شده:
+        </strong>
+
         ${player.name}
 
         <div class="small">
             حالا از بخش نیمکت یک بازیکن انتخاب کن.
         </div>
+
     </div>
+
     `;
+
 }
 
 
@@ -1473,49 +3399,78 @@ SUBSTITUTION
 
 function updateSubstitutionPanel(){
 
-    const panel=document.getElementById("substitutionPanel");
+    const panel=
+        document.getElementById(
+            "substitutionPanel"
+        );
 
     if(!selectedSlot){
 
         panel.innerHTML=`
+
         <div class="card">
-            <h3>🔄 تعویض بازیکن</h3>
+
+            <h3>
+                🔄 تعویض بازیکن
+            </h3>
+
             <p class="info">
                 روی یکی از ۱۱ بازیکن داخل زمین بزن تا گزینه‌های نیمکت نمایش داده شوند.
             </p>
+
         </div>
+
         `;
 
         return;
+
     }
 
-    const current=getPlayer(lineup[selectedSlot]);
+    const current=
+        getPlayer(
+            lineup[selectedSlot]
+        );
 
-    const starters=Object.values(lineup);
+    const starters=
+        Object.values(lineup);
 
-    const bench=players.filter(
-        p=>!starters.includes(p.id)
-    );
+    const bench=
+        players.filter(
+            p=>!starters.includes(
+                p.id
+            )
+        );
 
     panel.innerHTML=`
+
     <div class="card">
 
-        <h3>🔄 تعویض ${current.name}</h3>
+        <h3>
+            🔄 تعویض ${current.name}
+        </h3>
 
         <p class="info">
             یکی از بازیکنان نیمکت را انتخاب کن:
         </p>
 
-        <h4 class="bench-title">🪑 نیمکت</h4>
+        <h4 class="bench-title">
+            🪑 نیمکت
+        </h4>
 
         ${
             bench.map(p=>`
+
                 <button
                     class="btn"
                     onclick="makeSubstitution(${p.id})"
                 >
-                    #${p.number} ${p.name} — OVR ${p.ovr}
+
+                    #${p.number}
+                    ${p.name}
+                    — OVR ${p.ovr}
+
                 </button>
+
             `).join("")
         }
 
@@ -1527,28 +3482,49 @@ function updateSubstitutionPanel(){
         </button>
 
     </div>
+
     `;
+
 }
 
 
 function makeSubstitution(playerId){
 
     if(!selectedSlot){
-        alert("اول یک بازیکن داخل زمین را انتخاب کن.");
+
+        alert(
+            "اول یک بازیکن داخل زمین را انتخاب کن."
+        );
+
         return;
+
     }
 
-    if(Object.values(lineup).includes(playerId)){
-        alert("این بازیکن همین الان در ترکیب اصلی است.");
+    if(
+        Object.values(lineup)
+            .includes(playerId)
+    ){
+
+        alert(
+            "این بازیکن همین الان در ترکیب اصلی است."
+        );
+
         return;
+
     }
 
-    const oldPlayer=getPlayer(lineup[selectedSlot]);
-    const newPlayer=getPlayer(playerId);
+    const oldPlayer=
+        getPlayer(
+            lineup[selectedSlot]
+        );
+
+    const newPlayer=
+        getPlayer(playerId);
 
     if(!newPlayer)return;
 
-    lineup[selectedSlot]=playerId;
+    lineup[selectedSlot]=
+        playerId;
 
     saveLineup();
 
@@ -1559,12 +3535,14 @@ function makeSubstitution(playerId){
     alert(
         `🔄 تعویض انجام شد!\n\n${oldPlayer.name} ➜ ${newPlayer.name}`
     );
+
 }
 
 
 function cancelSubstitution(){
 
     selectedSlot=null;
+
     renderTeam();
 
 }
@@ -1572,15 +3550,23 @@ function cancelSubstitution(){
 
 function resetLineup(){
 
-    if(!confirm("ترکیب به حالت اولیه برگردد؟"))return;
+    if(
+        !confirm(
+            "ترکیب به حالت اولیه برگردد؟"
+        )
+    )return;
 
-    lineup=getDefaultLineupForClub(career.club);
+    lineup=
+        getDefaultLineupForClub(
+            career.club
+        );
 
     selectedSlot=null;
 
     saveLineup();
 
     renderTeam();
+
 }
 
 
@@ -1590,22 +3576,62 @@ PLAYER
 
 function showPlayer(id){
 
-    const p=getPlayer(id);
+    const p=
+        getPlayer(id);
+
     if(!p)return;
 
-    document.getElementById("playerName").innerText=
-        "#"+p.number+" "+p.name;
+    document.getElementById(
+        "playerName"
+    ).innerText=
+        "#"+
+        p.number+
+        " "+
+        p.name;
 
-    document.getElementById("playerPosition").innerText=p.position;
-    document.getElementById("playerOVR").innerText="OVR "+p.ovr;
-    document.getElementById("playerPAC").innerText=p.pac;
-    document.getElementById("playerSHO").innerText=p.sho;
-    document.getElementById("playerPAS").innerText=p.pas;
-    document.getElementById("playerDRI").innerText=p.dri;
-    document.getElementById("playerDEF").innerText=p.def;
-    document.getElementById("playerPHY").innerText=p.phy;
+    document.getElementById(
+        "playerPosition"
+    ).innerText=
+        p.position;
+
+    document.getElementById(
+        "playerOVR"
+    ).innerText=
+        "OVR "+
+        p.ovr;
+
+    document.getElementById(
+        "playerPAC"
+    ).innerText=
+        p.pac;
+
+    document.getElementById(
+        "playerSHO"
+    ).innerText=
+        p.sho;
+
+    document.getElementById(
+        "playerPAS"
+    ).innerText=
+        p.pas;
+
+    document.getElementById(
+        "playerDRI"
+    ).innerText=
+        p.dri;
+
+    document.getElementById(
+        "playerDEF"
+    ).innerText=
+        p.def;
+
+    document.getElementById(
+        "playerPHY"
+    ).innerText=
+        p.phy;
 
     showScreen("player");
+
 }
 
 
@@ -1616,28 +3642,47 @@ TACTICS
 function changeFormation(){
 
     career.formation=
-        document.getElementById("formationSelect").value;
+        document.getElementById(
+            "formationSelect"
+        ).value;
 
     saveGame();
+
 }
 
 
 function changeMentality(){
 
     career.mentality=
-        document.getElementById("mentalitySelect").value;
+        document.getElementById(
+            "mentalitySelect"
+        ).value;
 
     saveGame();
+
 }
 
 
 function updateTacticInputs(){
 
-    const formation=document.getElementById("formationSelect");
-    const mentality=document.getElementById("mentalitySelect");
+    const formation=
+        document.getElementById(
+            "formationSelect"
+        );
 
-    if(formation)formation.value=career.formation;
-    if(mentality)mentality.value=career.mentality;
+    const mentality=
+        document.getElementById(
+            "mentalitySelect"
+        );
+
+    if(formation)
+        formation.value=
+            career.formation;
+
+    if(mentality)
+        mentality.value=
+            career.mentality;
+
 }
 
 
@@ -1648,74 +3693,136 @@ TEAM POWER
 function calculateTeamPower(){
 
     const attackPlayers=[
+
         getPlayer(lineup.lw),
         getPlayer(lineup.st),
         getPlayer(lineup.rw)
+
     ].filter(Boolean);
 
     const midfieldPlayers=[
+
         getPlayer(lineup.cdm),
         getPlayer(lineup.lcm),
         getPlayer(lineup.rcm)
+
     ].filter(Boolean);
 
     const defensePlayers=[
+
         getPlayer(lineup.lb),
         getPlayer(lineup.lcb),
         getPlayer(lineup.rcb),
         getPlayer(lineup.rb)
+
     ].filter(Boolean);
 
-    const goalkeeper=getPlayer(lineup.gk);
+    const goalkeeper=
+        getPlayer(
+            lineup.gk
+        );
 
-    const attack=average(
-        attackPlayers.map(
-            p=>p.pac*.20+p.sho*.45+p.dri*.25+p.pas*.10
-        )
-    );
+    const attack=
+        average(
+            attackPlayers.map(
+                p=>
+                    p.pac*.20+
+                    p.sho*.45+
+                    p.dri*.25+
+                    p.pas*.10
+            )
+        );
 
-    const midfield=average(
-        midfieldPlayers.map(
-            p=>p.pas*.40+p.dri*.25+p.def*.15+p.phy*.20
-        )
-    );
+    const midfield=
+        average(
+            midfieldPlayers.map(
+                p=>
+                    p.pas*.40+
+                    p.dri*.25+
+                    p.def*.15+
+                    p.phy*.20
+            )
+        );
 
-    const defense=average(
-        defensePlayers.map(
-            p=>p.def*.50+p.phy*.25+p.pac*.15+p.pas*.10
-        )
-    );
+    const defense=
+        average(
+            defensePlayers.map(
+                p=>
+                    p.def*.50+
+                    p.phy*.25+
+                    p.pac*.15+
+                    p.pas*.10
+            )
+        );
 
-    const goalkeeperPower=goalkeeper
-        ?goalkeeper.def*.55+
-         goalkeeper.phy*.20+
-         goalkeeper.pac*.10+
-         goalkeeper.pas*.15
-        :50;
+    const goalkeeperPower=
+        goalkeeper
+        ?
+            goalkeeper.def*.55+
+            goalkeeper.phy*.20+
+            goalkeeper.pac*.10+
+            goalkeeper.pas*.15
+        :
+            50;
 
     let attackModifier=1;
     let defenseModifier=1;
 
-    if(career.mentality==="attacking"){
+    if(
+        career.mentality===
+        "attacking"
+    ){
+
         attackModifier=1.08;
         defenseModifier=.94;
+
     }
 
-    if(career.mentality==="defensive"){
+    if(
+        career.mentality===
+        "defensive"
+    ){
+
         attackModifier=.94;
         defenseModifier=1.08;
+
     }
 
     let formationModifier=1;
 
-    if(career.formation==="4-3-3")formationModifier=1.03;
-    if(career.formation==="4-2-3-1")formationModifier=1.02;
-    if(career.formation==="3-5-2")formationModifier=1.01;
-    if(career.formation==="5-3-2")formationModifier=.98;
+    if(
+        career.formation===
+        "4-3-3"
+    )formationModifier=1.03;
 
-    const finalAttack=attack*attackModifier*formationModifier;
-    const finalMidfield=midfield*formationModifier;
-    const finalDefense=defense*defenseModifier*formationModifier;
+    if(
+        career.formation===
+        "4-2-3-1"
+    )formationModifier=1.02;
+
+    if(
+        career.formation===
+        "3-5-2"
+    )formationModifier=1.01;
+
+    if(
+        career.formation===
+        "5-3-2"
+    )formationModifier=.98;
+
+    const finalAttack=
+        attack*
+        attackModifier*
+        formationModifier;
+
+    const finalMidfield=
+        midfield*
+        formationModifier;
+
+    const finalDefense=
+        defense*
+        defenseModifier*
+        formationModifier;
 
     const total=
         finalAttack*.38+
@@ -1724,15 +3831,20 @@ function calculateTeamPower(){
         goalkeeperPower*.10;
 
     return{
+
         attack,
         midfield,
         defense,
         goalkeeperPower,
+
         finalAttack,
         finalMidfield,
         finalDefense,
+
         total
+
     };
+
 }
 
 
@@ -1742,19 +3854,26 @@ OPPONENT
 
 function getOpponent(){
 
-    const available=TEAM_DEFS.filter(
-        t=>t.name!==career.club
-    );
+    const available=
+        TEAM_DEFS.filter(
+            t=>t.name!==career.club
+        );
 
     const selected=
         available[
-            Math.floor(Math.random()*available.length)
+            Math.floor(
+                Math.random()*
+                available.length
+            )
         ];
 
     return{
+
         name:selected.name,
         strength:selected.strength
+
     };
+
 }
 
 
@@ -1765,61 +3884,89 @@ SCORER
 function chooseScorer(){
 
     const candidates=[
+
         getPlayer(lineup.lw),
         getPlayer(lineup.st),
         getPlayer(lineup.rw),
         getPlayer(lineup.lcm),
         getPlayer(lineup.rcm)
+
     ].filter(Boolean);
 
     let total=0;
 
-    const weights=candidates.map(p=>{
+    const weights=
+        candidates.map(p=>{
 
-        const weight=p.sho+p.dri*.35+p.pac*.20;
+            const weight=
+                p.sho+
+                p.dri*.35+
+                p.pac*.20;
 
-        total+=weight;
+            total+=weight;
 
-        return weight;
-    });
+            return weight;
 
-    let random=Math.random()*total;
+        });
 
-    for(let i=0;i<candidates.length;i++){
+    let random=
+        Math.random()*
+        total;
+
+    for(
+        let i=0;
+        i<candidates.length;
+        i++
+    ){
 
         random-=weights[i];
 
-        if(random<=0)return candidates[i];
+        if(random<=0)
+            return candidates[i];
+
     }
 
     return candidates[0];
+
 }
 
 
 function chooseAssist(scorer){
 
     const candidates=[
+
         getPlayer(lineup.lw),
         getPlayer(lineup.st),
         getPlayer(lineup.rw),
         getPlayer(lineup.lcm),
         getPlayer(lineup.rcm),
         getPlayer(lineup.cdm)
+
     ].filter(
-        p=>p&&p.id!==scorer.id
+        p=>
+            p&&
+            p.id!==scorer.id
     );
 
-    if(!candidates.length)return null;
+    if(!candidates.length)
+        return null;
 
     candidates.sort(
-        (a,b)=>(b.pas+b.dri)-(a.pas+a.dri)
+        (a,b)=>
+            (b.pas+b.dri)-
+            (a.pas+a.dri)
     );
 
     return candidates[
         Math.floor(
-            Math.random()*Math.min(3,candidates.length)
+            Math.random()*
+            Math.min(
+                3,
+                candidates.length
+            )
         )
     ];
+
 }
 
 
@@ -1830,96 +3977,193 @@ START MATCH
 function startMatch(){
 
     if(!career.club){
-        alert("اول یک باشگاه انتخاب کن.");
+
+        alert(
+            "اول یک باشگاه انتخاب کن."
+        );
+
         return;
+
     }
 
     if(matchTimer){
-        clearInterval(matchTimer);
+
+        clearInterval(
+            matchTimer
+        );
+
         matchTimer=null;
+
     }
 
-    const starters=Object.values(lineup)
-        .map(id=>getPlayer(id))
-        .filter(Boolean);
+    const starters=
+        Object.values(lineup)
+            .map(
+                id=>getPlayer(id)
+            )
+            .filter(Boolean);
 
-    if(starters.length!==11){
-        alert("ترکیب باید دقیقاً ۱۱ بازیکن داشته باشد! ⚠️");
+    if(
+        starters.length!==11
+    ){
+
+        alert(
+            "ترکیب باید دقیقاً ۱۱ بازیکن داشته باشد! ⚠️"
+        );
+
         return;
+
     }
 
-    const teamPower=calculateTeamPower();
-    const opponent=getOpponent();
+    const teamPower=
+        calculateTeamPower();
+
+    const opponent=
+        getOpponent();
 
     const difference=
-        teamPower.total-opponent.strength;
+        teamPower.total-
+        opponent.strength;
 
-    let ourExpected=1.15+difference*.035;
-    let opponentExpected=1.05-difference*.025;
+    let ourExpected=
+        1.15+
+        difference*.035;
 
-    if(career.mentality==="attacking"){
+    let opponentExpected=
+        1.05-
+        difference*.025;
+
+    if(
+        career.mentality===
+        "attacking"
+    ){
+
         ourExpected+=.25;
         opponentExpected+=.12;
+
     }
 
-    if(career.mentality==="defensive"){
+    if(
+        career.mentality===
+        "defensive"
+    ){
+
         ourExpected-=.15;
         opponentExpected-=.25;
+
     }
 
-    ourExpected=Math.max(.2,Math.min(3.5,ourExpected));
-    opponentExpected=Math.max(.15,Math.min(3.5,opponentExpected));
+    ourExpected=
+        Math.max(
+            .2,
+            Math.min(
+                3.5,
+                ourExpected
+            )
+        );
+
+    opponentExpected=
+        Math.max(
+            .15,
+            Math.min(
+                3.5,
+                opponentExpected
+            )
+        );
 
     matchState={
+
         opponent,
+
         teamPower,
+
         minute:0,
+
         homeScore:0,
         awayScore:0,
+
         events:[],
+
         shotsHome:0,
         shotsAway:0,
+
         targetHome:0,
         targetAway:0,
+
         possessionHome:50,
         possessionAway:50,
+
         playerStats:{},
-        expectedHome:ourExpected,
-        expectedAway:opponentExpected,
+
+        expectedHome:
+            ourExpected,
+
+        expectedAway:
+            opponentExpected,
+
         finished:false
+
     };
 
     starters.forEach(p=>{
+
         matchState.playerStats[p.id]={
+
             rating:6.2,
             goals:0,
             assists:0,
             yellows:0,
             saves:0
+
         };
+
     });
 
-    document.getElementById("matchHome").innerText=career.club;
-    document.getElementById("matchAway").innerText=opponent.name;
+    document.getElementById(
+        "matchHome"
+    ).innerText=
+        career.club;
 
-    document.getElementById("homeScore").innerText="0";
-    document.getElementById("awayScore").innerText="0";
+    document.getElementById(
+        "matchAway"
+    ).innerText=
+        opponent.name;
 
-    document.getElementById("matchStatus").innerText=
+    document.getElementById(
+        "homeScore"
+    ).innerText="0";
+
+    document.getElementById(
+        "awayScore"
+    ).innerText="0";
+
+    document.getElementById(
+        "matchStatus"
+    ).innerText=
         "در حال برگزاری...";
 
-    document.getElementById("liveEvents").innerHTML=
-        `<div class="live-event">🟢 بازی شروع شد!</div>`;
+    document.getElementById(
+        "liveEvents"
+    ).innerHTML=
+        `<div class="live-event">
+            🟢 بازی شروع شد!
+        </div>`;
 
-    document.getElementById("motm").innerText=
+    document.getElementById(
+        "motm"
+    ).innerText=
         "هنوز مسابقه تمام نشده.";
 
-    document.getElementById("finishMatchButton").disabled=true;
+    document.getElementById(
+        "finishMatchButton"
+    ).disabled=true;
 
     showScreen("match");
 
     updateMatchUI();
+
     runMatch();
+
 }
 
 
@@ -1929,35 +4173,58 @@ RUN MATCH
 
 function runMatch(){
 
-    matchTimer=setInterval(()=>{
+    matchTimer=
+        setInterval(()=>{
 
-        if(!matchState||matchState.finished){
+            if(
+                !matchState||
+                matchState.finished
+            ){
 
-            clearInterval(matchTimer);
-            matchTimer=null;
-            return;
-        }
+                clearInterval(
+                    matchTimer
+                );
 
-        if(matchState.minute>=90){
+                matchTimer=null;
 
-            clearInterval(matchTimer);
-            matchTimer=null;
+                return;
 
-            finishMatch();
-            return;
-        }
+            }
 
-        const step=Math.random()<.12?2:1;
+            if(
+                matchState.minute>=90
+            ){
 
-        matchState.minute=Math.min(
-            90,
-            matchState.minute+step
-        );
+                clearInterval(
+                    matchTimer
+                );
 
-        simulateMinute();
-        updateMatchUI();
+                matchTimer=null;
 
-    },180);
+                finishMatch();
+
+                return;
+
+            }
+
+            const step=
+                Math.random()<.12
+                ?2
+                :1;
+
+            matchState.minute=
+                Math.min(
+                    90,
+                    matchState.minute+
+                    step
+                );
+
+            simulateMinute();
+
+            updateMatchUI();
+
+        },180);
+
 }
 
 
@@ -1967,53 +4234,89 @@ SIMULATE
 
 function simulateMinute(){
 
-    const minute=matchState.minute;
-    const power=matchState.teamPower;
+    const minute=
+        matchState.minute;
 
-    let homeChance=.075+power.finalAttack/1000;
+    const power=
+        matchState.teamPower;
 
-    let awayChance=.070+
-        matchState.opponent.strength/1100;
+    let homeChance=
+        .075+
+        power.finalAttack/1000;
 
-    if(career.mentality==="attacking"){
+    let awayChance=
+        .070+
+        matchState.opponent.strength/
+        1100;
+
+    if(
+        career.mentality===
+        "attacking"
+    ){
+
         homeChance+=.018;
+
     }
 
-    if(career.mentality==="defensive"){
+    if(
+        career.mentality===
+        "defensive"
+    ){
+
         awayChance-=.012;
+
     }
 
     const possessionBase=
         50+
-        (power.finalMidfield-matchState.opponent.strength)*.45;
+        (
+            power.finalMidfield-
+            matchState.opponent.strength
+        )*.45;
 
-    matchState.possessionHome=Math.max(
-        35,
-        Math.min(
-            65,
-            possessionBase+randomBetween(-3,3)
-        )
-    );
+    matchState.possessionHome=
+        Math.max(
+            35,
+            Math.min(
+                65,
+                possessionBase+
+                randomBetween(-3,3)
+            )
+        );
 
     matchState.possessionAway=
-        100-matchState.possessionHome;
+        100-
+        matchState.possessionHome;
 
-    if(Math.random()<homeChance){
+    if(
+        Math.random()<
+        homeChance
+    ){
 
         matchState.shotsHome++;
 
-        const targetChance=.30+power.finalAttack/300;
+        const targetChance=
+            .30+
+            power.finalAttack/
+            300;
 
-        if(Math.random()<targetChance){
+        if(
+            Math.random()<
+            targetChance
+        ){
 
             matchState.targetHome++;
 
             if(
                 Math.random()<
-                .16+power.finalAttack/500
+                .16+
+                power.finalAttack/
+                500
             ){
 
-                scoreHomeGoal(minute);
+                scoreHomeGoal(
+                    minute
+                );
 
             }else{
 
@@ -2023,6 +4326,7 @@ function simulateMinute(){
                     "دروازه‌بان حریف شوت تیم را مهار کرد.",
                     "save"
                 );
+
             }
 
         }else{
@@ -2033,37 +4337,64 @@ function simulateMinute(){
                 "شوت تیم به بیرون رفت.",
                 "shot"
             );
+
         }
+
     }
 
-    if(Math.random()<awayChance){
+
+    if(
+        Math.random()<
+        awayChance
+    ){
 
         matchState.shotsAway++;
 
         const targetChance=
-            .28+matchState.opponent.strength/320;
+            .28+
+            matchState.opponent.strength/
+            320;
 
-        if(Math.random()<targetChance){
+        if(
+            Math.random()<
+            targetChance
+        ){
 
             matchState.targetAway++;
 
-            const goalkeeper=getPlayer(lineup.gk);
+            const goalkeeper=
+                getPlayer(
+                    lineup.gk
+                );
 
-            const savePower=goalkeeper
-                ?goalkeeper.def*.55+goalkeeper.phy*.25
-                :50;
+            const savePower=
+                goalkeeper
+                ?
+                    goalkeeper.def*.55+
+                    goalkeeper.phy*.25
+                :
+                    50;
 
-            if(Math.random()<.25+savePower/400){
+            if(
+                Math.random()<
+                .25+
+                savePower/400
+            ){
 
                 if(goalkeeper){
 
-                    matchState.playerStats[
-                        goalkeeper.id
-                    ].saves++;
+                    matchState
+                        .playerStats[
+                            goalkeeper.id
+                        ]
+                        .saves++;
 
-                    matchState.playerStats[
-                        goalkeeper.id
-                    ].rating+=.12;
+                    matchState
+                        .playerStats[
+                            goalkeeper.id
+                        ]
+                        .rating+=.12;
+
                 }
 
                 addEvent(
@@ -2079,7 +4410,10 @@ function simulateMinute(){
 
             }else{
 
-                scoreAwayGoal(minute);
+                scoreAwayGoal(
+                    minute
+                );
+
             }
 
         }else{
@@ -2090,21 +4424,38 @@ function simulateMinute(){
                 "شوت حریف از کنار دروازه بیرون رفت.",
                 "shot"
             );
+
         }
+
     }
 
-    if(Math.random()<.018){
 
-        const starters=Object.values(lineup)
-            .map(id=>getPlayer(id))
-            .filter(Boolean);
+    if(
+        Math.random()<.018
+    ){
 
-        const p=starters[
-            Math.floor(Math.random()*starters.length)
-        ];
+        const starters=
+            Object.values(lineup)
+                .map(
+                    id=>getPlayer(id)
+                )
+                .filter(Boolean);
 
-        matchState.playerStats[p.id].yellows++;
-        matchState.playerStats[p.id].rating-=.10;
+        const p=
+            starters[
+                Math.floor(
+                    Math.random()*
+                    starters.length
+                )
+            ];
+
+        matchState
+            .playerStats[p.id]
+            .yellows++;
+
+        matchState
+            .playerStats[p.id]
+            .rating-=.10;
 
         addEvent(
             minute,
@@ -2112,26 +4463,36 @@ function simulateMinute(){
             `${p.name} کارت زرد گرفت.`,
             "yellow"
         );
+
     }
 
+
     if(
-        Math.random()<.025 &&
+        Math.random()<.025&&
         power.finalDefense>65
     ){
 
         const defenders=[
+
             getPlayer(lineup.lcb),
             getPlayer(lineup.rcb),
             getPlayer(lineup.lb),
             getPlayer(lineup.rb),
             getPlayer(lineup.cdm)
+
         ].filter(Boolean);
 
-        const p=defenders[
-            Math.floor(Math.random()*defenders.length)
-        ];
+        const p=
+            defenders[
+                Math.floor(
+                    Math.random()*
+                    defenders.length
+                )
+            ];
 
-        matchState.playerStats[p.id].rating+=.08;
+        matchState
+            .playerStats[p.id]
+            .rating+=.08;
 
         addEvent(
             minute,
@@ -2139,7 +4500,9 @@ function simulateMinute(){
             `${p.name} با یک حرکت دفاعی خوب حمله حریف را متوقف کرد.`,
             "defense"
         );
+
     }
+
 }
 
 
@@ -2151,21 +4514,46 @@ function scoreHomeGoal(minute){
 
     matchState.homeScore++;
 
-    const scorer=chooseScorer();
-    const assist=chooseAssist(scorer);
+    const scorer=
+        chooseScorer();
 
-    matchState.playerStats[scorer.id].goals++;
-    matchState.playerStats[scorer.id].rating+=.70;
+    const assist=
+        chooseAssist(
+            scorer
+        );
+
+    matchState
+        .playerStats[
+            scorer.id
+        ]
+        .goals++;
+
+    matchState
+        .playerStats[
+            scorer.id
+        ]
+        .rating+=.70;
 
     let text=
         `گللللل! ${scorer.name} برای ${career.club} گل زد`;
 
     if(assist){
 
-        matchState.playerStats[assist.id].assists++;
-        matchState.playerStats[assist.id].rating+=.35;
+        matchState
+            .playerStats[
+                assist.id
+            ]
+            .assists++;
 
-        text+=` | 🎯 پاس گل: ${assist.name}`;
+        matchState
+            .playerStats[
+                assist.id
+            ]
+            .rating+=.35;
+
+        text+=
+            ` | 🎯 پاس گل: ${assist.name}`;
+
     }
 
     addEvent(
@@ -2174,6 +4562,7 @@ function scoreHomeGoal(minute){
         text,
         "goal"
     );
+
 }
 
 
@@ -2187,17 +4576,26 @@ function scoreAwayGoal(minute){
         `حریف در دقیقه ${minute} به گل رسید.`,
         "opponent-goal"
     );
+
 }
 
 
-function addEvent(minute,icon,text,type){
+function addEvent(
+    minute,
+    icon,
+    text,
+    type
+){
 
     matchState.events.push({
+
         minute,
         icon,
         text,
         type
+
     });
+
 }
 
 
@@ -2209,49 +4607,94 @@ function updateMatchUI(){
 
     if(!matchState)return;
 
-    document.getElementById("matchMinute").innerText=
+    document.getElementById(
+        "matchMinute"
+    ).innerText=
         `دقیقه ${matchState.minute}`;
 
-    document.getElementById("homeScore").innerText=
+    document.getElementById(
+        "homeScore"
+    ).innerText=
         matchState.homeScore;
 
-    document.getElementById("awayScore").innerText=
+    document.getElementById(
+        "awayScore"
+    ).innerText=
         matchState.awayScore;
 
-    document.getElementById("possessionHome").innerText=
-        Math.round(matchState.possessionHome)+"%";
+    document.getElementById(
+        "possessionHome"
+    ).innerText=
+        Math.round(
+            matchState.possessionHome
+        )+"%";
 
-    document.getElementById("possessionAway").innerText=
-        Math.round(matchState.possessionAway)+"%";
+    document.getElementById(
+        "possessionAway"
+    ).innerText=
+        Math.round(
+            matchState.possessionAway
+        )+"%";
 
-    document.getElementById("shotsHome").innerText=
+    document.getElementById(
+        "shotsHome"
+    ).innerText=
         matchState.shotsHome;
 
-    document.getElementById("shotsAway").innerText=
+    document.getElementById(
+        "shotsAway"
+    ).innerText=
         matchState.shotsAway;
 
-    document.getElementById("shotsTargetHome").innerText=
+    document.getElementById(
+        "shotsTargetHome"
+    ).innerText=
         matchState.targetHome;
 
-    document.getElementById("shotsTargetAway").innerText=
+    document.getElementById(
+        "shotsTargetAway"
+    ).innerText=
         matchState.targetAway;
 
-    const box=document.getElementById("liveEvents");
+    const box=
+        document.getElementById(
+            "liveEvents"
+        );
 
-    const events=[...matchState.events].sort(
-        (a,b)=>a.minute-b.minute
-    );
+    const events=
+        [...matchState.events]
+            .sort(
+                (a,b)=>
+                    a.minute-b.minute
+            );
 
-    box.innerHTML=events.map(e=>`
-        <div class="live-event ${e.type==="goal"?"goal":""}">
-            <strong>${e.minute}'</strong>
-            ${e.icon} ${e.text}
+    box.innerHTML=
+        events.map(e=>`
+
+        <div
+            class="live-event ${
+                e.type==="goal"
+                ?"goal"
+                :""
+            }"
+        >
+
+            <strong>
+                ${e.minute}'
+            </strong>
+
+            ${e.icon}
+            ${e.text}
+
         </div>
-    `).join("");
 
-    box.scrollTop=box.scrollHeight;
+        `).join("");
+
+    box.scrollTop=
+        box.scrollHeight;
 
     renderLiveRatings();
+
 }
 
 
@@ -2261,51 +4704,102 @@ RATINGS
 
 function renderLiveRatings(){
 
-    const box=document.getElementById("matchRatings");
+    const box=
+        document.getElementById(
+            "matchRatings"
+        );
 
     if(!matchState)return;
 
-    const starters=Object.values(lineup)
-        .map(id=>getPlayer(id))
-        .filter(Boolean);
+    const starters=
+        Object.values(lineup)
+            .map(
+                id=>getPlayer(id)
+            )
+            .filter(Boolean);
 
-    const sorted=[...starters].sort(
-        (a,b)=>
-            matchState.playerStats[b.id].rating-
-            matchState.playerStats[a.id].rating
-    );
-
-    box.innerHTML=sorted.map(p=>{
-
-        const s=matchState.playerStats[p.id];
-
-        const rating=Math.max(
-            5.5,
-            Math.min(9.9,s.rating)
+    const sorted=
+        [...starters].sort(
+            (a,b)=>
+                matchState
+                    .playerStats[b.id]
+                    .rating-
+                matchState
+                    .playerStats[a.id]
+                    .rating
         );
 
-        return`
-        <div class="player">
-            <div class="player-row">
-                <div>
-                    <strong>#${p.number} ${p.name}</strong>
+    box.innerHTML=
+        sorted.map(p=>{
 
-                    <div class="position">
-                        ${s.goals?`⚽ ${s.goals} `:""}
-                        ${s.assists?`🎯 ${s.assists} `:""}
-                        ${s.saves?`🧤 ${s.saves}`:""}
-                        ${s.yellows?`🟨 ${s.yellows}`:""}
+            const s=
+                matchState
+                    .playerStats[p.id];
+
+            const rating=
+                Math.max(
+                    5.5,
+                    Math.min(
+                        9.9,
+                        s.rating
+                    )
+                );
+
+            return`
+
+            <div class="player">
+
+                <div class="player-row">
+
+                    <div>
+
+                        <strong>
+                            #${p.number}
+                            ${p.name}
+                        </strong>
+
+                        <div class="position">
+
+                            ${
+                                s.goals
+                                ?`⚽ ${s.goals} `
+                                :""
+                            }
+
+                            ${
+                                s.assists
+                                ?`🎯 ${s.assists} `
+                                :""
+                            }
+
+                            ${
+                                s.saves
+                                ?`🧤 ${s.saves}`
+                                :""
+                            }
+
+                            ${
+                                s.yellows
+                                ?`🟨 ${s.yellows}`
+                                :""
+                            }
+
+                        </div>
+
                     </div>
+
+                    <div class="rating">
+                        ${rating.toFixed(1)}
+                    </div>
+
                 </div>
 
-                <div class="rating">
-                    ${rating.toFixed(1)}
-                </div>
             </div>
-        </div>
-        `;
 
-    }).join("");
+            `;
+
+        }).join("");
+
 }
 
 
@@ -2315,41 +4809,60 @@ FINISH MATCH
 
 function finishMatch(){
 
-    if(!matchState||matchState.finished)return;
+    if(
+        !matchState||
+        matchState.finished
+    )return;
 
     matchState.finished=true;
 
     let result="draw";
 
-    if(matchState.homeScore>matchState.awayScore){
+    if(
+        matchState.homeScore>
+        matchState.awayScore
+    ){
 
         result="win";
 
         career.wins++;
+
         career.points+=3;
+
         career.reputation+=2;
 
-    }else if(matchState.homeScore<matchState.awayScore){
+    }else if(
+        matchState.homeScore<
+        matchState.awayScore
+    ){
 
         result="loss";
 
         career.losses++;
-        career.reputation=Math.max(
-            0,
-            career.reputation-1
-        );
+
+        career.reputation=
+            Math.max(
+                0,
+                career.reputation-1
+            );
 
     }else{
 
         career.draws++;
+
         career.points++;
+
         career.reputation++;
+
     }
 
     career.matches++;
 
-    career.goalsFor+=matchState.homeScore;
-    career.goalsAgainst+=matchState.awayScore;
+    career.goalsFor+=
+        matchState.homeScore;
+
+    career.goalsAgainst+=
+        matchState.awayScore;
 
     updateLeagueAfterMatch(
         career.club,
@@ -2360,38 +4873,50 @@ function finishMatch(){
 
     career.week++;
 
-    /*
-       16 تیم داریم.
-       برای ساده و پایدار ماندن سیستم فعلی،
-       هر فصل 15 بازی برای تیم شما در نظر گرفته می‌شود.
-    */
-
     const matchesPerSeason=15;
 
-    if(career.matches>=matchesPerSeason){
+    if(
+        career.matches>=
+        matchesPerSeason
+    ){
 
         career.season++;
+
         career.week=1;
 
-        leagueTable=createEmptyTeamTable();
+        leagueTable=
+            createEmptyTeamTable();
 
         career.points=0;
+
         career.wins=0;
         career.draws=0;
         career.losses=0;
+
         career.goalsFor=0;
         career.goalsAgainst=0;
+
         career.matches=0;
+
     }
 
     let finalText;
 
     if(result==="win"){
-        finalText="🎉 سوت پایان! تیم شما پیروز شد.";
+
+        finalText=
+            "🎉 سوت پایان! تیم شما پیروز شد.";
+
     }else if(result==="draw"){
-        finalText="🤝 سوت پایان! مسابقه مساوی شد.";
+
+        finalText=
+            "🤝 سوت پایان! مسابقه مساوی شد.";
+
     }else{
-        finalText="😔 سوت پایان! تیم شما شکست خورد.";
+
+        finalText=
+            "😔 سوت پایان! تیم شما شکست خورد.";
+
     }
 
     addEvent(
@@ -2402,20 +4927,26 @@ function finishMatch(){
     );
 
     calculateFinalRatings();
+
     showMOTM();
 
-    document.getElementById("matchStatus").innerText=
+    document.getElementById(
+        "matchStatus"
+    ).innerText=
         result==="win"
         ?"🎉 پیروزی"
         :result==="draw"
         ?"🤝 مساوی"
         :"😔 شکست";
 
-    document.getElementById("finishMatchButton").disabled=false;
+    document.getElementById(
+        "finishMatchButton"
+    ).disabled=false;
 
     saveGame();
 
     updateMatchUI();
+
 }
 
 
@@ -2431,7 +4962,9 @@ function updateLeagueAfterMatch(
 ){
 
     if(!leagueTable[home]){
+
         leagueTable[home]={
+
             played:0,
             wins:0,
             draws:0,
@@ -2439,11 +4972,15 @@ function updateLeagueAfterMatch(
             gf:0,
             ga:0,
             points:0
+
         };
+
     }
 
     if(!leagueTable[away]){
+
         leagueTable[away]={
+
             played:0,
             wins:0,
             draws:0,
@@ -2451,11 +4988,16 @@ function updateLeagueAfterMatch(
             gf:0,
             ga:0,
             points:0
+
         };
+
     }
 
-    const h=leagueTable[home];
-    const a=leagueTable[away];
+    const h=
+        leagueTable[home];
+
+    const a=
+        leagueTable[away];
 
     h.played++;
     a.played++;
@@ -2466,14 +5008,20 @@ function updateLeagueAfterMatch(
     a.gf+=awayGoals;
     a.ga+=homeGoals;
 
-    if(homeGoals>awayGoals){
+    if(
+        homeGoals>
+        awayGoals
+    ){
 
         h.wins++;
         h.points+=3;
 
         a.losses++;
 
-    }else if(homeGoals<awayGoals){
+    }else if(
+        homeGoals<
+        awayGoals
+    ){
 
         a.wins++;
         a.points+=3;
@@ -2487,9 +5035,11 @@ function updateLeagueAfterMatch(
 
         h.points++;
         a.points++;
+
     }
 
     saveTable();
+
 }
 
 
@@ -2499,25 +5049,43 @@ FINAL RATINGS
 
 function calculateFinalRatings(){
 
-    Object.keys(matchState.playerStats).forEach(id=>{
+    Object.keys(
+        matchState.playerStats
+    ).forEach(id=>{
 
-        const s=matchState.playerStats[id];
+        const s=
+            matchState.playerStats[id];
 
-        let rating=s.rating;
+        let rating=
+            s.rating;
 
-        if(matchState.homeScore>matchState.awayScore)
+        if(
+            matchState.homeScore>
+            matchState.awayScore
+        )
             rating+=.25;
 
-        if(matchState.homeScore<matchState.awayScore)
+        if(
+            matchState.homeScore<
+            matchState.awayScore
+        )
             rating-=.20;
 
-        rating+=Math.random()*.30-.15;
+        rating+=
+            Math.random()*.30-
+            .15;
 
-        s.rating=Math.max(
-            5.5,
-            Math.min(9.8,rating)
-        );
+        s.rating=
+            Math.max(
+                5.5,
+                Math.min(
+                    9.8,
+                    rating
+                )
+            );
+
     });
+
 }
 
 
@@ -2527,41 +5095,68 @@ MOTM
 
 function showMOTM(){
 
-    const starters=Object.values(lineup)
-        .map(id=>getPlayer(id))
-        .filter(Boolean);
+    const starters=
+        Object.values(lineup)
+            .map(
+                id=>getPlayer(id)
+            )
+            .filter(Boolean);
 
     let best=null;
 
     starters.forEach(p=>{
 
         const rating=
-            matchState.playerStats[p.id].rating;
+            matchState
+                .playerStats[p.id]
+                .rating;
 
         if(
-            !best ||
+            !best||
             rating>
-            matchState.playerStats[best.id].rating
+            matchState
+                .playerStats[best.id]
+                .rating
         ){
+
             best=p;
+
         }
+
     });
 
     if(!best)return;
 
-    const s=matchState.playerStats[best.id];
+    const s=
+        matchState
+            .playerStats[best.id];
 
-    document.getElementById("motm").innerHTML=`
-        <h2>🏆 ${best.name}</h2>
+    document.getElementById(
+        "motm"
+    ).innerHTML=`
+
+        <h2>
+            🏆 ${best.name}
+        </h2>
 
         <div class="big">
             ${s.rating.toFixed(1)}
         </div>
 
-        <p>⚽ گل: ${s.goals}</p>
-        <p>🎯 پاس گل: ${s.assists}</p>
-        <p>🧤 سیو: ${s.saves}</p>
+        <p>
+            ⚽ گل: ${s.goals}
+        </p>
+
+        <p>
+            🎯 پاس گل: ${s.assists}
+        </p>
+
+        <p>
+            🧤 سیو: ${s.saves}
+        </p>
+
     `;
+
 }
 
 
@@ -2571,70 +5166,120 @@ TABLE
 
 function renderTable(){
 
-    document.getElementById("tableSeason").innerText=
+    document.getElementById(
+        "tableSeason"
+    ).innerText=
         career.season;
 
-    const teams=leagueTeams.map(name=>{
+    const teams=
+        leagueTeams.map(name=>{
 
-        if(!leagueTable[name]){
-            leagueTable[name]={
-                played:0,
-                wins:0,
-                draws:0,
-                losses:0,
-                gf:0,
-                ga:0,
-                points:0
+            if(!leagueTable[name]){
+
+                leagueTable[name]={
+
+                    played:0,
+                    wins:0,
+                    draws:0,
+                    losses:0,
+                    gf:0,
+                    ga:0,
+                    points:0
+
+                };
+
+            }
+
+            return{
+
+                name,
+                ...leagueTable[name]
+
             };
-        }
 
-        return{
-            name,
-            ...leagueTable[name]
-        };
-    });
+        });
 
     teams.sort((a,b)=>{
 
-        if(b.points!==a.points)
-            return b.points-a.points;
+        if(
+            b.points!==
+            a.points
+        )
+            return b.points-
+                a.points;
 
-        const gdA=a.gf-a.ga;
-        const gdB=b.gf-b.ga;
+        const gdA=
+            a.gf-a.ga;
+
+        const gdB=
+            b.gf-b.ga;
 
         if(gdB!==gdA)
             return gdB-gdA;
 
         return b.gf-a.gf;
+
     });
 
-    document.getElementById("leagueTable").innerHTML=
+    document.getElementById(
+        "leagueTable"
+    ).innerHTML=
         teams.map((t,i)=>`
 
-        <tr class="${t.name===career.club?"my-team":""}">
-
-            <td>${i+1}</td>
+        <tr
+            class="${
+                t.name===career.club
+                ?"my-team"
+                :""
+            }"
+        >
 
             <td>
-                ${t.name}
-                ${t.name===career.club?" ⭐":""}
+                ${i+1}
             </td>
 
-            <td>${t.played}</td>
+            <td>
 
-            <td>${t.wins}</td>
+                ${t.name}
 
-            <td>${t.draws}</td>
+                ${
+                    t.name===career.club
+                    ?" ⭐"
+                    :""
+                }
 
-            <td>${t.losses}</td>
+            </td>
 
-            <td>${t.gf}:${t.ga}</td>
+            <td>
+                ${t.played}
+            </td>
 
-            <td><strong>${t.points}</strong></td>
+            <td>
+                ${t.wins}
+            </td>
+
+            <td>
+                ${t.draws}
+            </td>
+
+            <td>
+                ${t.losses}
+            </td>
+
+            <td>
+                ${t.gf}:${t.ga}
+            </td>
+
+            <td>
+                <strong>
+                    ${t.points}
+                </strong>
+            </td>
 
         </tr>
 
         `).join("");
+
 }
 
 
@@ -2646,13 +5291,19 @@ function saveGame(){
 
     localStorage.setItem(
         CAREER_KEY,
-        JSON.stringify(career)
+        JSON.stringify(
+            career
+        )
     );
 
     saveLineup();
+
     saveTable();
 
+    saveSquads();
+
     updateHomeSaveStatus();
+
 }
 
 
@@ -2660,8 +5311,11 @@ function saveLineup(){
 
     localStorage.setItem(
         LINEUP_KEY,
-        JSON.stringify(lineup)
+        JSON.stringify(
+            lineup
+        )
     );
+
 }
 
 
@@ -2669,8 +5323,11 @@ function saveTable(){
 
     localStorage.setItem(
         TABLE_KEY,
-        JSON.stringify(leagueTable)
+        JSON.stringify(
+            leagueTable
+        )
     );
+
 }
 
 
@@ -2680,13 +5337,18 @@ NEW CAREER CONFIRM
 
 function newCareerConfirm(){
 
-    if(!confirm(
-        "⚠️ تمام اطلاعات کریر فعلی، نتایج و جدول فصل پاک می‌شود و یک کریر کاملاً جدید شروع خواهد شد.\n\nادامه می‌دهی؟"
-    )){
+    if(
+        !confirm(
+            "⚠️ تمام اطلاعات کریر فعلی، نتایج، جدول، خریدها و فروش‌های نقل‌وانتقالاتی پاک می‌شود و یک کریر کاملاً جدید شروع خواهد شد.\n\nادامه می‌دهی؟"
+        )
+    ){
+
         return;
+
     }
 
     startNewCareer();
+
 }
 
 
@@ -2696,8 +5358,12 @@ AUTO SAVE
 
 setInterval(()=>{
 
-    if(hasSavedCareer()){
+    if(
+        hasSavedCareer()
+    ){
+
         saveGame();
+
     }
 
 },3000);
@@ -2707,10 +5373,19 @@ setInterval(()=>{
 INITIAL
 ===================================================== */
 
-career=createEmptyCareer();
+career=
+    createEmptyCareer();
+
+loadSquads();
+
 players=[];
-lineup={...defaultLineup};
-leagueTable=createEmptyTeamTable();
+
+lineup={
+    ...defaultLineup
+};
+
+leagueTable=
+    createEmptyTeamTable();
 
 updateHomeSaveStatus();
 
@@ -2719,4 +5394,4 @@ showScreen("home");
 </script>
 
 </body>
-            </html>
+    </html>
