@@ -1169,42 +1169,6 @@ function formatMoney(v){
     return Math.round(v).toLocaleString("en-US");
 }
 
-/* =========================================================
-   REALISTIC MARKET VALUES
-========================================================= */
-
-function marketBaseValue(ovr){
-    const points=[
-        [60,600000],[66,12000000],[68,17000000],[70,23000000],
-        [72,30000000],[75,42000000],[80,60000000],[85,85000000],
-        [90,120000000],[95,170000000]
-    ];
-    const x=Number(ovr)||60;
-    if(x<=points[0][0])return points[0][1];
-    if(x>=points[points.length-1][0])return points[points.length-1][1];
-    for(let i=0;i<points.length-1;i++){
-        const [a,b]=points[i];
-        const [c,d]=points[i+1];
-        if(x>=a&&x<=c){
-            const t=(x-a)/(c-a);
-            return Math.round(b+(d-b)*t);
-        }
-    }
-    return 12000000;
-}
-
-function playerBuyPrice(p){
-    const formBonus=1+Math.max(0,(p.form||6)-6)*0.015;
-    const moraleBonus=1+Math.max(0,(p.morale||70)-70)*0.0015;
-    return Math.round(marketBaseValue(p.ovr)*1.22*formBonus*moraleBonus);
-}
-
-function playerSellPrice(p){
-    const formBonus=1+Math.max(0,(p.form||6)-6)*0.02;
-    const demandBonus=p.ovr>=75?1.08:p.ovr>=70?1.05:1.02;
-    return Math.round(marketBaseValue(p.ovr)*1.10*formBonus*demandBonus);
-}
-
 function escapeHTML(str){
     return String(str)
         .replace(/&/g,"&amp;")
@@ -1318,6 +1282,43 @@ function createPlayerStats(){
 
 }
 
+function getPlayerMarketValue(ovr){
+
+    const points=[
+        [60,7000000],
+        [66,12000000],
+        [68,17000000],
+        [70,23000000],
+        [72,30000000],
+        [75,42000000],
+        [80,60000000],
+        [85,85000000],
+        [90,115000000]
+    ];
+
+    if(ovr<=points[0][0])return points[0][1];
+
+    for(let i=1;i<points.length;i++){
+
+        if(ovr<=points[i][0]){
+
+            const [x1,y1]=points[i-1];
+            const [x2,y2]=points[i];
+            const ratio=(ovr-x1)/(x2-x1);
+
+            return Math.round(y1+(y2-y1)*ratio);
+
+        }
+
+    }
+
+    return Math.round(
+        points[points.length-1][1]*
+        Math.pow(1.35,ovr-points[points.length-1][0])
+    );
+
+}
+
 function preparePlayer(p){
 
     if(!p.seasonStats)p.seasonStats=createPlayerStats();
@@ -1328,7 +1329,7 @@ function preparePlayer(p){
 
     if(typeof p.morale!=="number")p.morale=70;
 
-    p.value=marketBaseValue(p.ovr);
+    p.value=getPlayerMarketValue(Number(p.ovr)||60);
 
     if(typeof p.salary!=="number"){
         p.salary=Math.max(500,(p.ovr-55)*800);
@@ -1406,7 +1407,7 @@ function createCareer(){
 
         club:"",
 
-        money:100000000,
+        money:1000000,
 
         reputation:50,
 
@@ -1440,9 +1441,9 @@ function createCareer(){
 
         goalsAgainst:0,
 
-        points:0,
-
         transferWindowOpen:true,
+
+        transferMarket:[],
 
         schedule:[],
 
@@ -1913,6 +1914,10 @@ function continueCareer(){
             ...save.career
         };
 
+        if(!Array.isArray(career.transferMarket)){
+            career.transferMarket=[];
+        }
+
         players=(save.players||[]).map(preparePlayer);
 
         if(!players.length){
@@ -1935,10 +1940,6 @@ function continueCareer(){
             career.schedule=generateSchedule();
 
         }
-
-        career.transferWindowOpen=isTransferWindowOpen(career.week);
-        career.points=Number(career.points)||0;
-        players.forEach(preparePlayer);
 
         showScreen("dashboard");
 
@@ -2643,47 +2644,63 @@ function renderPlayerPage(){
 
 function changeFormation(){
 
-    const nextFormation=
+    career.formation=
         document.getElementById("formationSelect").value;
 
-    career.formation=nextFormation;
+    const oldPlayers=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
 
-    const slots=formationSlots[nextFormation]||[];
-    const oldIds=Object.values(lineup).map(Number).filter(Boolean);
-    const candidates=oldIds.map(getPlayer).filter(Boolean);
-    const used=new Set();
+    const used=[];
+
     const newLineup={};
 
-    /* First preserve the best natural positional matches. */
-    slots.forEach(([slot])=>{
-        let best=null,bestScore=-Infinity;
-        candidates.forEach(p=>{
-            if(used.has(Number(p.id)))return;
-            const score=positionScore(p,slot)*100+p.ovr;
-            if(score>bestScore){bestScore=score;best=p;}
-        });
-        if(best){newLineup[slot]=best.id;used.add(Number(best.id));}
-    });
+    const slots=
+        formationSlots[career.formation];
 
-    /* If the old lineup was incomplete, fill remaining slots from the bench. */
-    slots.forEach(([slot])=>{
-        if(newLineup[slot])return;
-        let best=null,bestScore=-Infinity;
-        players.forEach(p=>{
-            if(used.has(Number(p.id)))return;
-            const score=positionScore(p,slot)*100+p.ovr;
-            if(score>bestScore){bestScore=score;best=p;}
+    slots.forEach(slotData=>{
+
+        const slot=slotData[0];
+
+        let best=null;
+
+        let score=-1;
+
+        oldPlayers.forEach(p=>{
+
+            if(used.includes(p.id))return;
+
+            const s=positionScore(p,slot)*10+p.ovr;
+
+            if(s>score){
+
+                score=s;
+
+                best=p;
+
+            }
+
         });
-        if(best){newLineup[slot]=best.id;used.add(Number(best.id));}
+
+        if(best){
+
+            newLineup[slot]=best.id;
+
+            used.push(best.id);
+
+        }
+
     });
 
     lineup=newLineup;
+
     selectedSlot=null;
+
     saveGame();
+
     renderPitch();
-    updateSelectedPlayerBox();
-    updateSubstitutionPanel();
-    alert(`✅ آرایش به ${nextFormation} تغییر کرد و ترکیب به‌صورت هوشمند چیده شد.`);
+
 }
 
 function changeMentality(){
@@ -3225,8 +3242,6 @@ function startMatch(){
 
             reds:0,
 
-            sentOff:false,
-
             saves:0,
 
             minutes:0
@@ -3480,7 +3495,6 @@ function chooseScorer(){
         .map(id=>getPlayer(id))
         .filter(p=>
             p &&
-            !matchState.playerStats[p.id]?.sentOff &&
             /ST|LW|RW|CM/.test(p.position)
         );
 
@@ -3527,7 +3541,6 @@ function chooseAssist(scorer){
         .map(id=>getPlayer(id))
         .filter(p=>
             p &&
-            !matchState.playerStats[p.id]?.sentOff &&
             p.id!==scorer.id &&
             p.pas>40
         );
@@ -3569,35 +3582,18 @@ function randomMatchEvent(minute){
 
         const ps=matchState.playerStats[p.id];
 
-        if(ps && !ps.sentOff){
+        if(ps){
 
             ps.yellows++;
 
             ps.rating-=.12;
 
-            if(ps.yellows>=2){
-
-                ps.reds++;
-                ps.sentOff=true;
-                ps.rating-=.35;
-
-                addEvent(
-                    minute,
-                    "🟥",
-                    `${p.name} با دریافت کارت زرد دوم اخراج شد!`,
-                    "second-yellow-red"
-                );
-
-            }else{
-
-                addEvent(
-                    minute,
-                    "🟨",
-                    `${p.name} کارت زرد گرفت.`,
-                    "yellow"
-                );
-
-            }
+            addEvent(
+                minute,
+                "🟨",
+                `${p.name} کارت زرد گرفت.`,
+                "yellow"
+            );
 
         }
 
@@ -4355,14 +4351,6 @@ function showMOTM(){
 }
 
 /* =========================================================
-   TRANSFER WINDOW
-========================================================= */
-
-function isTransferWindowOpen(week){
-    return (week>=1&&week<=5)||(week>=16&&week<=20);
-}
-
-/* =========================================================
    ADVANCE WEEK
 ========================================================= */
 
@@ -4378,7 +4366,19 @@ function advanceWeek(){
 
     }
 
-    career.transferWindowOpen=isTransferWindowOpen(career.week);
+    if(
+        career.week===5 ||
+        career.week===17 ||
+        career.week===25
+    ){
+
+        career.transferWindowOpen=true;
+
+    }else{
+
+        career.transferWindowOpen=false;
+
+    }
 
     weeklyRecovery();
 
@@ -4425,7 +4425,7 @@ function finishSeason(){
 
     if(position===1){
 
-        reward=50000000;
+        reward=500000;
 
         career.reputation+=10;
 
@@ -4433,13 +4433,13 @@ function finishSeason(){
 
     }else if(position<=4){
 
-        reward=25000000;
+        reward=250000;
 
         career.reputation+=5;
 
     }else{
 
-        reward=10000000;
+        reward=100000;
 
     }
 
@@ -4486,7 +4486,7 @@ function finishSeason(){
 
     leagueTable=emptyTable();
 
-    career.transferWindowOpen=isTransferWindowOpen(career.week);
+    career.transferWindowOpen=true;
 
     players.forEach(p=>{
 
@@ -4612,6 +4612,46 @@ function renderTable(){
    TRANSFERS
 ========================================================= */
 
+function getBuyerClubForSale(player){
+
+    const candidates=leagueTeams
+        .filter(team=>
+            team!==career.club &&
+            (SQUADS[team]||[]).length<25
+        );
+
+    if(!candidates.length)return null;
+
+    const ranked=candidates.map(team=>{
+
+        const squad=SQUADS[team]||[];
+        const avg=squad.length
+            ? squad.reduce((sum,p)=>sum+p.ovr,0)/squad.length
+            : 65;
+
+        return {
+            team,
+            score:Math.abs(avg-player.ovr)+Math.random()*8
+        };
+
+    }).sort((a,b)=>a.score-b.score);
+
+    return ranked[0].team;
+
+}
+
+function getFreeSquadNumber(squad){
+
+    const used=(squad||[]).map(p=>p.number);
+
+    for(let i=1;i<=99;i++){
+        if(!used.includes(i))return i;
+    }
+
+    return randomBetween(1,99);
+
+}
+
 function renderTransfers(){
 
     document.getElementById("transferMoney").innerText=
@@ -4622,7 +4662,36 @@ function renderTransfers(){
         ?"🟢 پنجره نقل‌وانتقالات باز است."
         :"🔴 پنجره نقل‌وانتقالات بسته است.";
 
-    const market=[];
+    if(!Array.isArray(career.transferMarket)){
+        career.transferMarket=[];
+    }
+
+    /* بازیکنانی که به‌صورت مشخص برای خرید مجدد لیست شده‌اند */
+    const guaranteed=[];
+    const validListings=[];
+
+    career.transferMarket.forEach(listing=>{
+
+        const squad=SQUADS[listing.sourceClub]||[];
+        const p=squad.find(x=>x.id===listing.id);
+
+        if(p){
+            guaranteed.push({
+                ...deepClone(p),
+                sourceClub:listing.sourceClub,
+                guaranteed:true
+            });
+            validListings.push(listing);
+        }
+
+    });
+
+    career.transferMarket=validListings;
+
+    const market=[...guaranteed];
+    const seen=new Set(
+        guaranteed.map(p=>`${p.sourceClub}:${p.id}`)
+    );
 
     leagueTeams.forEach(team=>{
 
@@ -4632,158 +4701,148 @@ function renderTransfers(){
 
         squad.forEach(p=>{
 
-            market.push({
-                ...deepClone(p),
-                sourceClub:team
-            });
+            const key=`${team}:${p.id}`;
+
+            if(!seen.has(key) && Math.random()<.25){
+
+                market.push({
+                    ...deepClone(p),
+                    sourceClub:team
+                });
+
+                seen.add(key);
+            }
 
         });
 
     });
 
-    market.sort((a,b)=>b.ovr-a.ovr);
+    market.sort((a,b)=>{
+        if(a.guaranteed!==b.guaranteed){
+            return a.guaranteed?-1:1;
+        }
+        return b.ovr-a.ovr;
+    });
 
-    const list=
-        document.getElementById("transferList");
+    const list=document.getElementById("transferList");
 
-    list.innerHTML=
-        market.slice(0,15).map(p=>`
+    list.innerHTML=market.slice(0,15).map(p=>`
 
-            <div class="transfer-card">
+        <div class="transfer-card">
 
-                <div>
+            <div>
 
-                    <strong>
-                        ${escapeHTML(p.name)}
-                    </strong>
+                <strong>${escapeHTML(p.name)}</strong>
 
-                    <div class="small">
-                        ${p.position}
-                        · OVR ${p.ovr}
-                        · خرید: ${formatMoney(playerBuyPrice(p))}
-                    </div>
-
-                    <div class="small">
-                        باشگاه: ${p.sourceClub}
-                    </div>
-
+                <div class="small">
+                    ${p.position}
+                    · OVR ${p.ovr}
+                    · ${formatMoney(p.value)}
                 </div>
 
-                <button
-                    class="btn-blue"
-                    onclick="buyPlayer(
-                        ${p.id},
-                        '${p.sourceClub.replace(/'/g,"\\'")}'
-                    )"
-                    ${career.transferWindowOpen?"":"disabled"}>
-
-                    خرید
-                </button>
+                <div class="small">
+                    باشگاه: ${p.sourceClub}
+                    ${p.guaranteed?" · 🔁 قابل خرید مجدد":""}
+                </div>
 
             </div>
 
-        `).join("");
+            <button
+                class="btn-blue"
+                onclick="buyPlayer(
+                    ${p.id},
+                    '${p.sourceClub.replace(/'/g,"\\'")}'
+                )"
+                ${career.transferWindowOpen?"":"disabled"}>
 
-    const sell=
-        document.getElementById("sellList");
+                خرید
+            </button>
 
-    sell.innerHTML=
-        players.map(p=>`
+        </div>
 
-            <div class="transfer-card">
+    `).join("");
 
-                <div>
-                    #${p.number}
-                    ${escapeHTML(p.name)}
+    const sell=document.getElementById("sellList");
 
-                    <div class="small">
-                        OVR ${p.ovr}
-                        · فروش تقریبی: ${formatMoney(playerSellPrice(p))}
-                    </div>
+    sell.innerHTML=players.map(p=>`
+
+        <div class="transfer-card">
+
+            <div>
+                #${p.number}
+                ${escapeHTML(p.name)}
+
+                <div class="small">
+                    OVR ${p.ovr}
+                    · ${formatMoney(p.value)}
                 </div>
-
-                <button
-                    class="btn-red"
-                    onclick="sellPlayer(${p.id})"
-                    ${career.transferWindowOpen?"":"disabled"}>
-                    فروش
-                </button>
-
             </div>
 
-        `).join("");
+            <button
+                class="btn-red"
+                onclick="sellPlayer(${p.id})"
+                ${career.transferWindowOpen?"":"disabled"}>
+                فروش
+            </button>
+
+        </div>
+
+    `).join("");
 
 }
 
 function buyPlayer(id,sourceClub){
 
     if(!career.transferWindowOpen){
-
         alert("پنجره نقل‌وانتقالات بسته است.");
-
         return;
-
     }
 
     if(players.length>=25){
-
         alert("حداکثر ظرفیت تیم ۲۵ بازیکن است.");
-
         return;
-
     }
 
     const source=SQUADS[sourceClub]||[];
-
     const index=source.findIndex(p=>p.id===id);
 
     if(index<0){
-
         alert("بازیکن پیدا نشد.");
-
         return;
-
     }
 
     const p=source[index];
-    const purchasePrice=playerBuyPrice(p);
 
-    if(career.money<purchasePrice){
-
-        alert(`بودجه کافی نیست. قیمت خرید ${formatMoney(purchasePrice)} است.`);
-
+    if(career.money<p.value){
+        alert("بودجه کافی نیست.");
         return;
-
     }
 
-    career.money-=purchasePrice;
+    career.money-=p.value;
 
     const newPlayer=deepClone(p);
-
-    newPlayer.id=
-        Date.now()+randomBetween(1,999);
-
-    newPlayer.number=
-        getFreeNumber();
+    newPlayer.id=Date.now()+randomBetween(1,999);
+    newPlayer.number=getFreeNumber();
 
     players.push(preparePlayer(newPlayer));
-
     source.splice(index,1);
 
-    lineupRepair();
+    career.transferMarket=
+        (career.transferMarket||[]).filter(listing=>
+            !(listing.id===id && listing.sourceClub===sourceClub)
+        );
 
+    lineupRepair();
     career.reputation+=1;
 
     addNews(
         "🔄",
-        `${p.name} با مبلغ ${formatMoney(purchasePrice)} به تیم پیوست.`
+        `${p.name} با مبلغ ${formatMoney(p.value)} از ${sourceClub} به تیم پیوست.`
     );
 
     saveGame();
 
-    alert(
-        `✅ ${p.name} خریداری شد!`
-    );
+    alert(`✅ ${p.name} خریداری شد!`);
 
     renderTransfers();
 
@@ -4792,49 +4851,72 @@ function buyPlayer(id,sourceClub){
 function sellPlayer(id){
 
     if(!career.transferWindowOpen){
-
         alert("پنجره نقل‌وانتقالات بسته است.");
-
         return;
-
     }
 
     if(players.length<=15){
-
         alert("اسکواد نباید کمتر از ۱۵ بازیکن شود.");
-
         return;
-
     }
 
     if(Object.values(lineup).includes(id)){
-
         alert("اول بازیکن را از ترکیب اصلی خارج کن.");
-
         return;
-
     }
 
     const index=players.findIndex(p=>p.id===id);
-
     if(index<0)return;
 
     const p=players[index];
+    const buyerClub=getBuyerClubForSale(p);
 
-    const fee=playerSellPrice(p);
+    if(!buyerClub){
+        alert("فعلاً باشگاه مناسبی برای خرید این بازیکن پیدا نشد.");
+        return;
+    }
 
+    /* فروش واقعی: بازیکن مستقیم وارد اسکواد یک باشگاه دیگر می‌شود. */
+    const soldPlayer=deepClone(p);
+    soldPlayer.id=Date.now()+randomBetween(1,999);
+
+    const buyerSquad=SQUADS[buyerClub]||[];
+    soldPlayer.number=getFreeSquadNumber(buyerSquad);
+    SQUADS[buyerClub]=buyerSquad;
+    buyerSquad.push(preparePlayer(soldPlayer));
+
+    const fee=Math.round(p.value*.70);
     career.money+=fee;
-
     players.splice(index,1);
+
+    /* همان بازیکن بلافاصله در بازار باشگاه خریدار قابل مشاهده است. */
+    career.transferMarket=(career.transferMarket||[]).filter(listing=>
+        listing.id!==soldPlayer.id
+    );
+
+    career.transferMarket.push({
+        id:soldPlayer.id,
+        sourceClub:buyerClub
+    });
 
     addNews(
         "📤",
-        `${p.name} با مبلغ ${formatMoney(fee)} فروخته شد.`
+        `${p.name} با مبلغ ${formatMoney(fee)} به ${buyerClub} فروخته شد.`
+    );
+
+    addNews(
+        "🔁",
+        `${p.name} حالا در بازار نقل‌وانتقالات ${buyerClub} قرار دارد و بعداً می‌توانی دوباره او را بخری.`
     );
 
     saveGame();
-
     renderTransfers();
+
+    alert(
+        `📤 ${p.name} به ${buyerClub} فروخته شد!\n\n`+
+        `💰 دریافتی: ${formatMoney(fee)}\n`+
+        `🔁 بازیکن در لیست خرید ${buyerClub} قرار گرفت.`
+    );
 
 }
 
