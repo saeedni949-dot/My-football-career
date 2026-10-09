@@ -1,8 +1,12 @@
+
 import os
 import asyncio
-from aiohttp import web
+import logging
+from pathlib import Path
 
+from aiohttp import web
 from telegram import Update
+from telegram.error import BadRequest
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -10,57 +14,116 @@ from telegram.ext import (
     ContextTypes,
 )
 
+# تنظیمات
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 GAME_URL = "https://my-football-career.fadehost.app"
-
+GAME_SHORT_NAME = "Myfootballcareer"
 PORT = int(os.getenv("PORT", "8080"))
+
+BASE_DIR = Path(__file__).resolve().parent
+
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
+    level=logging.INFO,
+)
+logger = logging.getLogger("MyFootballCareer")
+
+# کاهش لاگ‌های غیرضروری کتابخانه‌ها
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_game(
-        game_short_name="Myfootballcareer"
+    """ارسال دکمه ورود به بازی."""
+    if update.effective_message:
+        await update.effective_message.reply_game(
+            game_short_name=GAME_SHORT_NAME
+        )
+
+
+async def game_callback(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    """پاسخ سریع به درخواست ورود به بازی."""
+    query = update.callback_query
+
+    if query is None:
+        return
+
+    try:
+        if query.game_short_name == GAME_SHORT_NAME:
+            await query.answer(url=GAME_URL)
+        else:
+            await query.answer()
+
+    except BadRequest as exc:
+        message = str(exc).lower()
+
+        if (
+            "query is too old" in message
+            or "response timeout expired" in message
+            or "query id is invalid" in message
+        ):
+            # درخواست منقضی شده؛ دیگر قابل پاسخ‌دادن نیست.
+            logger.warning(
+                "Expired Telegram callback ignored. "
+                "The user may need to tap again."
+            )
+            return
+
+        logger.error("Telegram rejected callback: %s", exc)
+
+    except Exception:
+        logger.exception("Unexpected error in game callback")
+
+
+async def health(request: web.Request):
+    return web.Response(
+        text="My Football Career is running! ⚽",
+        content_type="text/plain",
     )
 
 
-async def game_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
+async def home(request: web.Request):
+    index_file = BASE_DIR / "index.html"
 
-    if query.game_short_name == "Myfootballcareer":
-        await query.answer(url=GAME_URL)
-    else:
-        await query.answer()
+    if not index_file.is_file():
+        return web.Response(
+            text="index.html not found",
+            status=500,
+        )
 
-
-async def health(request):
-    return web.Response(text="My Football Career is running! ⚽")
+    return web.FileResponse(index_file)
 
 
 async def start_web_server():
-    app = web.Application()
+    """اجرای سایت بازی روی پورت هاست."""
+    web_app = web.Application()
+    web_app.router.add_get("/", home)
+    web_app.router.add_get("/health", health)
 
-    # صفحه اصلی بازی
-    app.router.add_get("/", lambda request: web.FileResponse("index.html"))
-
-    # تست سلامت
-    app.router.add_get("/health", health)
-
-    runner = web.AppRunner(app)
+    runner = web.AppRunner(web_app)
     await runner.setup()
 
     site = web.TCPSite(
         runner,
-        "0.0.0.0",
-        PORT
+        host="0.0.0.0",
+        port=PORT,
     )
-
     await site.start()
 
-    print(f"Web server running on port {PORT}")
+    logger.info("Web server started on port %s", PORT)
+    return runner
 
 
 async def main():
     if not BOT_TOKEN:
-        raise RuntimeError("BOT_TOKEN is not set")
+        raise RuntimeError(
+            "BOT_TOKEN environment variable is missing."
+        )
+
+    # سرور بازی و بات در یک اپ اجرا می‌شوند.
+    runner = await start_web_server()
 
     bot_app = (
         Application.builder()
@@ -68,26 +131,38 @@ async def main():
         .build()
     )
 
-    bot_app.add_handler(
-        CommandHandler("start", start)
-    )
+    bot_app.add_handler(CommandHandler("start", start))
+    bot_app.add_handler(CallbackQueryHandler(game_callback))
 
-    bot_app.add_handler(
-        CallbackQueryHandler(game_callback)
-    )
+    try:
+        await bot_app.initialize()
+        await bot_app.start()
 
-    await bot_app.initialize()
-    await bot_app.start()
+        if bot_app.updater is None:
+            raise RuntimeError("Telegram updater is unavailable.")
 
-    await bot_app.updater.start_polling()
+        await bot_app.updater.start_polling(
+            drop_pending_updates=False,
+        )
 
-    await start_web_server()
+        logger.info("My Football Career bot started successfully.")
 
-    print("My Football Career bot is running...")
+        # زنده نگه‌داشتن فرایند
+        await asyncio.Event().wait()
 
-    # برنامه را زنده نگه می‌دارد
-    await asyncio.Event().wait()
+    finally:
+        if bot_app.updater and bot_app.updater.running:
+            await bot_app.updater.stop()
+
+        if bot_app.running:
+            await bot_app.stop()
+
+        await bot_app.shutdown()
+        await runner.cleanup()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        logger.info("Bot stopped.")
