@@ -932,8 +932,19 @@ tr.my-team{
     </div>
 
     <div class="card">
-        <h3>📤 فروش بازیکنان</h3>
+        <h3>📤 لیست فروش بازیکنان</h3>
+        <p class="small">بازیکن را وارد لیست فروش کن؛ بعد از ۱ تا ۲ مسابقه ممکن است باشگاه‌ها پیشنهاد بدهند. تا وقتی پیشنهاد را قبول نکنی، بازیکن در تیم خودت می‌ماند.</p>
         <div id="sellList"></div>
+    </div>
+
+    <div class="card">
+        <h3>📨 پیشنهادهای دریافتی</h3>
+        <div id="transferOffers"></div>
+    </div>
+
+    <div class="card">
+        <h3>🏦 وضعیت مالی باشگاه‌ها</h3>
+        <div id="clubBudgetsList"></div>
     </div>
 
     <button class="btn btn-gray" onclick="showScreen('dashboard')">
@@ -1422,6 +1433,12 @@ function createCareer(){
 
         freeAgents:[],
 
+        transferListed:[],
+
+        transferOffers:[],
+
+        clubBudgets:Object.fromEntries(TEAM_DEFS.map(t=>[t.name, Math.round((t.strength-55)*180000 + 2500000)])),
+
         suspensions:{},
 
         schedule:[],
@@ -1906,6 +1923,12 @@ function continueCareer(){
         players=(save.players||[]).map(preparePlayer);
 
         if(!Array.isArray(career.freeAgents)) career.freeAgents=[];
+        if(!Array.isArray(career.transferListed)) career.transferListed=[];
+        if(!Array.isArray(career.transferOffers)) career.transferOffers=[];
+        if(!career.clubBudgets || typeof career.clubBudgets!=="object") career.clubBudgets={};
+        TEAM_DEFS.forEach(t=>{
+            if(typeof career.clubBudgets[t.name]!=="number") career.clubBudgets[t.name]=Math.round((t.strength-55)*180000 + 2500000);
+        });
         if(!career.suspensions || typeof career.suspensions!=="object") career.suspensions={};
 
         if(!players.length){
@@ -4409,6 +4432,8 @@ function advanceWeek(){
 
     generateWeeklyNews();
 
+    generateTransferOffersAfterMatch();
+
     saveGame();
 
 }
@@ -4707,8 +4732,18 @@ function getTransferMarket(){
     }).sort((a,b)=>(b.ovr||0)-(a.ovr||0));
 }
 
-function renderTransfers(){
+function ensureTransferData(){
     career.freeAgents=career.freeAgents||[];
+    career.transferListed=Array.isArray(career.transferListed)?career.transferListed:[];
+    career.transferOffers=Array.isArray(career.transferOffers)?career.transferOffers:[];
+    career.clubBudgets=career.clubBudgets||{};
+    TEAM_DEFS.forEach(t=>{
+        if(typeof career.clubBudgets[t.name]!=="number") career.clubBudgets[t.name]=Math.round((t.strength-55)*180000 + 2500000);
+    });
+}
+
+function renderTransfers(){
+    ensureTransferData();
     career.transferWindowOpen=isTransferWindowOpen(career.week);
     document.getElementById("transferMoney").innerText=formatMoney(career.money);
     document.getElementById("transferWindowText").innerText=
@@ -4721,26 +4756,141 @@ function renderTransfers(){
         <div class="transfer-card">
             <div>
                 <strong>${escapeHTML(p.name)}</strong>
-                <div class="small">${escapeHTML(p.position||"") } · OVR ${p.ovr||0} · ${formatMoney(p.value||0)}</div>
-                <div class="small">باشگاه: ${escapeHTML(p.sourceClub)}</div>
+                <div class="small">${escapeHTML(p.position||"")} · OVR ${p.ovr||0} · ${formatMoney(p.value||0)}</div>
+                <div class="small">باشگاه: ${escapeHTML(p.sourceClub)} · بودجه باشگاه: ${formatMoney(p.sourceClub==="بازیکن آزاد"?0:(career.clubBudgets[p.sourceClub]||0))}</div>
             </div>
             <button class="btn-blue" onclick="buyPlayer(${Number(p.id)}, '${String(p.sourceClub).replace(/'/g,"\\'")}')"
                 ${career.transferWindowOpen?"":"disabled"}>خرید</button>
         </div>`).join("") || '<div class="info">فعلاً بازیکنی در بازار موجود نیست.</div>';
 
-    document.getElementById("sellList").innerHTML=players.map(p=>`
-        <div class="transfer-card">
+    document.getElementById("sellList").innerHTML=players.map(p=>{
+        const listed=career.transferListed.find(x=>Number(x.playerId)===Number(p.id));
+        return `<div class="transfer-card">
             <div>
                 #${p.number||"-"} <strong>${escapeHTML(p.name)}</strong>
-                <div class="small">${escapeHTML(p.position||"")} · OVR ${p.ovr||0} · ${formatMoney(p.value||0)}</div>
+                <div class="small">${escapeHTML(p.position||"")} · OVR ${p.ovr||0} · ارزش ${formatMoney(p.value||0)}</div>
+                <div class="small">${listed?`🟡 در لیست فروش · پیشنهادها از هفته ${listed.offerDueWeek} به بعد بررسی می‌شوند`:`بازیکن هنوز برای فروش گذاشته نشده`}</div>
             </div>
-            <button class="btn-red" onclick="sellPlayer(${Number(p.id)})"
-                ${career.transferWindowOpen?"":"disabled"}>فروش</button>
-        </div>`).join("");
+            ${listed
+                ? `<button class="btn-gray" onclick="removeFromTransferList(${Number(p.id)})">برداشتن از لیست</button>`
+                : `<button class="btn-red" onclick="listPlayerForTransfer(${Number(p.id)})" ${career.transferWindowOpen?"":"disabled"}>قرار دادن در لیست فروش</button>`}
+        </div>`;
+    }).join("");
+
+    const offersBox=document.getElementById("transferOffers");
+    const pending=career.transferOffers.filter(o=>o.status==="pending");
+    offersBox.innerHTML=pending.map(o=>{
+        const p=players.find(x=>Number(x.id)===Number(o.playerId));
+        const budget=Number(career.clubBudgets[o.club]||0);
+        return `<div class="transfer-card" style="display:block">
+            <div class="player-row"><strong>📨 ${escapeHTML(o.club)} برای ${escapeHTML(o.playerName)} پیشنهاد داده</strong><strong>${formatMoney(o.amount)}</strong></div>
+            <div class="small">OVR ${o.ovr} · بودجه باقی‌مانده باشگاه: ${formatMoney(budget)}</div>
+            <div class="small">${career.transferWindowOpen?"می‌توانی پیشنهاد را قبول یا رد کنی.":"پیشنهاد رسیده؛ برای نهایی‌کردن انتقال باید پنجره نقل‌وانتقالات باز باشد."}</div>
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                <button class="btn-blue" onclick="acceptTransferOffer('${o.id}')" ${career.transferWindowOpen && p?"":"disabled"}>قبول پیشنهاد</button>
+                <button class="btn-gray" onclick="rejectTransferOffer('${o.id}')">رد پیشنهاد</button>
+            </div>
+        </div>`;
+    }).join("") || '<div class="info">هنوز پیشنهادی دریافت نکردی. بازیکن را در لیست فروش بگذار و بعد از مسابقه‌ها دوباره اینجا را بررسی کن.</div>';
+
+    const budgets=document.getElementById("clubBudgetsList");
+    budgets.innerHTML=TEAM_DEFS.slice().sort((a,b)=>(career.clubBudgets[b.name]||0)-(career.clubBudgets[a.name]||0)).map(t=>
+        `<div class="player-row"><span>${escapeHTML(t.name)}${t.name===career.club?" (تیم تو)":""}</span><strong>${formatMoney(t.name===career.club?career.money:(career.clubBudgets[t.name]||0))}</strong></div>`
+    ).join("");
+}
+
+function listPlayerForTransfer(id){
+    ensureTransferData();
+    if(!isTransferWindowOpen(career.week)){alert("پنجره نقل‌وانتقالات بسته است.");return;}
+    const p=players.find(x=>Number(x.id)===Number(id));
+    if(!p)return;
+    if(career.transferListed.some(x=>Number(x.playerId)===Number(id))){alert("این بازیکن از قبل در لیست فروش است.");return;}
+    career.transferListed.push({
+        playerId:Number(p.id), playerName:p.name, ovr:Number(p.ovr||0), value:Number(p.value||0),
+        listedWeek:career.week, offerDueWeek:career.week+randomBetween(1,2), offersGenerated:false
+    });
+    addNews("📤",`${p.name} در لیست فروش قرار گرفت؛ پیشنهادها پس از ۱ تا ۲ مسابقه ممکن است برسند.`);
+    saveGame();
+    renderTransfers();
+}
+
+function removeFromTransferList(id){
+    ensureTransferData();
+    career.transferListed=career.transferListed.filter(x=>Number(x.playerId)!==Number(id));
+    career.transferOffers=career.transferOffers.filter(o=>!(Number(o.playerId)===Number(id)&&o.status==="pending"));
+    saveGame();
+    renderTransfers();
+}
+
+function generateTransferOffersAfterMatch(){
+    ensureTransferData();
+    career.transferListed.forEach(item=>{
+        if(item.offersGenerated || career.week<Number(item.offerDueWeek||career.week+1)) return;
+        const player=players.find(p=>Number(p.id)===Number(item.playerId));
+        if(!player){item.offersGenerated=true;return;}
+        const candidates=TEAM_DEFS.filter(t=>t.name!==career.club)
+            .filter(t=>(Number(career.clubBudgets[t.name]||0)>=Math.max(10000,Number(player.value||0)*0.55)))
+            .sort(()=>Math.random()-0.5);
+        if(!candidates.length){
+            item.offerDueWeek=career.week+1;
+            return;
+        }
+        const count=Math.min(candidates.length,randomBetween(1,2));
+        candidates.slice(0,count).forEach(team=>{
+            const strength=Number((TEAM_DEFS.find(t=>t.name===team.name)||{}).strength||70);
+            const skillFactor=1+(strength-70)*0.008;
+            const amount=Math.min(Number(career.clubBudgets[team.name]||0),Math.max(10000,Math.round(Number(player.value||0)*randomBetween(80,120)/100*skillFactor)));
+            career.transferOffers.push({
+                id:`offer_${career.season}_${career.week}_${player.id}_${team.name}`,
+                playerId:Number(player.id),playerName:player.name,ovr:Number(player.ovr||0),
+                club:team.name,amount,status:"pending",createdWeek:career.week
+            });
+        });
+        item.offersGenerated=true;
+        addNews("📨",`برای ${player.name} از باشگاه‌های دیگر پیشنهاد نقل‌وانتقال رسیده است.`);
+    });
+}
+
+function acceptTransferOffer(offerId){
+    ensureTransferData();
+    if(!isTransferWindowOpen(career.week)){alert("برای نهایی‌کردن انتقال باید پنجره نقل‌وانتقالات باز باشد.");return;}
+    const offer=career.transferOffers.find(o=>String(o.id)===String(offerId)&&o.status==="pending");
+    if(!offer)return;
+    const playerIndex=players.findIndex(p=>Number(p.id)===Number(offer.playerId));
+    if(playerIndex<0){offer.status="cancelled";renderTransfers();saveGame();return;}
+    const budget=Number(career.clubBudgets[offer.club]||0);
+    if(budget<Number(offer.amount)){alert("بودجه این باشگاه برای این پیشنهاد کافی نیست.");return;}
+    const player=deepClone(players[playerIndex]);
+    career.money+=Number(offer.amount);
+    career.clubBudgets[offer.club]=budget-Number(offer.amount);
+    player.id=Date.now()+randomBetween(100,999);
+    while(players.some(x=>Number(x.id)===Number(player.id)) || (SQUADS[offer.club]||[]).some(x=>Number(x.id)===Number(player.id))) player.id++;
+    player.number=(SQUADS[offer.club]||[]).length+1;
+    SQUADS[offer.club]=SQUADS[offer.club]||[];
+    SQUADS[offer.club].push(preparePlayer(player));
+    const soldId=players[playerIndex].id;
+    players.splice(playerIndex,1);
+    career.transferListed=career.transferListed.filter(x=>Number(x.playerId)!==Number(soldId));
+    career.transferOffers.forEach(o=>{if(Number(o.playerId)===Number(soldId)&&o.status==="pending")o.status=o.id===offer.id?"accepted":"cancelled";});
+    Object.keys(lineup).forEach(slot=>{if(Number(lineup[slot])===Number(soldId))delete lineup[slot];});
+    lineupRepair();
+    SQUADS[career.club]=deepClone(players);
+    addNews("💰",`${player.name} با مبلغ ${formatMoney(offer.amount)} به ${offer.club} منتقل شد.`);
+    saveGame();
+    alert(`✅ پیشنهاد ${offer.club} قبول شد؛ ${formatMoney(offer.amount)} به بودجه تیم اضافه شد.`);
+    renderTransfers();
+}
+
+function rejectTransferOffer(offerId){
+    const offer=career.transferOffers.find(o=>String(o.id)===String(offerId)&&o.status==="pending");
+    if(!offer)return;
+    offer.status="rejected";
+    saveGame();
+    renderTransfers();
 }
 
 function buyPlayer(id,sourceClub){
-    career.freeAgents=career.freeAgents||[];
+    ensureTransferData();
     if(!isTransferWindowOpen(career.week)){
         career.transferWindowOpen=false;
         alert("پنجره نقل‌وانتقالات بسته است. " + getTransferWindowLabel());
@@ -4760,7 +4910,6 @@ function buyPlayer(id,sourceClub){
     const p=source[index];
     const price=Number(p.value||0);
     if(career.money<price){ alert("بودجه کافی نیست."); return; }
-
     const newPlayer=preparePlayer(deepClone(p));
     career.money-=price;
     newPlayer.id=Date.now()+randomBetween(1,999);
@@ -4768,39 +4917,13 @@ function buyPlayer(id,sourceClub){
     newPlayer.number=getFreeNumber();
     players.push(newPlayer);
     source.splice(index,1);
-
+    if(sourceClub!=="بازیکن آزاد") career.clubBudgets[sourceClub]=Number(career.clubBudgets[sourceClub]||0)+price;
     lineupRepair();
+    SQUADS[career.club]=deepClone(players);
     career.reputation=(career.reputation||0)+1;
     addNews("🔄",`${p.name} با مبلغ ${formatMoney(price)} به تیم پیوست.`);
     saveGame();
     alert(`✅ ${p.name} خریداری شد!`);
-    renderTransfers();
-}
-
-function sellPlayer(id){
-    career.freeAgents=career.freeAgents||[];
-    if(!isTransferWindowOpen(career.week)){
-        career.transferWindowOpen=false;
-        alert("پنجره نقل‌وانتقالات بسته است. " + getTransferWindowLabel());
-        renderTransfers(); return;
-    }
-    if(players.length<=15){ alert("اسکواد نباید کمتر از ۱۵ بازیکن شود."); return; }
-    if(Object.values(lineup).some(x=>Number(x)===Number(id))){
-        alert("اول بازیکن را از ترکیب اصلی خارج کن."); return;
-    }
-    const index=players.findIndex(p=>Number(p.id)===Number(id));
-    if(index<0) return;
-    const p=players[index];
-    const fee=Math.round(Number(p.value||0)*0.75);
-    career.money+=fee;
-    players.splice(index,1);
-
-    // Sold players go to the free-agent list, so the user can buy them back later.
-    if(!career.freeAgents.some(x=>Number(x.id)===Number(p.id))){
-        career.freeAgents.push(deepClone(p));
-    }
-    addNews("📤",`${p.name} با مبلغ ${formatMoney(fee)} فروخته شد و به بازار بازیکنان آزاد رفت.`);
-    saveGame();
     renderTransfers();
 }
 
