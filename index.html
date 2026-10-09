@@ -1042,7 +1042,7 @@ if(tg){
    GAME VERSION
 ========================================================= */
 
-const GAME_VERSION = "4.1.0";
+const GAME_VERSION = "4.2.0";
 const SAVE_KEY = "mfc_career_v4_master";
 
 /* =========================================================
@@ -1104,17 +1104,17 @@ const TEAM_DEFS = [
 {name:"آریا اسپرت",strength:69},
 {name:"گرگان یونایتد",strength:71},
 {name:"تهران یونایتد",strength:75},
-{name:"استقلال",strength:77},
-{name:"سپاهان",strength:76},
-{name:"پرسپولیس",strength:78},
-{name:"تراکتور",strength:74},
-{name:"ذوب‌آهن",strength:69},
-{name:"فولاد",strength:73},
-{name:"گل‌گهر",strength:72},
-{name:"نساجی",strength:68},
-{name:"ملوان",strength:71},
-{name:"خیبر",strength:67},
-{name:"شمس‌آذر",strength:66}
+{name:"استقلال",strength:84},
+{name:"سپاهان",strength:82},
+{name:"پرسپولیس",strength:85},
+{name:"تراکتور",strength:81},
+{name:"ذوب‌آهن",strength:71},
+{name:"فولاد",strength:79},
+{name:"گل‌گهر",strength:78},
+{name:"نساجی",strength:69},
+{name:"ملوان",strength:72},
+{name:"خیبر",strength:68},
+{name:"شمس‌آذر",strength:67}
 
 ];
 
@@ -1210,7 +1210,8 @@ function generateSquad(teamName){
 
         const variance=((index*7+teamIndex*5)%13)-6;
 
-        const adjustment=(team.strength-70)*0.55;
+        const eliteBonus=["استقلال","پرسپولیس","سپاهان","تراکتور"].includes(teamName)?3:(["فولاد","گل‌گهر"].includes(teamName)?1.5:0);
+        const adjustment=10+(team.strength-70)*1.0+eliteBonus;
 
         const stats={
 
@@ -1420,6 +1421,8 @@ function createCareer(){
         transferWindowOpen:true,
 
         freeAgents:[],
+
+        suspensions:{},
 
         schedule:[],
 
@@ -1903,6 +1906,7 @@ function continueCareer(){
         players=(save.players||[]).map(preparePlayer);
 
         if(!Array.isArray(career.freeAgents)) career.freeAgents=[];
+        if(!career.suspensions || typeof career.suspensions!=="object") career.suspensions={};
 
         if(!players.length){
 
@@ -3047,8 +3051,31 @@ function calculateDefensePower(){
 }
 
 /* =========================================================
-   START MATCH
+   SUSPENSIONS — one-match ban after a red card
 ========================================================= */
+
+function prepareSuspensionsForMatch(){
+    career.suspensions=career.suspensions||{};
+    const bannedIds=Object.keys(career.suspensions)
+        .filter(id=>Number(career.suspensions[id])>0)
+        .map(Number);
+    if(!bannedIds.length)return [];
+
+    const slots=Object.keys(lineup);
+    bannedIds.forEach(id=>{
+        slots.forEach(slot=>{
+            if(Number(lineup[slot])!==id)return;
+            const replacement=players.find(p=>
+                !Object.values(lineup).map(Number).includes(Number(p.id)) &&
+                !bannedIds.includes(Number(p.id))
+            );
+            if(replacement) lineup[slot]=replacement.id;
+            else delete lineup[slot];
+        });
+    });
+    lineupRepair();
+    return bannedIds;
+}
 
 function startMatch(){
 
@@ -3102,6 +3129,8 @@ function startMatch(){
     const opponentDef=
         TEAM_DEFS.find(t=>t.name===opponent);
 
+    const suspensionsServed=prepareSuspensionsForMatch();
+
     simulateOtherGames(fixture);
 
     const teamPower=calculateTeamPower();
@@ -3110,12 +3139,12 @@ function startMatch(){
         teamPower-opponentDef.strength;
 
     let ourExpected=
-        1.25+
-        diff*.035;
+        1.18+
+        diff*.055;
 
     let oppExpected=
-        1.05-
-        diff*.025;
+        1.12-
+        diff*.045;
 
     if(career.mentality==="attacking"){
 
@@ -3163,6 +3192,8 @@ function startMatch(){
     matchState={
 
         fixture,
+
+        suspensionsServed,
 
         isHome,
 
@@ -3574,22 +3605,23 @@ function randomMatchEvent(minute){
 
         if(ps){
 
+            if(ps.reds>0 || ps.sentOff)return;
             ps.yellows++;
-
-            ps.rating-=.12;
-
-            addEvent(
-                minute,
-                "🟨",
-                `${p.name} کارت زرد گرفت.`,
-                "yellow"
-            );
+            ps.rating-=.28;
+            if(ps.yellows>=2){
+                ps.reds++;
+                ps.sentOff=true;
+                ps.rating-=1.25;
+                addEvent(minute,"🟥",`${p.name} با دریافت دومین کارت زرد اخراج شد! محرومیت: بازی بعدی.` ,"red");
+            }else{
+                addEvent(minute,"🟨",`${p.name} کارت زرد گرفت.`,"yellow");
+            }
 
         }
 
     }
 
-    if(Math.random()<.012){
+    if(Math.random()<.0025){
 
         const defenders=
             starters.filter(p=>
@@ -3605,19 +3637,11 @@ function randomMatchEvent(minute){
 
             const ps=matchState.playerStats[p.id];
 
-            if(ps){
-
+            if(ps && !ps.sentOff){
                 ps.reds++;
-
-                ps.rating-=.35;
-
-                addEvent(
-                    minute,
-                    "🟥",
-                    `${p.name} اخراج شد!`,
-                    "red"
-                );
-
+                ps.sentOff=true;
+                ps.rating-=1.5;
+                addEvent(minute,"🟥",`${p.name} با کارت قرمز مستقیم اخراج شد! محرومیت: بازی بعدی.`,"red");
             }
 
         }
@@ -3759,6 +3783,29 @@ function updateMatchUI(){
 }
 
 /* =========================================================
+   MATCH RATINGS — scoreline, goals, assists and discipline
+========================================================= */
+
+function calculateMatchRating(p,s){
+    if(!p || !s)return 6.0;
+    const conceded=matchState.isHome?matchState.awayScore:matchState.homeScore;
+    let rating=Number(s.rating)||6.2;
+    // Extra reward for end product; s.rating already includes a smaller live bonus.
+    rating += (s.goals||0)*0.42 + (s.assists||0)*0.32;
+    rating -= (s.yellows||0)*0.28;
+    rating -= (s.reds||0)*1.35;
+    if(/GK/.test(p.position)) rating-=conceded*0.62;
+    else if(/CB|LB|RB/.test(p.position)) rating-=conceded*0.43;
+    else if(/CDM|CM/.test(p.position)) rating-=conceded*0.23;
+    else rating-=conceded*0.12;
+    if(conceded===0 && /GK|CB|LB|RB/.test(p.position)) rating+=0.45;
+    const scored=matchState.isHome?matchState.homeScore:matchState.awayScore;
+    if(scored>conceded) rating+=0.18;
+    else if(scored<conceded) rating-=0.22;
+    return Math.max(2.0,Math.min(10.0,rating));
+}
+
+/* =========================================================
    LIVE RATINGS
 ========================================================= */
 
@@ -3782,11 +3829,7 @@ function renderLiveRatings(){
 
         const s=matchState.playerStats[p.id];
 
-        const rating=
-            Math.max(
-                5.4,
-                Math.min(9.9,s.rating)
-            );
+        const rating=calculateMatchRating(p,s);
 
         return`
 
@@ -4051,6 +4094,14 @@ function finishMatch(){
 
     updatePlayerMatchStats();
 
+    // Serve suspensions from the previous match, then assign one-match bans for reds today.
+    career.suspensions=career.suspensions||{};
+    (matchState.suspensionsServed||[]).forEach(id=>{ delete career.suspensions[String(id)]; });
+    Object.keys(matchState.playerStats||{}).forEach(id=>{
+        const ps=matchState.playerStats[id];
+        if(ps && ps.reds>0) career.suspensions[String(id)]=1;
+    });
+
     const resultText=
         result==="win"
         ?"🎉 پیروزی"
@@ -4142,11 +4193,7 @@ function updatePlayerMatchStats(){
 
         const s=matchState.playerStats[id];
 
-        const finalRating=
-            Math.max(
-                5.4,
-                Math.min(9.9,s.rating)
-            );
+        const finalRating=calculateMatchRating(p,s);
 
         p.seasonStats.appearances++;
 
@@ -4627,17 +4674,16 @@ function renderCalendar(){
 ========================================================= */
 
 function isTransferWindowOpen(week){
-    // Pre-season: weeks 1–6; mid-season: 15–18; end-season: 25–27.
-    return (week>=1 && week<=6) || (week>=15 && week<=18) || (week>=25 && week<=27);
+    // پنجره پیش‌فصل فقط ۴ هفته؛ سپس تا پنجره نیم‌فصل بسته می‌ماند.
+    // پنجره نیم‌فصل هم ۴ هفته ادامه دارد.
+    return (week>=1 && week<=4) || (week>=15 && week<=18);
 }
 
 function getTransferWindowLabel(week=career.week){
-    if(week>=1 && week<=6) return "پنجره پیش‌فصل؛ هفته‌های ۱ تا ۶";
+    if(week>=1 && week<=4) return "پنجره پیش‌فصل؛ هفته‌های ۱ تا ۴";
     if(week>=15 && week<=18) return "پنجره نیم‌فصل؛ هفته‌های ۱۵ تا ۱۸";
-    if(week>=25 && week<=27) return "پنجره پایانی فصل؛ هفته‌های ۲۵ تا ۲۷";
-    if(week<15) return "پنجره بعدی از هفته ۱۵ باز می‌شود";
-    if(week<25) return "پنجره بعدی از هفته ۲۵ باز می‌شود";
-    return "پنجره بعدی ابتدای فصل آینده باز می‌شود";
+    if(week<15) return "پنجره بسته است؛ پنجره بعدی از هفته ۱۵ باز می‌شود";
+    return "پنجره بسته است؛ پنجره بعدی ابتدای فصل آینده باز می‌شود";
 }
 
 function getTransferMarket(){
