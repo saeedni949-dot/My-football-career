@@ -1,0 +1,6146 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>My Football Career V4.4</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    background:#0b1016;
+    color:#fff;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+.container{
+    max-width:950px;
+    margin:auto;
+    padding:14px;
+}
+
+section{
+    margin-bottom:20px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+h1,h2,h3{
+    margin-top:0;
+}
+
+button{
+    border:0;
+    border-radius:11px;
+    padding:12px 15px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#fff;
+    transition:.15s;
+}
+
+button:hover{
+    transform:translateY(-1px);
+    opacity:.9;
+}
+
+button:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.btn{
+    width:100%;
+    margin-top:8px;
+    background:#149c7d;
+}
+
+.btn-blue{background:#287fc0}
+.btn-gray{background:#34404d}
+.btn-red{background:#b83b32}
+.btn-gold{background:#9b7b18}
+.btn-purple{background:#6b4bc3}
+
+.title{
+    text-align:center;
+    font-size:30px;
+    margin:25px 0;
+}
+
+.card{
+    background:#161d26;
+    border:1px solid #293441;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:12px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+}
+
+.stat{
+    background:#212a35;
+    border-radius:10px;
+    padding:12px;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:21px;
+    margin-top:5px;
+}
+
+.info{
+    color:#9ca8b5;
+    font-size:13px;
+}
+
+.small{
+    color:#99a4b2;
+    font-size:12px;
+}
+
+.green{
+    color:#65d5b8;
+}
+
+.yellow{
+    color:#f1c40f;
+}
+
+.red{
+    color:#ff6b60;
+}
+
+.blue{
+    color:#64b5ff;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:7px 0 12px;
+    border-radius:8px;
+    border:1px solid #394451;
+    background:#202934;
+    color:#fff;
+}
+
+.club-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.club-card{
+    background:#202934;
+    border:1px solid #303b48;
+    border-radius:12px;
+    padding:14px;
+    cursor:pointer;
+}
+
+.club-card:hover{
+    background:#293541;
+}
+
+.club-name{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.club-strength{
+    color:#8bd5ca;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.menu-grid button{
+    margin:0;
+}
+
+.player{
+    background:#202934;
+    border-radius:10px;
+    padding:11px;
+    margin-bottom:8px;
+    cursor:pointer;
+}
+
+.player:hover{
+    background:#2a3541;
+}
+
+.player-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.position{
+    color:#8bd5ca;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.ovr{
+    background:#149c7d;
+    border-radius:8px;
+    padding:7px 9px;
+    font-weight:bold;
+}
+
+.big{
+    font-size:35px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.season-box{
+    background:#202934;
+    border-radius:10px;
+    padding:12px;
+    margin-top:10px;
+}
+
+.progress{
+    height:10px;
+    background:#293441;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:7px;
+}
+
+.progress span{
+    display:block;
+    height:100%;
+    background:#149c7d;
+}
+
+.news-item{
+    background:#202934;
+    border-radius:10px;
+    padding:11px;
+    margin-bottom:8px;
+}
+
+.pitch{
+    position:relative;
+    max-width:700px;
+    height:610px;
+    margin:auto;
+    background:#126538;
+    border:4px solid white;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.pitch:before{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:50%;
+    border-top:2px solid rgba(255,255,255,.8);
+}
+
+.center-circle{
+    position:absolute;
+    width:125px;
+    height:125px;
+    border:2px solid white;
+    border-radius:50%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}
+
+.slot{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    width:105px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.slot-ball{
+    width:52px;
+    height:52px;
+    margin:auto;
+    border-radius:50%;
+    background:white;
+    color:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    border:3px solid #149c7d;
+}
+
+.slot-name{
+    background:rgba(0,0,0,.75);
+    border-radius:6px;
+    margin-top:4px;
+    padding:4px;
+    font-size:10px;
+}
+
+.selected .slot-ball{
+    background:#f1c40f;
+    border-color:#f1c40f;
+}
+
+.match-header{
+    background:#151c25;
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+}
+
+.match-teams{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    gap:10px;
+}
+
+.match-team{
+    width:35%;
+    font-weight:bold;
+}
+
+.match-score{
+    font-size:48px;
+    font-weight:bold;
+}
+
+.match-minute{
+    font-size:25px;
+    color:#f1c40f;
+    margin-bottom:8px;
+}
+
+.match-status{
+    color:#9ca8b5;
+}
+
+.live-box{
+    max-height:430px;
+    overflow-y:auto;
+    background:#10161d;
+    border-radius:12px;
+    padding:5px;
+}
+
+.live-event{
+    padding:11px;
+    border-bottom:1px solid #29313b;
+    font-size:14px;
+}
+
+.goal{
+    font-weight:bold;
+}
+
+.match-stat-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.match-stat{
+    background:#222a34;
+    border-radius:10px;
+    padding:12px;
+    text-align:center;
+}
+
+.rating{
+    float:left;
+    background:#149c7d;
+    border-radius:7px;
+    padding:5px 8px;
+}
+
+.motm{
+    border:2px solid #f1c40f;
+    background:#272518;
+}
+
+.selected-info{
+    border:1px solid #f1c40f;
+    background:#292719;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:10px;
+}
+
+.bench-title{
+    margin-top:15px;
+    color:#8bd5ca;
+}
+
+.save-status{
+    text-align:center;
+    color:#8bd5ca;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.badge{
+    display:inline-block;
+    background:#293541;
+    border-radius:8px;
+    padding:5px 8px;
+    margin:2px;
+    font-size:11px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+}
+
+th,td{
+    padding:9px 5px;
+    border-bottom:1px solid #303944;
+    text-align:center;
+    white-space:nowrap;
+}
+
+tr.my-team{
+    background:#183b35;
+    font-weight:bold;
+}
+
+.form-dot{
+    display:inline-block;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    margin:1px;
+}
+
+.form-w{background:#149c7d}
+.form-d{background:#f1c40f}
+.form-l{background:#b83b32}
+
+.transfer-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    background:#202934;
+    border-radius:10px;
+    padding:11px;
+    margin-bottom:8px;
+}
+
+.transfer-card button{
+    padding:8px 10px;
+}
+
+.player-stat-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+}
+
+.player-stat-mini{
+    background:#202934;
+    border-radius:8px;
+    padding:8px;
+    text-align:center;
+    font-size:11px;
+}
+
+.player-stat-mini strong{
+    display:block;
+    font-size:17px;
+    margin-top:3px;
+}
+
+.alert-box{
+    padding:12px;
+    border-radius:10px;
+    background:#202934;
+    margin-bottom:10px;
+}
+
+.save-pill{
+    display:inline-block;
+    background:#183b35;
+    color:#65d5b8;
+    padding:5px 9px;
+    border-radius:8px;
+    font-size:11px;
+}
+
+@media(max-width:600px){
+    .pitch{height:555px}
+    .slot{width:80px}
+    .slot-name{font-size:9px}
+    .slot-ball{width:46px;height:46px}
+    .match-score{font-size:40px}
+    .club-grid{grid-template-columns:1fr}
+    .menu-grid{grid-template-columns:repeat(2,1fr)}
+    table{font-size:10px}
+    th,td{padding:7px 2px}
+    .player-stat-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* V4.4 visual layer */
+.filters-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.filters-grid label{font-size:12px;color:#aab6c4}
+.filters-grid input,.filters-grid select{margin-top:4px}
+.filter-check{display:flex;align-items:center;gap:8px;background:#202934;padding:10px;border-radius:9px;font-size:13px}
+.filter-check input{width:auto;margin:0}
+.transfer-player-main{flex:1;min-width:0}
+.transfer-actions{display:flex;gap:6px;flex-wrap:wrap}
+.transfer-actions button{margin:0}
+.modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.modal-overlay.hidden{display:none!important}
+.negotiation-card,.analysis-card{position:relative;width:100%;max-width:540px;max-height:90vh;overflow:auto;background:#161d26;border:1px solid #3b4b5a;border-radius:18px;padding:20px;box-shadow:0 20px 70px #0009}
+.close-modal{position:absolute;left:12px;top:12px;background:#34404d;padding:6px 10px}
+.negotiation-card h3{padding-left:40px}
+.analysis-card .stats{margin:12px 0}
+.feature-note{border:1px solid #2f786b;background:#102b29;border-radius:10px;padding:11px;color:#b4f2e5;margin-bottom:10px;font-size:13px}
+.player-row{flex-wrap:wrap}
+@media(max-width:600px){.filters-grid{grid-template-columns:1fr}.transfer-card{align-items:flex-start}.transfer-actions{width:100%}.transfer-actions button{flex:1}}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HOME -->
+<section id="home">
+    <h1 class="title">⚽ My Football Career V4.4</h1>
+
+    <div class="card">
+        <h2>🎮 My Football Career</h2>
+        <p>مربی شو، تیم بساز، مسابقه بده و برای قهرمانی بجنگ!</p>
+
+        <button class="btn" onclick="startNewCareer()">🆕 شروع کریر جدید</button>
+        <button id="continueBtn" class="btn btn-blue" onclick="continueCareer()">▶️ ادامه کریر</button>
+
+        <div id="saveStatus" class="save-status"></div>
+    </div>
+
+    <div class="card">
+        <h3>✨ امکانات V4.4</h3>
+        <div class="badge">🏆 لیگ ۱۶ تیمی</div>
+        <div class="badge">📅 ۳۰ هفته</div>
+        <div class="badge">🔄 نقل‌وانتقالات</div>
+        <div class="badge">📈 پیشرفت بازیکنان</div>
+        <div class="badge">📊 آمار فصل</div>
+        <div class="badge">📰 اخبار</div>
+        <div class="badge">🎯 اهداف</div>
+        <div class="badge">🏅 دستاوردها</div>
+    </div>
+</section>
+
+<!-- COACH -->
+<section id="coach" class="hidden">
+    <h2>👔 ساخت مربی</h2>
+
+    <div class="card">
+        <label>نام مربی</label>
+        <input id="coachName" placeholder="مثلاً سعید">
+
+        <label>سن مربی</label>
+        <input id="coachAge" type="number" value="35">
+
+        <label>ملیت</label>
+        <input id="coachNationality" value="Iran">
+
+        <label>سبک مربیگری</label>
+        <select id="coachStyle">
+            <option value="balanced">متعادل</option>
+            <option value="attacking">هجومی</option>
+            <option value="defensive">دفاعی</option>
+        </select>
+
+        <button class="btn" onclick="createCoach()">ساخت مربی</button>
+    </div>
+</section>
+
+<!-- CLUB -->
+<section id="club" class="hidden">
+    <h2>🏟️ انتخاب باشگاه</h2>
+
+    <div class="card">
+        <p class="info">
+            باشگاه خودت را انتخاب کن. هر تیم قدرت و اسکواد مخصوص خودش را دارد.
+        </p>
+
+        <div id="clubList" class="club-grid"></div>
+    </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="hidden">
+
+    <div class="card">
+        <h3 id="dashboardCoach">👔 مربی</h3>
+        <p id="dashboardClub"></p>
+
+        <div class="season-box">
+            🏆 فصل <strong id="seasonNumber">1</strong>
+            —
+            هفته <strong id="weekNumber">1</strong>
+            —
+            💰 بودجه <strong id="moneyNumber">1,000,000</strong>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat">امتیاز<strong id="points">0</strong></div>
+        <div class="stat">اعتبار<strong id="reputation">50</strong></div>
+        <div class="stat">برد<strong id="wins">0</strong></div>
+        <div class="stat">بازی<strong id="matches">0</strong></div>
+        <div class="stat">گل زده<strong id="goalsFor">0</strong></div>
+        <div class="stat">گل خورده<strong id="goalsAgainst">0</strong></div>
+    </div>
+
+    <div class="card">
+        <h3>🎯 هدف فصل</h3>
+        <div id="dashboardObjective"></div>
+    </div>
+
+    <div class="card">
+        <h3>📰 آخرین اخبار</h3>
+        <div id="dashboardNews"></div>
+    </div>
+
+    <div class="card">
+        <h3>🎮 منوی مدیریت</h3>
+
+        <div class="menu-grid">
+            <button class="btn" onclick="showScreen('team')">👥 تیم</button>
+            <button class="btn btn-blue" onclick="showScreen('tactics')">🧠 تاکتیک</button>
+            <button class="btn" onclick="showScreen('transfer')">🔄 نقل‌وانتقالات</button>
+            <button class="btn btn-gold" onclick="showScreen('stats')">📊 آمار فصل</button>
+            <button class="btn btn-purple" onclick="showScreen('news')">📰 اخبار</button>
+            <button class="btn" onclick="showScreen('objectives')">🎯 اهداف</button>
+            <button class="btn btn-blue" onclick="showScreen('table')">🏆 جدول لیگ</button>
+            <button class="btn btn-gold" onclick="showScreen('calendar')">📅 تقویم فصل</button>
+            <button class="btn btn-gray" onclick="showScreen('history')">📜 تاریخچه</button>
+             <button class="btn btn-purple" onclick="showScreen('clubBrowser')">🔎 جست‌وجوی بازیکن</button>
+             <button class="btn btn-blue" onclick="showScreen('training')">🏋️ تمرین و استعدادیابی</button>
+             <button class="btn btn-gold" onclick="analyzeOpponent()">🔍 تحلیل حریف بعدی</button>
+        </div>
+
+        <button class="btn" onclick="startMatch()">⚽ بازی بعدی</button>
+        <button class="btn btn-gray" onclick="manualSave()">💾 ذخیره بازی</button>
+        <button class="btn btn-red" onclick="newCareerConfirm()">🆕 کریر جدید</button>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="hidden">
+    <h2>👥 تیم</h2>
+
+    <div class="card">
+        <h3 id="teamTitle">ترکیب اصلی</h3>
+        <p class="info">
+            روی بازیکن داخل زمین بزن، سپس بازیکن نیمکت را انتخاب کن.
+        </p>
+
+        <div id="pitchContainer"></div>
+    </div>
+
+    <div id="selectedPlayerBox"></div>
+
+    <div class="card">
+        <h3>👥 لیست بازیکنان</h3>
+        <div id="roster"></div>
+    </div>
+
+    <div id="substitutionPanel"></div>
+
+    <button class="btn btn-gray" onclick="resetLineup()">
+        🔄 بازگردانی ترکیب
+    </button>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- PLAYER -->
+<section id="player" class="hidden">
+
+    <div class="card">
+        <h2 id="playerName"></h2>
+        <p id="playerPosition" class="position"></p>
+
+        <div class="big" id="playerOVR"></div>
+
+        <div id="playerFormBox"></div>
+
+        <div class="stats">
+            <div class="stat">PAC<strong id="playerPAC"></strong></div>
+            <div class="stat">SHO<strong id="playerSHO"></strong></div>
+            <div class="stat">PAS<strong id="playerPAS"></strong></div>
+            <div class="stat">DRI<strong id="playerDRI"></strong></div>
+            <div class="stat">DEF<strong id="playerDEF"></strong></div>
+            <div class="stat">PHY<strong id="playerPHY"></strong></div>
+        </div>
+
+        <h3>📊 آمار فصل</h3>
+        <div id="playerSeasonStats"></div>
+
+        <button class="btn btn-gray" onclick="showScreen('team')">
+            بازگشت
+        </button>
+    </div>
+</section>
+
+<!-- TACTICS -->
+<section id="tactics" class="hidden">
+
+    <h2>🧠 تاکتیک</h2>
+
+    <div class="card">
+
+        <label>آرایش</label>
+
+        <select id="formationSelect" onchange="changeFormation()">
+            <option value="4-3-3">4-3-3</option>
+            <option value="4-4-2">4-4-2</option>
+            <option value="4-2-3-1">4-2-3-1</option>
+            <option value="3-5-2">3-5-2</option>
+            <option value="5-3-2">5-3-2</option>
+        </select>
+
+        <label>ذهنیت</label>
+
+        <select id="mentalitySelect" onchange="changeMentality()">
+            <option value="balanced">متعادل</option>
+            <option value="attacking">هجومی</option>
+            <option value="defensive">دفاعی</option>
+        </select>
+
+        <label>سرعت بازی</label>
+
+        <select id="tempoSelect" onchange="changeTacticValue('tempo')">
+            <option value="slow">آرام</option>
+            <option value="normal">عادی</option>
+            <option value="fast">سریع</option>
+        </select>
+
+        <label>پرس</label>
+
+        <select id="pressingSelect" onchange="changeTacticValue('pressing')">
+            <option value="low">کم</option>
+            <option value="medium">متوسط</option>
+            <option value="high">زیاد</option>
+        </select>
+
+        <label>خط دفاع</label>
+
+        <select id="defensiveLineSelect" onchange="changeTacticValue('defensiveLine')">
+            <option value="low">عقب</option>
+            <option value="medium">متوسط</option>
+            <option value="high">جلو</option>
+        </select>
+
+    </div>
+
+    <div class="card">
+        <h3>📈 قدرت فعلی تیم</h3>
+        <div id="teamPowerDetails"></div>
+    </div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- MATCH -->
+<section id="match" class="hidden">
+
+    <h2>🏟️ Match Center</h2>
+
+    <div class="match-header">
+
+        <div class="match-minute" id="matchMinute">
+            دقیقه 0
+        </div>
+
+        <div class="match-teams">
+
+            <div class="match-team">
+                <div id="matchHome"></div>
+            </div>
+
+            <div>
+                <div class="match-score">
+                    <span id="homeScore">0</span>
+                    -
+                    <span id="awayScore">0</span>
+                </div>
+
+                <div class="match-status" id="matchStatus">
+                    در حال آماده‌سازی...
+                </div>
+            </div>
+
+            <div class="match-team">
+                <div id="matchAway"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📺 گزارش زنده</h3>
+        <div id="liveEvents" class="live-box"></div>
+    </div>
+
+    <div class="card">
+        <h3>📊 آمار مسابقه</h3>
+
+        <div class="match-stat-grid">
+
+            <div class="match-stat">
+                مالکیت شما
+                <strong id="possessionHome">50%</strong>
+            </div>
+
+            <div class="match-stat">
+                مالکیت حریف
+                <strong id="possessionAway">50%</strong>
+            </div>
+
+            <div class="match-stat">
+                شوت شما
+                <strong id="shotsHome">0</strong>
+            </div>
+
+            <div class="match-stat">
+                شوت حریف
+                <strong id="shotsAway">0</strong>
+            </div>
+
+            <div class="match-stat">
+                در چارچوب شما
+                <strong id="shotsTargetHome">0</strong>
+            </div>
+
+            <div class="match-stat">
+                در چارچوب حریف
+                <strong id="shotsTargetAway">0</strong>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>⭐ نمرات بازیکنان</h3>
+        <div id="matchRatings"></div>
+    </div>
+
+    <div class="card motm">
+        <h3>🏆 بهترین بازیکن</h3>
+        <div id="motm">هنوز مسابقه تمام نشده.</div>
+    </div>
+
+    <div id="matchSubPanel"></div>
+
+    <button
+        id="finishMatchButton"
+        class="btn"
+        onclick="showScreen('dashboard')"
+        disabled>
+        ادامه کریر
+    </button>
+</section>
+
+<!-- TABLE -->
+<section id="table" class="hidden">
+
+    <h2>🏆 جدول لیگ</h2>
+
+    <div class="card">
+        <p class="info">
+            فصل <span id="tableSeason">1</span>
+            — هفته <span id="tableWeek">1</span>
+            — ۱۶ تیم
+        </p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>تیم</th>
+                        <th>ب</th>
+                        <th>برد</th>
+                        <th>م</th>
+                        <th>باخت</th>
+                        <th>گل</th>
+                        <th>تفاضل</th>
+                        <th>امتیاز</th>
+                    </tr>
+                </thead>
+
+                <tbody id="leagueTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar" class="hidden">
+    <h2>📅 تقویم فصل</h2>
+    <div class="card">
+        <div id="calendarSummary" class="alert-box"></div>
+        <div id="calendarList"></div>
+    </div>
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">بازگشت</button>
+</section>
+
+<!-- TRANSFER -->
+<section id="transfer" class="hidden">
+
+    <h2>🔄 بازار نقل‌وانتقالات</h2>
+
+    <div class="card">
+        <div class="season-box">
+            💰 بودجه فعلی:
+            <strong id="transferMoney">0</strong>
+        </div>
+
+        <p id="transferWindowText" class="info"></p>
+    </div>
+
+    <div class="card">
+        <h3>🔎 بازیکنان بازار</h3>
+        <div class="filters-grid">
+          <div><label for="tmSearch">جست‌وجوی نام یا باشگاه</label><input id="tmSearch" placeholder="مثلاً مهاجم یا نام بازیکن" oninput="renderTransfers()"></div>
+          <div><label for="tmPosition">پست</label><select id="tmPosition" onchange="renderTransfers()">
+            <option value="all">همه پست‌ها</option><option value="GK">دروازه‌بان</option><option value="CB">دفاع وسط</option><option value="LB">دفاع چپ</option><option value="RB">دفاع راست</option><option value="CDM">هافبک دفاعی</option><option value="CM">هافبک میانی</option><option value="CAM">هافبک هجومی</option><option value="ST">مهاجم</option><option value="LW">وینگر چپ</option><option value="RW">وینگر راست</option><option value="DEF">همه مدافعان</option><option value="MID">همه هافبک‌ها</option><option value="ATT">همه مهاجمان</option>
+          </select></div>
+          <div><label for="tmMinOvr">حداقل قدرت (OVR)</label><input id="tmMinOvr" type="number" min="0" max="99" value="0" onchange="renderTransfers()"></div>
+          <div><label for="tmMaxAge">حداکثر سن</label><input id="tmMaxAge" type="number" min="15" max="50" value="50" onchange="renderTransfers()"></div>
+          <div><label for="tmMaxPrice">حداکثر قیمت (۰ = بدون محدودیت)</label><input id="tmMaxPrice" type="number" min="0" value="0" onchange="renderTransfers()"></div>
+          <div><label for="tmSort">مرتب‌سازی</label><select id="tmSort" onchange="renderTransfers()"><option value="ovr">قدرت: بیشترین اول</option><option value="age">سن: کمترین اول</option><option value="price">قیمت: کمترین اول</option></select></div>
+        </div>
+        <label class="filter-check"><input id="tmAffordable" type="checkbox" onchange="renderTransfers()"> فقط بازیکنانی که بودجه خریدشان را دارم</label>
+        <div class="feature-note">💡 دکمه «مذاکره» ابتدا مبلغ انتقال با باشگاه و سپس حقوق و مدت قرارداد با بازیکن را بررسی می‌کند.</div>
+        <div id="transferList"></div>
+    </div>
+
+    <div class="card">
+        <h3>📤 لیست فروش بازیکنان</h3>
+        <p class="small">بازیکن را وارد لیست فروش کن؛ بعد از ۱ تا ۲ مسابقه ممکن است باشگاه‌ها پیشنهاد بدهند. تا وقتی پیشنهاد را قبول نکنی، بازیکن در تیم خودت می‌ماند.</p>
+        <div id="sellList"></div>
+    </div>
+
+    <div class="card">
+        <h3>📨 پیشنهادهای دریافتی</h3>
+        <div id="transferOffers"></div>
+    </div>
+
+    <div class="card">
+        <h3>🏦 وضعیت مالی باشگاه‌ها</h3>
+        <div id="clubBudgetsList"></div>
+    </div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="hidden">
+
+    <h2>📊 آمار فصل</h2>
+
+    <div class="card">
+        <h3>👑 بهترین گلزنان</h3>
+        <div id="topScorers"></div>
+    </div>
+
+    <div class="card">
+        <h3>🎯 بهترین پاسورها</h3>
+        <div id="topAssists"></div>
+    </div>
+
+    <div class="card">
+        <h3>⭐ بهترین میانگین نمره</h3>
+        <div id="topRatings"></div>
+    </div>
+
+    <div class="card">
+        <h3>🧤 دروازه‌بان‌ها</h3>
+        <div id="keeperStats"></div>
+    </div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- NEWS -->
+<section id="news" class="hidden">
+
+    <h2>📰 اخبار باشگاه</h2>
+
+    <div class="card">
+        <div id="newsList"></div>
+    </div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- OBJECTIVES -->
+<section id="objectives" class="hidden">
+
+    <h2>🎯 اهداف و دستاوردها</h2>
+
+    <div class="card">
+        <h3>🎯 اهداف فصل</h3>
+        <div id="objectiveList"></div>
+    </div>
+
+    <div class="card">
+        <h3>🏅 دستاوردها</h3>
+        <div id="achievementList"></div>
+    </div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="hidden">
+
+    <h2>📜 تاریخچه مسابقات</h2>
+
+    <div class="card">
+        <div id="historyList"></div>
+    </div>
+
+    <button class="btn btn-gray" onclick="showScreen('dashboard')">
+        بازگشت
+    </button>
+</section>
+
+<!-- CLUB BROWSER -->
+<section id="clubBrowser" class="hidden">
+  <h2>🔎 جست‌وجوی بازیکنان</h2>
+  <div class="card">
+    <p class="info">در اسکوادهای فعلی بازی بین باشگاه‌ها جست‌وجو کن؛ داده‌ها شبیه‌سازی‌شده‌اند و لزوماً فهرست رسمی واقعی نیستند.</p>
+    <label>نام بازیکن، باشگاه یا پست</label>
+    <input id="browseSearch" placeholder="جست‌وجو..." oninput="renderClubBrowser()">
+    <div id="clubBrowserResults"></div>
+  </div>
+  <button class="btn btn-gray" onclick="showScreen('dashboard')">بازگشت</button>
+</section>
+
+<!-- TRAINING -->
+<section id="training" class="hidden">
+  <h2>🏋️ تمرین و استعدادیابی</h2>
+  <div class="card">
+    <h3>تمرین فردی</h3>
+    <p class="info">تمرین یک ویژگی را کمی بهتر می‌کند و از آمادگی بازیکن کم می‌کند. پیشرفت محدود به پتانسیل بازیکن است.</p>
+    <label>بازیکن</label><select id="trainingPlayer"></select>
+    <label>نوع تمرین</label><select id="trainingType"><option value="balanced">تمرین متعادل</option><option value="pace">سرعت</option><option value="shooting">شوت‌زنی</option><option value="passing">پاس</option><option value="defending">دفاع</option></select>
+    <button class="btn" onclick="trainPlayer()">شروع تمرین</button>
+    <div id="trainingRoster" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <h3>🕵️ استعدادیاب جوانان</h3>
+    <p>هزینه اعزام: ۵۰٬۰۰۰ واحد بودجه. استعداد کشف‌شده به بازار بازیکنان آزاد اضافه می‌شود و می‌توانی با او قرارداد ببندی.</p>
+    <button class="btn btn-purple" onclick="scoutYouth()">اعزام استعدادیاب</button>
+    <div id="scoutResult"></div>
+  </div>
+  <button class="btn btn-gray" onclick="showScreen('dashboard')">بازگشت</button>
+</section>
+
+</div>
+
+<div id="negotiationModal" class="modal-overlay hidden"></div>
+<div id="analysisModal" class="modal-overlay hidden" onclick="if(event.target===this)closeAnalysis()">
+  <div class="analysis-card"><button class="close-modal" onclick="closeAnalysis()">✕</button><div id="analysisContent"></div><button class="btn btn-gray" onclick="closeAnalysis()">بستن تحلیل</button></div>
+</div>
+
+<script>
+
+/* =========================================================
+   TELEGRAM
+========================================================= */
+
+const tg = window.Telegram && window.Telegram.WebApp
+    ? window.Telegram.WebApp
+    : null;
+
+if(tg){
+    try{
+        tg.ready();
+        tg.expand();
+    }catch(e){}
+}
+
+/* =========================================================
+   GAME VERSION
+========================================================= */
+
+const GAME_VERSION = "4.4.0";
+const SAVE_KEY = "mfc_career_v4_master";
+
+/* =========================================================
+   PISHTAZAN ORIGINAL SQUAD
+========================================================= */
+
+const PISHTAZAN_PLAYERS = [
+
+{ id:1,number:1,name:"سمیع",position:"GK",ovr:68,pac:58,sho:25,pas:45,dri:35,def:25,phy:55 },
+
+{ id:22,number:22,name:"محمد امین برون‌سرا",position:"GK",ovr:67,pac:55,sho:20,pas:40,dri:30,def:20,phy:50 },
+
+{ id:3,number:3,name:"سعید نیازی",position:"CB",ovr:72,pac:78,sho:35,pas:48,dri:45,def:91,phy:55 },
+
+{ id:5,number:5,name:"ارکان قاضیانی",position:"CB",ovr:71,pac:65,sho:40,pas:78,dri:62,def:79,phy:68 },
+
+{ id:4,number:4,name:"رسول ایری",position:"CB",ovr:74,pac:62,sho:35,pas:50,dri:42,def:83,phy:94 },
+
+{ id:16,number:16,name:"میکاییل خجاو",position:"LB/CB",ovr:68,pac:78,sho:55,pas:74,dri:68,def:60,phy:58 },
+
+{ id:12,number:12,name:"اصف ایری",position:"LB/LW",ovr:69,pac:72,sho:82,pas:65,dri:73,def:62,phy:68 },
+
+{ id:15,number:15,name:"طاها ارنظری",position:"RB/CM",ovr:70,pac:69,sho:45,pas:58,dri:52,def:84,phy:78 },
+
+{ id:13,number:13,name:"رامین جاهد",position:"RB/CM",ovr:68,pac:70,sho:50,pas:62,dri:60,def:64,phy:65 },
+
+{ id:14,number:14,name:"محمد طاها مکرری",position:"CM",ovr:75,pac:78,sho:70,pas:92,dri:94,def:45,phy:62 },
+
+{ id:6,number:6,name:"محمدرضا صنایعی",position:"CDM",ovr:67,pac:55,sho:30,pas:50,dri:42,def:68,phy:90 },
+
+{ id:8,number:8,name:"طاها منوچهر",position:"CM",ovr:69,pac:68,sho:45,pas:65,dri:78,def:40,phy:60 },
+
+{ id:17,number:17,name:"بصیر کر",position:"CM",ovr:68,pac:65,sho:45,pas:62,dri:65,def:48,phy:62 },
+
+{ id:18,number:18,name:"بصیر اونق",position:"CM",ovr:67,pac:50,sho:65,pas:72,dri:48,def:35,phy:70 },
+
+{ id:7,number:7,name:"صادق وطن‌دوست",position:"RW/ST",ovr:70,pac:96,sho:55,pas:48,dri:50,def:30,phy:55 },
+
+{ id:11,number:11,name:"مصطفی بیناگر",position:"LW/ST",ovr:73,pac:88,sho:78,pas:65,dri:91,def:35,phy:68 },
+
+{ id:10,number:10,name:"محمدرضا کر",position:"ST",ovr:66,pac:55,sho:60,pas:40,dri:42,def:20,phy:55 },
+
+{ id:19,number:19,name:"طاها ریاحی",position:"ST",ovr:68,pac:48,sho:82,pas:42,dri:45,def:20,phy:65 },
+
+{ id:9,number:9,name:"سیاوش",position:"ST",ovr:71,pac:72,sho:70,pas:48,dri:55,def:30,phy:84 },
+
+{ id:2,number:2,name:"عدنان ال‌جلیل",position:"LW",ovr:67,pac:73,sho:55,pas:50,dri:62,def:25,phy:55 }
+
+];
+
+/* =========================================================
+   LEAGUE
+========================================================= */
+
+const TEAM_DEFS = [
+
+{name:"پیشتازان بندرترکمن",strength:70},
+{name:"پارس فوتبال",strength:68},
+{name:"آریا اسپرت",strength:69},
+{name:"گرگان یونایتد",strength:71},
+{name:"تهران یونایتد",strength:75},
+{name:"استقلال",strength:84},
+{name:"سپاهان",strength:82},
+{name:"پرسپولیس",strength:85},
+{name:"تراکتور",strength:81},
+{name:"ذوب‌آهن",strength:71},
+{name:"فولاد",strength:79},
+{name:"گل‌گهر",strength:78},
+{name:"نساجی",strength:69},
+{name:"ملوان",strength:72},
+{name:"خیبر",strength:68},
+{name:"شمس‌آذر",strength:67}
+
+];
+
+const leagueTeams = TEAM_DEFS.map(x=>x.name);
+
+/* =========================================================
+   OTHER SQUAD NAMES
+========================================================= */
+
+const OTHER_NAMES = [
+"علی رضایی","مهدی کریمی","امیرحسین صادقی","پارسا احمدی","یونس مرادی",
+"کیان نادری","محمدحسین کاظمی","ابوالفضل حسینی","سامان اکبری","آرین رستمی",
+"ماهان حیدری","امیررضا موسوی","طاها یوسفی","بردیا شریفی","میلاد نوروزی",
+"سینا فرهادی","محمدطاها قاسمی","پوریا عزیزی","آرمان توکلی","عرفان مرادی"
+];
+
+const squadPositions=[
+"GK","GK","LB","CB","CB","CB","RB","RB",
+"CDM","CM","CM","CM","CM","CDM",
+"LW","RW","ST","ST","LW","RW"
+];
+
+const baseStats={
+
+GK:{pac:57,sho:20,pas:42,dri:30,def:25,phy:55},
+
+LB:{pac:72,sho:35,pas:55,dri:52,def:68,phy:62},
+
+RB:{pac:71,sho:35,pas:57,dri:53,def:69,phy:64},
+
+CB:{pac:62,sho:28,pas:48,dri:38,def:76,phy:76},
+
+CDM:{pac:61,sho:38,pas:65,dri:50,def:70,phy:73},
+
+CM:{pac:68,sho:45,pas:70,dri:66,def:48,phy:62},
+
+LW:{pac:83,sho:61,pas:55,dri:76,def:28,phy:53},
+
+RW:{pac:84,sho:60,pas:56,dri:74,def:29,phy:54},
+
+ST:{pac:72,sho:73,pas:43,dri:55,def:22,phy:68}
+
+};
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function clamp(v,min=15,max=95){
+    return Math.max(min,Math.min(max,Math.round(v)));
+}
+
+function randomBetween(min,max){
+    return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function average(arr){
+    if(!arr.length)return 0;
+    return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
+
+function formatMoney(v){
+    return Math.round(v).toLocaleString("en-US");
+}
+
+function escapeHTML(str){
+    return String(str)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+}
+
+function deepClone(obj){
+    return JSON.parse(JSON.stringify(obj));
+}
+
+/* =========================================================
+   GENERATED AI SQUADS
+========================================================= */
+
+function generateSquad(teamName){
+
+    const teamIndex=leagueTeams.indexOf(teamName);
+
+    const team=TEAM_DEFS.find(x=>x.name===teamName);
+
+    return OTHER_NAMES.map((name,index)=>{
+
+        const position=squadPositions[index];
+
+        const base=baseStats[position];
+
+        const variance=((index*7+teamIndex*5)%13)-6;
+
+        const eliteBonus=["استقلال","پرسپولیس","سپاهان","تراکتور"].includes(teamName)?3:(["فولاد","گل‌گهر"].includes(teamName)?1.5:0);
+        const adjustment=10+(team.strength-70)*1.0+eliteBonus;
+
+        const stats={
+
+            pac:clamp(base.pac+variance+adjustment),
+
+            sho:clamp(base.sho+variance*.7+adjustment),
+
+            pas:clamp(base.pas+variance*.6+adjustment),
+
+            dri:clamp(base.dri+variance*.8+adjustment),
+
+            def:clamp(base.def+variance*.5+adjustment),
+
+            phy:clamp(base.phy+variance*.7+adjustment)
+
+        };
+
+        const ovr=Math.round(
+            stats.pac*.15+
+            stats.sho*.15+
+            stats.pas*.15+
+            stats.dri*.15+
+            stats.def*.20+
+            stats.phy*.20
+        );
+
+        return {
+
+            id:(teamIndex+1)*1000+index+1,
+
+            number:index+1,
+
+            name,
+
+            position,
+
+            ovr,
+
+            ...stats,
+
+            form:6,
+
+            fitness:100,
+
+            morale:70,
+
+            value:Math.round((ovr-55)*25000),
+
+            salary:Math.round((ovr-55)*800),
+
+            contractYears:2,
+
+            seasonStats:createPlayerStats()
+
+        };
+
+    });
+}
+
+/* =========================================================
+   PLAYER STATS
+========================================================= */
+
+function createPlayerStats(){
+
+    return {
+
+        appearances:0,
+        starts:0,
+        goals:0,
+        assists:0,
+        yellow:0,
+        red:0,
+        cleanSheets:0,
+        saves:0,
+        ratingSum:0,
+        minutes:0
+
+    };
+
+}
+
+function preparePlayer(p){
+
+    if(!p.seasonStats)p.seasonStats=createPlayerStats();
+
+    if(typeof p.form!=="number")p.form=6;
+
+    if(typeof p.fitness!=="number")p.fitness=100;
+
+    if(typeof p.morale!=="number")p.morale=70;
+
+    if(typeof p.value!=="number"){
+        p.value=Math.max(10000,(p.ovr-55)*25000);
+    }
+
+    if(typeof p.salary!=="number"){
+        p.salary=Math.max(500,(p.ovr-55)*800);
+    }
+
+    if(typeof p.contractYears!=="number"){
+        p.contractYears=2;
+    }
+
+    return p;
+}
+
+/* =========================================================
+   GLOBAL SQUADS
+========================================================= */
+
+const SQUADS={
+
+    "پیشتازان بندرترکمن":
+        PISHTAZAN_PLAYERS.map(x=>preparePlayer(deepClone(x)))
+
+};
+
+leagueTeams.forEach(team=>{
+
+    if(team!=="پیشتازان بندرترکمن"){
+
+        SQUADS[team]=generateSquad(team);
+
+    }
+
+});
+
+/* =========================================================
+   CAREER
+========================================================= */
+
+function emptyTable(){
+
+    const table={};
+
+    leagueTeams.forEach(team=>{
+
+        table[team]={
+
+            played:0,
+            wins:0,
+            draws:0,
+            losses:0,
+            gf:0,
+            ga:0,
+            points:0,
+            form:[]
+
+        };
+
+    });
+
+    return table;
+}
+
+function createCareer(){
+
+    return {
+
+        version:GAME_VERSION,
+
+        coach:"",
+
+        age:35,
+
+        nationality:"Iran",
+
+        style:"balanced",
+
+        club:"",
+
+        money:1000000,
+
+        reputation:50,
+
+        managerXP:0,
+
+        managerLevel:1,
+
+        season:1,
+
+        week:1,
+
+        formation:"4-3-3",
+
+        mentality:"balanced",
+
+        tempo:"normal",
+
+        pressing:"medium",
+
+        defensiveLine:"medium",
+
+        matches:0,
+
+        wins:0,
+
+        draws:0,
+
+        losses:0,
+
+        goalsFor:0,
+
+        goalsAgainst:0,
+
+        transferWindowOpen:true,
+
+        freeAgents:[],
+
+        transferListed:[],
+
+        transferOffers:[],
+
+        clubBudgets:Object.fromEntries(TEAM_DEFS.map(t=>[t.name, Math.round((t.strength-55)*180000 + 2500000)])),
+
+        suspensions:{},
+
+        schedule:[],
+
+        matchHistory:[],
+
+        news:[],
+
+        achievements:[],
+
+        objectives:[],
+
+        objectiveProgress:{},
+
+        seasonHistory:[]
+
+    };
+
+}
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let career=createCareer();
+
+let players=[];
+
+let lineup={};
+
+let leagueTable=emptyTable();
+
+let matchState=null;
+
+let matchTimer=null;
+
+let selectedSlot=null;
+
+let currentPlayerId=null;
+
+/* =========================================================
+   FORMATIONS
+========================================================= */
+
+const formationSlots={
+
+"4-3-3":[
+["gk",50,91],
+["lb",12,73],
+["lcb",37,77],
+["rcb",63,77],
+["rb",88,73],
+["cdm",50,60],
+["lcm",32,47],
+["rcm",68,47],
+["lw",15,24],
+["st",50,17],
+["rw",85,24]
+],
+
+"4-4-2":[
+["gk",50,91],
+["lb",12,73],
+["lcb",37,77],
+["rcb",63,77],
+["rb",88,73],
+["lm",14,47],
+["lcm",37,50],
+["rcm",63,50],
+["rm",86,47],
+["st",40,19],
+["st2",60,19]
+],
+
+"4-2-3-1":[
+["gk",50,91],
+["lb",12,73],
+["lcb",37,77],
+["rcb",63,77],
+["rb",88,73],
+["cdm",40,60],
+["cdm2",60,60],
+["lw",17,38],
+["cam",50,35],
+["rw",83,38],
+["st",50,16]
+],
+
+"3-5-2":[
+["gk",50,91],
+["lcb",25,75],
+["cb",50,78],
+["rcb",75,75],
+["lm",12,48],
+["lcm",35,53],
+["cdm",50,60],
+["rcm",65,53],
+["rm",88,48],
+["st",40,18],
+["st2",60,18]
+],
+
+"5-3-2":[
+["gk",50,91],
+["lb",10,68],
+["lcb",30,76],
+["cb",50,80],
+["rcb",70,76],
+["rb",90,68],
+["lcm",32,49],
+["cdm",50,56],
+["rcm",68,49],
+["st",40,19],
+["st2",60,19]
+]
+
+};
+
+/* =========================================================
+   DEFAULT LINEUP
+========================================================= */
+
+const defaultLineup={
+
+gk:1,
+lb:16,
+lcb:4,
+rcb:5,
+rb:15,
+cdm:6,
+lcm:14,
+rcm:8,
+lw:11,
+st:10,
+rw:7
+
+};
+
+/* =========================================================
+   POSITION MATCHING
+========================================================= */
+
+function positionScore(player,slot){
+
+    const p=player.position;
+
+    const map={
+
+        gk:["GK"],
+
+        lb:["LB","LB/CB","LB/LW"],
+
+        rb:["RB","RB/CM"],
+
+        lcb:["CB","LB/CB"],
+
+        rcb:["CB","RB/CM"],
+
+        cb:["CB","LB/CB"],
+
+        cdm:["CDM","CM"],
+
+        cdm2:["CDM","CM"],
+
+        lcm:["CM","CDM","RB/CM"],
+
+        rcm:["CM","CDM","RB/CM"],
+
+        lm:["LW","LB/LW","CM"],
+
+        rm:["RW","RB/CM","CM"],
+
+        lw:["LW","LW/ST","RW/ST"],
+
+        rw:["RW","RW/ST","LW"],
+
+        cam:["CM","LW/ST","RW/ST"],
+
+        st:["ST","RW/ST","LW/ST"],
+
+        st2:["ST","RW/ST","LW/ST"]
+
+    };
+
+    const allowed=map[slot]||[];
+
+    if(allowed.includes(p))return 100;
+
+    if(p==="CB" && ["lb","rb","cdm"].includes(slot))return 65;
+
+    if(p.includes("ST") && ["lw","rw","cam"].includes(slot))return 65;
+
+    if(p==="CM" && ["cam","cdm"].includes(slot))return 75;
+
+    return 20;
+}
+
+/* =========================================================
+   GET PLAYER
+========================================================= */
+
+function getPlayer(id){
+
+    return players.find(p=>Number(p.id)===Number(id));
+
+}
+
+/* =========================================================
+   CREATE DEFAULT LINEUP
+========================================================= */
+
+function getDefaultLineup(club){
+
+    if(club==="پیشتازان بندرترکمن"){
+
+        return {...defaultLineup};
+
+    }
+
+    const squad=SQUADS[club]||[];
+
+    const result={};
+
+    const used=[];
+
+    Object.keys(formationSlots[career.formation]||formationSlots["4-3-3"])
+    .forEach(slot=>{
+
+        let best=null;
+
+        let bestScore=-1;
+
+        squad.forEach(p=>{
+
+            if(used.includes(p.id))return;
+
+            const score=positionScore(p,slot)*10+p.ovr;
+
+            if(score>bestScore){
+
+                bestScore=score;
+
+                best=p;
+
+            }
+
+        });
+
+        if(best){
+
+            result[slot]=best.id;
+
+            used.push(best.id);
+
+        }
+
+    });
+
+    return result;
+}
+
+/* =========================================================
+   SCHEDULE GENERATOR
+========================================================= */
+
+function generateSchedule(){
+
+    const teams=[...leagueTeams];
+
+    const rounds=[];
+
+    let rotation=[...teams];
+
+    const n=rotation.length;
+
+    for(let round=0;round<n-1;round++){
+
+        const games=[];
+
+        for(let i=0;i<n/2;i++){
+
+            const home=rotation[i];
+
+            const away=rotation[n-1-i];
+
+            if(round%2===0){
+
+                games.push({
+                    home,
+                    away
+                });
+
+            }else{
+
+                games.push({
+                    home:away,
+                    away:home
+                });
+
+            }
+
+        }
+
+        rounds.push(games);
+
+        rotation=[
+            rotation[0],
+            rotation[n-1],
+            ...rotation.slice(1,n-1)
+        ];
+
+    }
+
+    const secondHalf=rounds.map(games=>
+
+        games.map(game=>({
+
+            home:game.away,
+
+            away:game.home
+
+        }))
+
+    );
+
+    return [...rounds,...secondHalf];
+
+}
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveGame(){
+
+    if(!career.club)return;
+
+    const save={
+
+        career,
+
+        players,
+
+        lineup,
+
+        leagueTable,
+
+        squads:SQUADS,
+
+        version:GAME_VERSION
+
+    };
+
+    try{
+
+        localStorage.setItem(
+            SAVE_KEY,
+            JSON.stringify(save)
+        );
+
+        updateHomeSaveStatus();
+
+    }catch(e){
+
+        console.error(e);
+
+        alert("ذخیره بازی انجام نشد.");
+
+    }
+
+}
+
+function hasSave(){
+
+    return !!localStorage.getItem(SAVE_KEY);
+
+}
+
+function manualSave(){
+
+    saveGame();
+
+    alert("💾 بازی با موفقیت ذخیره شد.");
+
+}
+
+function updateHomeSaveStatus(){
+
+    const btn=document.getElementById("continueBtn");
+
+    const status=document.getElementById("saveStatus");
+
+    if(hasSave()){
+
+        btn.disabled=false;
+
+        status.innerText="💾 کریر ذخیره‌شده آماده ادامه است.";
+
+    }else{
+
+        btn.disabled=true;
+
+        status.innerText="🆕 هنوز کریری ذخیره نشده است.";
+
+    }
+
+}
+
+/* =========================================================
+   START NEW
+========================================================= */
+
+function startNewCareer(){
+
+    if(matchTimer){
+
+        clearInterval(matchTimer);
+
+        matchTimer=null;
+
+    }
+
+    localStorage.removeItem(SAVE_KEY);
+
+    career=createCareer();
+
+    players=[];
+
+    lineup={};
+
+    leagueTable=emptyTable();
+
+    matchState=null;
+
+    selectedSlot=null;
+
+    document.getElementById("coachName").value="";
+
+    document.getElementById("coachAge").value=35;
+
+    document.getElementById("coachNationality").value="Iran";
+
+    document.getElementById("coachStyle").value="balanced";
+
+    showScreen("coach");
+
+}
+
+/* =========================================================
+   CONTINUE
+========================================================= */
+
+function continueCareer(){
+
+    const raw=localStorage.getItem(SAVE_KEY);
+
+    if(!raw){
+
+        alert("هیچ کریری ذخیره نشده.");
+
+        return;
+
+    }
+
+    try{
+
+        const save=JSON.parse(raw);
+
+        career={
+            ...createCareer(),
+            ...save.career
+        };
+
+        if(save.squads && typeof save.squads==="object"){
+            Object.keys(SQUADS).forEach(team=>{
+                if(Array.isArray(save.squads[team])){
+                    SQUADS[team]=save.squads[team].map(preparePlayer);
+                }
+            });
+        }
+
+        players=(save.players||[]).map(preparePlayer);
+
+        if(!Array.isArray(career.freeAgents)) career.freeAgents=[];
+        if(!Array.isArray(career.transferListed)) career.transferListed=[];
+        if(!Array.isArray(career.transferOffers)) career.transferOffers=[];
+        if(!career.clubBudgets || typeof career.clubBudgets!=="object") career.clubBudgets={};
+        TEAM_DEFS.forEach(t=>{
+            if(typeof career.clubBudgets[t.name]!=="number") career.clubBudgets[t.name]=Math.round((t.strength-55)*180000 + 2500000);
+        });
+        if(!career.suspensions || typeof career.suspensions!=="object") career.suspensions={};
+
+        if(!players.length){
+
+            players=SQUADS[career.club]
+                ?deepClone(SQUADS[career.club]).map(preparePlayer)
+                :[];
+
+        }
+
+        lineup=save.lineup||getDefaultLineup(career.club);
+
+        leagueTable={
+            ...emptyTable(),
+            ...(save.leagueTable||{})
+        };
+
+        if(!career.schedule||!career.schedule.length){
+
+            career.schedule=generateSchedule();
+
+        }
+
+        showScreen("dashboard");
+
+    }catch(e){
+
+        console.error(e);
+
+        alert("فایل ذخیره خراب است. یک کریر جدید بساز.");
+
+    }
+
+}
+
+/* =========================================================
+   COACH
+========================================================= */
+
+function createCoach(){
+
+    career=createCareer();
+
+    career.coach=
+        document.getElementById("coachName")
+        .value.trim()||"مربی جدید";
+
+    career.age=
+        Number(document.getElementById("coachAge").value)||35;
+
+    career.nationality=
+        document.getElementById("coachNationality")
+        .value.trim()||"Iran";
+
+    career.style=
+        document.getElementById("coachStyle").value;
+
+    career.mentality=career.style;
+
+    showScreen("club");
+
+}
+
+/* =========================================================
+   CLUB LIST
+========================================================= */
+
+function renderClubList(){
+
+    const box=document.getElementById("clubList");
+
+    box.innerHTML=TEAM_DEFS.map(team=>`
+
+        <div class="club-card"
+             onclick="selectClub('${team.name.replace(/'/g,"\\'")}')">
+
+            <div class="club-name">
+                🏟️ ${team.name}
+            </div>
+
+            <div class="club-strength">
+                ⭐ قدرت: ${team.strength}
+            </div>
+
+            <div class="small">
+                👥 ۲۰ بازیکن
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+/* =========================================================
+   SELECT CLUB
+========================================================= */
+
+function selectClub(club){
+
+    if(!SQUADS[club]){
+
+        alert("اسکواد باشگاه پیدا نشد.");
+
+        return;
+
+    }
+
+    career.club=club;
+
+    career.schedule=generateSchedule();
+
+    career.week=1;
+
+    career.season=1;
+
+    players=deepClone(SQUADS[club]).map(preparePlayer);
+
+    lineup=getDefaultLineup(club);
+
+    leagueTable=emptyTable();
+
+    createObjectives();
+
+    addNews(
+        "🏟️",
+        `شما هدایت ${club} را بر عهده گرفتید.`
+    );
+
+    saveGame();
+
+    showScreen("dashboard");
+
+}
+
+/* =========================================================
+   SCREENS
+========================================================= */
+
+function showScreen(screen){
+
+    document.querySelectorAll("section")
+        .forEach(s=>s.classList.add("hidden"));
+
+    const target=document.getElementById(screen);
+
+    if(target)target.classList.remove("hidden");
+
+    if(screen==="home"){
+
+        updateHomeSaveStatus();
+
+    }
+
+    if(screen==="club"){
+
+        renderClubList();
+
+    }
+
+    if(screen==="dashboard"){
+
+        updateDashboard();
+
+    }
+
+    if(screen==="team"){
+
+        renderTeam();
+
+    }
+
+    if(screen==="player"){
+
+        renderPlayerPage();
+
+    }
+
+    if(screen==="tactics"){
+
+        updateTactics();
+
+    }
+
+    if(screen==="table"){
+
+        renderTable();
+
+    }
+
+    if(screen==="transfer"){
+
+        renderTransfers();
+
+    }
+
+    if(screen==="calendar"){
+
+        renderCalendar();
+
+    }
+
+    if(screen==="stats"){
+
+        renderSeasonStats();
+
+    }
+
+    if(screen==="news"){
+
+        renderNews();
+
+    }
+
+    if(screen==="objectives"){
+
+        renderObjectives();
+
+    }
+
+    if(screen==="history"){
+
+        renderHistory();
+
+    }
+
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function updateDashboard(){
+
+    document.getElementById("dashboardCoach").innerText=
+        "👔 "+(career.coach||"مربی");
+
+    document.getElementById("dashboardClub").innerText=
+        "🏟️ "+(career.club||"بدون باشگاه");
+
+    document.getElementById("seasonNumber").innerText=
+        career.season;
+
+    document.getElementById("weekNumber").innerText=
+        career.week;
+
+    document.getElementById("moneyNumber").innerText=
+        formatMoney(career.money);
+
+    document.getElementById("points").innerText=
+        career.points;
+
+    document.getElementById("reputation").innerText=
+        career.reputation;
+
+    document.getElementById("wins").innerText=
+        career.wins;
+
+    document.getElementById("matches").innerText=
+        career.matches;
+
+    document.getElementById("goalsFor").innerText=
+        career.goalsFor;
+
+    document.getElementById("goalsAgainst").innerText=
+        career.goalsAgainst;
+
+    renderDashboardObjective();
+
+    renderDashboardNews();
+
+}
+
+/* =========================================================
+   TEAM RENDER
+========================================================= */
+
+function renderTeam(){
+
+    document.getElementById("teamTitle").innerText=
+        `ترکیب — ${career.club}`;
+
+    renderPitch();
+
+    renderRoster();
+
+    updateSelectedPlayerBox();
+
+    updateSubstitutionPanel();
+
+}
+
+/* =========================================================
+   PITCH
+========================================================= */
+
+function renderPitch(){
+
+    const container=
+        document.getElementById("pitchContainer");
+
+    const slots=
+        formationSlots[career.formation]||
+        formationSlots["4-3-3"];
+
+    let html=`
+
+        <div class="pitch">
+
+            <div class="center-circle"></div>
+
+    `;
+
+    slots.forEach(slotData=>{
+
+        const slot=slotData[0];
+
+        const x=slotData[1];
+
+        const y=slotData[2];
+
+        const player=getPlayer(lineup[slot]);
+
+        if(!player)return;
+
+        html+=`
+
+            <div class="slot ${selectedSlot===slot?"selected":""}"
+                 style="left:${x}%;top:${y}%"
+                 onclick="selectStarter('${slot}')">
+
+                <div class="slot-ball">
+                    ${player.number}
+                </div>
+
+                <div class="slot-name">
+                    ${escapeHTML(player.name)}
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+    html+=`</div>`;
+
+    container.innerHTML=html;
+
+}
+
+/* =========================================================
+   ROSTER
+========================================================= */
+
+function renderRoster(){
+
+    const box=document.getElementById("roster");
+
+    const starterIds=Object.values(lineup);
+
+    box.innerHTML=players.map(p=>{
+
+        const starter=starterIds.includes(p.id);
+
+        return`
+
+            <div class="player"
+                 onclick="handleRosterClick(${p.id})"
+                 ondblclick="showPlayer(${p.id})">
+
+                <div class="player-row">
+
+                    <div>
+
+                        <strong>
+                            #${p.number} ${escapeHTML(p.name)}
+                        </strong>
+
+                        <div class="position">
+                            ${p.position}
+                            ${starter?" • 🟢 ترکیب اصلی":" • ⚪ نیمکت"}
+                        </div>
+
+                    </div>
+
+                    <div class="ovr">
+                        ${p.ovr}
+                    </div>
+
+                </div>
+
+                <div class="small">
+                    فرم ${p.form.toFixed(1)}
+                    · آمادگی ${Math.round(p.fitness)}%
+                    · روحیه ${Math.round(p.morale)}%
+                </div>
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
+/* =========================================================
+   ROSTER CLICK
+========================================================= */
+
+function handleRosterClick(id){
+
+    const slot=
+        Object.keys(lineup)
+        .find(s=>Number(lineup[s])===Number(id));
+
+    if(slot){
+
+        selectStarter(slot);
+
+        return;
+
+    }
+
+    if(selectedSlot){
+
+        makeSubstitution(id);
+
+        return;
+
+    }
+
+    showPlayer(id);
+
+}
+
+/* =========================================================
+   STARTER
+========================================================= */
+
+function selectStarter(slot){
+
+    selectedSlot=slot;
+
+    renderPitch();
+
+    updateSelectedPlayerBox();
+
+    updateSubstitutionPanel();
+
+}
+
+/* =========================================================
+   SELECTED PLAYER
+========================================================= */
+
+function updateSelectedPlayerBox(){
+
+    const box=
+        document.getElementById("selectedPlayerBox");
+
+    if(!selectedSlot){
+
+        box.innerHTML="";
+
+        return;
+
+    }
+
+    const p=getPlayer(lineup[selectedSlot]);
+
+    if(!p)return;
+
+    box.innerHTML=`
+
+        <div class="selected-info">
+
+            🔄 بازیکن انتخاب‌شده:
+            <strong>${escapeHTML(p.name)}</strong>
+
+            <br>
+
+            <span class="small">
+                حالا بازیکن نیمکت را انتخاب کن.
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   SUB PANEL
+========================================================= */
+
+function updateSubstitutionPanel(){
+
+    const panel=
+        document.getElementById("substitutionPanel");
+
+    if(!selectedSlot){
+
+        panel.innerHTML=`
+
+            <div class="card">
+                🔄 برای تعویض، ابتدا روی بازیکن زمین بزن.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    const current=
+        getPlayer(lineup[selectedSlot]);
+
+    const starters=
+        Object.values(lineup);
+
+    const bench=
+        players.filter(p=>!starters.includes(p.id));
+
+    panel.innerHTML=`
+
+        <div class="card">
+
+            <h3>
+                🔄 تعویض ${escapeHTML(current.name)}
+            </h3>
+
+            <div class="bench-title">
+                🪑 نیمکت
+            </div>
+
+            ${bench.map(p=>`
+
+                <div class="player"
+                     onclick="makeSubstitution(${p.id})">
+
+                    <div class="player-row">
+
+                        <div>
+                            #${p.number}
+                            ${escapeHTML(p.name)}
+
+                            <div class="position">
+                                ${p.position}
+                            </div>
+                        </div>
+
+                        <div class="ovr">
+                            ${p.ovr}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `).join("")}
+
+            <button class="btn btn-gray"
+                    onclick="cancelSubstitution()">
+                لغو
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+function makeSubstitution(playerId){
+
+    if(!selectedSlot)return;
+
+    if(Object.values(lineup).includes(playerId)){
+
+        alert("این بازیکن در ترکیب اصلی است.");
+
+        return;
+
+    }
+
+    const old=getPlayer(lineup[selectedSlot]);
+
+    const next=getPlayer(playerId);
+
+    lineup[selectedSlot]=playerId;
+
+    selectedSlot=null;
+
+    saveGame();
+
+    renderTeam();
+
+    alert(
+        `🔄 تعویض انجام شد!\n\n${old.name} ➜ ${next.name}`
+    );
+
+}
+
+function cancelSubstitution(){
+
+    selectedSlot=null;
+
+    renderTeam();
+
+}
+
+function resetLineup(){
+
+    if(!confirm("ترکیب به حالت اولیه برگردد؟"))return;
+
+    lineup=getDefaultLineup(career.club);
+
+    selectedSlot=null;
+
+    saveGame();
+
+    renderTeam();
+
+}
+
+/* =========================================================
+   PLAYER PAGE
+========================================================= */
+
+function showPlayer(id){
+
+    currentPlayerId=id;
+
+    renderPlayerPage();
+
+    showScreen("player");
+
+}
+
+function renderPlayerPage(){
+
+    if(!currentPlayerId)return;
+
+    const p=getPlayer(currentPlayerId);
+
+    if(!p)return;
+
+    document.getElementById("playerName").innerText=
+        "#"+p.number+" "+p.name;
+
+    document.getElementById("playerPosition").innerText=
+        p.position;
+
+    document.getElementById("playerOVR").innerText=
+        "OVR "+p.ovr;
+
+    document.getElementById("playerPAC").innerText=p.pac;
+    document.getElementById("playerSHO").innerText=p.sho;
+    document.getElementById("playerPAS").innerText=p.pas;
+    document.getElementById("playerDRI").innerText=p.dri;
+    document.getElementById("playerDEF").innerText=p.def;
+    document.getElementById("playerPHY").innerText=p.phy;
+
+    document.getElementById("playerFormBox").innerHTML=`
+
+        <div class="alert-box">
+
+            فرم: <strong>${p.form.toFixed(1)}</strong>
+
+            · آمادگی: <strong>${Math.round(p.fitness)}%</strong>
+
+            · روحیه: <strong>${Math.round(p.morale)}%</strong>
+
+            <br>
+
+            ارزش:
+            <strong>${formatMoney(p.value)}</strong>
+
+        </div>
+
+    `;
+
+    const s=p.seasonStats||createPlayerStats();
+
+    document.getElementById("playerSeasonStats").innerHTML=`
+
+        <div class="player-stat-grid">
+
+            <div class="player-stat-mini">
+                بازی
+                <strong>${s.appearances}</strong>
+            </div>
+
+            <div class="player-stat-mini">
+                گل
+                <strong>${s.goals}</strong>
+            </div>
+
+            <div class="player-stat-mini">
+                پاس گل
+                <strong>${s.assists}</strong>
+            </div>
+
+            <div class="player-stat-mini">
+                کارت زرد
+                <strong>${s.yellow}</strong>
+            </div>
+
+            <div class="player-stat-mini">
+                کارت قرمز
+                <strong>${s.red}</strong>
+            </div>
+
+            <div class="player-stat-mini">
+                میانگین
+                <strong>${s.appearances
+                    ?(s.ratingSum/s.appearances).toFixed(1)
+                    :"—"}</strong>
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   TACTICS
+========================================================= */
+
+function changeFormation(){
+
+    career.formation=
+        document.getElementById("formationSelect").value;
+
+    const oldPlayers=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
+
+    const used=[];
+
+    const newLineup={};
+
+    const slots=
+        formationSlots[career.formation];
+
+    slots.forEach(slotData=>{
+
+        const slot=slotData[0];
+
+        let best=null;
+
+        let score=-1;
+
+        oldPlayers.forEach(p=>{
+
+            if(used.includes(p.id))return;
+
+            const s=positionScore(p,slot)*10+p.ovr;
+
+            if(s>score){
+
+                score=s;
+
+                best=p;
+
+            }
+
+        });
+
+        if(best){
+
+            newLineup[slot]=best.id;
+
+            used.push(best.id);
+
+        }
+
+    });
+
+    lineup=newLineup;
+
+    selectedSlot=null;
+
+    saveGame();
+
+    renderPitch();
+
+}
+
+function changeMentality(){
+
+    career.mentality=
+        document.getElementById("mentalitySelect").value;
+
+    saveGame();
+
+    updateTeamPowerDetails();
+
+}
+
+function changeTacticValue(key){
+
+    career[key]=
+        document.getElementById(
+            key==="tempo"
+                ?"tempoSelect"
+                :key==="pressing"
+                ?"pressingSelect"
+                :"defensiveLineSelect"
+        ).value;
+
+    saveGame();
+
+    updateTeamPowerDetails();
+
+}
+
+function updateTactics(){
+
+    document.getElementById("formationSelect").value=
+        career.formation;
+
+    document.getElementById("mentalitySelect").value=
+        career.mentality;
+
+    document.getElementById("tempoSelect").value=
+        career.tempo;
+
+    document.getElementById("pressingSelect").value=
+        career.pressing;
+
+    document.getElementById("defensiveLineSelect").value=
+        career.defensiveLine;
+
+    updateTeamPowerDetails();
+
+}
+
+function calculateTeamPower(){
+
+    const starters=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
+
+    if(!starters.length)return 50;
+
+    let base=
+        average(starters.map(p=>p.ovr));
+
+    let modifier=1;
+
+    if(career.mentality==="attacking")modifier+=.025;
+
+    if(career.mentality==="defensive")modifier+=.015;
+
+    if(career.tempo==="fast")modifier+=.01;
+
+    if(career.pressing==="high")modifier+=.01;
+
+    if(career.defensiveLine==="high")modifier-=.005;
+
+    return base*modifier;
+
+}
+
+function updateTeamPowerDetails(){
+
+    const power=calculateTeamPower();
+
+    document.getElementById("teamPowerDetails").innerHTML=`
+
+        <div class="stats">
+
+            <div class="stat">
+                قدرت کلی
+                <strong>${power.toFixed(1)}</strong>
+            </div>
+
+            <div class="stat">
+                آرایش
+                <strong>${career.formation}</strong>
+            </div>
+
+            <div class="stat">
+                ذهنیت
+                <strong>
+                    ${
+                        career.mentality==="attacking"
+                        ?"هجومی"
+                        :career.mentality==="defensive"
+                        ?"دفاعی"
+                        :"متعادل"
+                    }
+                </strong>
+            </div>
+
+            <div class="stat">
+                سطح مربی
+                <strong>${career.managerLevel}</strong>
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+function getCurrentFixture(){
+
+    const weekIndex=career.week-1;
+
+    const rounds=career.schedule;
+
+    if(!rounds||!rounds.length){
+
+        career.schedule=generateSchedule();
+
+    }
+
+    const games=
+        career.schedule[weekIndex]||[];
+
+    return games.find(g=>
+        g.home===career.club ||
+        g.away===career.club
+    );
+
+}
+
+/* =========================================================
+   AI MATCH SIM
+========================================================= */
+
+function simulateAIMatch(home,away){
+
+    const hDef=
+        TEAM_DEFS.find(t=>t.name===home);
+
+    const aDef=
+        TEAM_DEFS.find(t=>t.name===away);
+
+    const homeStrength=
+        hDef.strength+3;
+
+    const awayStrength=
+        aDef.strength;
+
+    const diff=homeStrength-awayStrength;
+
+    let hExpected=1.25+diff*.035;
+
+    let aExpected=1.05-diff*.025;
+
+    hExpected=Math.max(.2,Math.min(3.3,hExpected));
+
+    aExpected=Math.max(.2,Math.min(3.3,aExpected));
+
+    const hg=poissonLike(hExpected);
+
+    const ag=poissonLike(aExpected);
+
+    return{
+        homeGoals:hg,
+        awayGoals:ag
+    };
+
+}
+
+function poissonLike(expected){
+
+    const r=Math.random();
+
+    if(r<Math.exp(-expected))return 0;
+
+    if(r<.43)return 1;
+
+    if(r<.70)return 2;
+
+    if(r<.87)return 3;
+
+    if(r<.95)return 4;
+
+    return 5;
+
+}
+
+/* =========================================================
+   UPDATE TABLE
+========================================================= */
+
+function updateLeagueAfterMatch(home,away,hg,ag){
+
+    if(!leagueTable[home])
+        leagueTable[home]={
+            played:0,wins:0,draws:0,losses:0,
+            gf:0,ga:0,points:0,form:[]
+        };
+
+    if(!leagueTable[away])
+        leagueTable[away]={
+            played:0,wins:0,draws:0,losses:0,
+            gf:0,ga:0,points:0,form:[]
+        };
+
+    const h=leagueTable[home];
+
+    const a=leagueTable[away];
+
+    h.played++;
+    a.played++;
+
+    h.gf+=hg;
+    h.ga+=ag;
+
+    a.gf+=ag;
+    a.ga+=hg;
+
+    if(hg>ag){
+
+        h.wins++;
+        h.points+=3;
+        h.form.push("W");
+        a.losses++;
+        a.form.push("L");
+
+    }else if(hg<ag){
+
+        a.wins++;
+        a.points+=3;
+        a.form.push("W");
+        h.losses++;
+        h.form.push("L");
+
+    }else{
+
+        h.draws++;
+        a.draws++;
+
+        h.points++;
+        a.points++;
+
+        h.form.push("D");
+        a.form.push("D");
+
+    }
+
+    h.form=h.form.slice(-5);
+    a.form=a.form.slice(-5);
+
+}
+
+/* =========================================================
+   SIMULATE OTHER GAMES
+========================================================= */
+
+function simulateOtherGames(fixture){
+
+    const games=
+        career.schedule[career.week-1]||[];
+
+    games.forEach(game=>{
+
+        if(
+            game.home===career.club ||
+            game.away===career.club
+        ){
+
+            return;
+
+        }
+
+        const result=
+            simulateAIMatch(game.home,game.away);
+
+        updateLeagueAfterMatch(
+            game.home,
+            game.away,
+            result.homeGoals,
+            result.awayGoals
+        );
+
+    });
+
+}
+
+/* =========================================================
+   MATCH POWER
+========================================================= */
+
+function calculateAttackPower(){
+
+    const ids=Object.values(lineup);
+
+    const list=ids
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
+
+    const attackers=list.filter(p=>
+        /ST|LW|RW/.test(p.position)
+    );
+
+    if(!attackers.length)return 60;
+
+    return average(
+        attackers.map(p=>
+            p.sho*.45+
+            p.dri*.25+
+            p.pac*.15+
+            p.pas*.15
+        )
+    );
+
+}
+
+function calculateDefensePower(){
+
+    const list=Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
+
+    const defenders=list.filter(p=>
+        /GK|CB|LB|RB|CDM/.test(p.position)
+    );
+
+    if(!defenders.length)return 60;
+
+    return average(
+        defenders.map(p=>
+            p.def*.55+
+            p.phy*.20+
+            p.pac*.10+
+            p.pas*.15
+        )
+    );
+
+}
+
+/* =========================================================
+   SUSPENSIONS — one-match ban after a red card
+========================================================= */
+
+function prepareSuspensionsForMatch(){
+    career.suspensions=career.suspensions||{};
+    const bannedIds=Object.keys(career.suspensions)
+        .filter(id=>Number(career.suspensions[id])>0)
+        .map(Number);
+    if(!bannedIds.length)return [];
+
+    const slots=Object.keys(lineup);
+    bannedIds.forEach(id=>{
+        slots.forEach(slot=>{
+            if(Number(lineup[slot])!==id)return;
+            const replacement=players.find(p=>
+                !Object.values(lineup).map(Number).includes(Number(p.id)) &&
+                !bannedIds.includes(Number(p.id))
+            );
+            if(replacement) lineup[slot]=replacement.id;
+            else delete lineup[slot];
+        });
+    });
+    lineupRepair();
+    return bannedIds;
+}
+
+function startMatch(){
+
+    if(!career.club){
+
+        alert("اول باشگاه انتخاب کن.");
+
+        return;
+
+    }
+
+    if(matchTimer){
+
+        clearInterval(matchTimer);
+
+        matchTimer=null;
+
+    }
+
+    const fixture=getCurrentFixture();
+
+    if(!fixture){
+
+        alert("برای این هفته مسابقه‌ای پیدا نشد.");
+
+        return;
+
+    }
+
+    if(
+        career.matchHistory.some(h=>
+            h.season===career.season &&
+            h.week===career.week
+        )
+    ){
+
+        alert("بازی این هفته قبلاً انجام شده.");
+
+        return;
+
+    }
+
+    const isHome=
+        fixture.home===career.club;
+
+    const opponent=
+        isHome
+        ?fixture.away
+        :fixture.home;
+
+    const opponentDef=
+        TEAM_DEFS.find(t=>t.name===opponent);
+
+    const suspensionsServed=prepareSuspensionsForMatch();
+
+    simulateOtherGames(fixture);
+
+    const teamPower=calculateTeamPower();
+
+    const diff=
+        teamPower-opponentDef.strength;
+
+    let ourExpected=
+        1.18+
+        diff*.055;
+
+    let oppExpected=
+        1.12-
+        diff*.045;
+
+    if(career.mentality==="attacking"){
+
+        ourExpected+=.25;
+
+        oppExpected+=.12;
+
+    }
+
+    if(career.mentality==="defensive"){
+
+        ourExpected-=.12;
+
+        oppExpected-=.22;
+
+    }
+
+    if(career.pressing==="high"){
+
+        ourExpected+=.08;
+
+        oppExpected+=.08;
+
+    }
+
+    if(career.tempo==="fast"){
+
+        ourExpected+=.12;
+
+        oppExpected+=.12;
+
+    }
+
+    ourExpected=
+        Math.max(.15,Math.min(3.5,ourExpected));
+
+    oppExpected=
+        Math.max(.15,Math.min(3.5,oppExpected));
+
+    const starters=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
+
+    matchState={
+
+        fixture,
+
+        suspensionsServed,
+
+        isHome,
+
+        opponent,
+
+        opponentStrength:opponentDef.strength,
+
+        teamPower,
+
+        minute:0,
+
+        homeScore:0,
+
+        awayScore:0,
+
+        expectedFor:ourExpected,
+
+        expectedAgainst:oppExpected,
+
+        shotsHome:0,
+
+        shotsAway:0,
+
+        targetHome:0,
+
+        targetAway:0,
+
+        possessionHome:
+            Math.max(
+                35,
+                Math.min(
+                    65,
+                    50+(teamPower-opponentDef.strength)*.25
+                )
+            ),
+
+        possessionAway:0,
+
+        events:[],
+
+        playerStats:{},
+
+        substitutions:0,
+
+        maxSubs:5,
+
+        finished:false,
+
+        halftime:false
+
+    };
+
+    matchState.possessionAway=
+        100-matchState.possessionHome;
+
+    starters.forEach(p=>{
+
+        matchState.playerStats[p.id]={
+
+            rating:6.2,
+
+            goals:0,
+
+            assists:0,
+
+            yellows:0,
+
+            reds:0,
+
+            saves:0,
+
+            minutes:0
+
+        };
+
+    });
+
+    document.getElementById("matchHome").innerText=
+        fixture.home;
+
+    document.getElementById("matchAway").innerText=
+        fixture.away;
+
+    document.getElementById("homeScore").innerText="0";
+
+    document.getElementById("awayScore").innerText="0";
+
+    document.getElementById("matchStatus").innerText=
+        "در حال برگزاری...";
+
+    document.getElementById("liveEvents").innerHTML=
+        `<div class="live-event">🟢 سوت آغاز بازی!</div>`;
+
+    document.getElementById("motm").innerText=
+        "هنوز مسابقه تمام نشده.";
+
+    document.getElementById("finishMatchButton").disabled=true;
+
+    document.getElementById("matchSubPanel").innerHTML="";
+
+    showScreen("match");
+
+    updateMatchUI();
+
+    matchTimer=setInterval(matchTick,650);
+
+}
+
+/* =========================================================
+   MATCH TICK
+========================================================= */
+
+function matchTick(){
+
+    if(!matchState||matchState.finished){
+
+        clearInterval(matchTimer);
+
+        matchTimer=null;
+
+        return;
+
+    }
+
+    if(matchState.minute>=90){
+
+        clearInterval(matchTimer);
+
+        matchTimer=null;
+
+        finishMatch();
+
+        return;
+
+    }
+
+    const step=
+        matchState.minute<45
+        ?randomBetween(2,4)
+        :randomBetween(2,5);
+
+    matchState.minute=
+        Math.min(90,matchState.minute+step);
+
+    const m=matchState.minute;
+
+    const ourChance=
+        matchState.expectedFor/90;
+
+    const oppChance=
+        matchState.expectedAgainst/90;
+
+    if(Math.random()<ourChance*1.9){
+
+        matchState.shotsHome++;
+
+        if(Math.random()<.38){
+
+            matchState.targetHome++;
+
+        }
+
+    }
+
+    if(Math.random()<oppChance*1.9){
+
+        matchState.shotsAway++;
+
+        if(Math.random()<.34){
+
+            matchState.targetAway++;
+
+        }
+
+    }
+
+    if(
+        Math.random()<
+        matchState.expectedFor/90*2.2
+    ){
+
+        scoreForTeam(m);
+
+    }
+
+    if(
+        Math.random()<
+        matchState.expectedAgainst/90*2.0
+    ){
+
+        scoreAgainstTeam(m);
+
+    }
+
+    randomMatchEvent(m);
+
+    if(
+        !matchState.halftime &&
+        matchState.minute>=45
+    ){
+
+        matchState.halftime=true;
+
+        addEvent(
+            45,
+            "⏸️",
+            "سوت پایان نیمه اول.",
+            "half"
+        );
+
+    }
+
+    updateMatchUI();
+
+}
+
+/* =========================================================
+   GOAL FUNCTIONS
+========================================================= */
+
+function scoreForTeam(minute){
+
+    if(Math.random()<.28){
+
+        return;
+
+    }
+
+    const scorer=chooseScorer();
+
+    if(!scorer)return;
+
+    if(matchState.isHome){
+
+        matchState.homeScore++;
+
+    }else{
+
+        matchState.awayScore++;
+
+    }
+
+    matchState.targetHome++;
+
+    const ps=matchState.playerStats[scorer.id];
+
+    if(ps){
+
+        ps.goals++;
+
+        ps.rating+=.7;
+
+    }
+
+    const assist=chooseAssist(scorer);
+
+    if(assist){
+
+        const as=matchState.playerStats[assist.id];
+
+        if(as){
+
+            as.assists++;
+
+            as.rating+=.3;
+
+        }
+
+    }
+
+    let text=
+        `⚽ گلللل! ${scorer.name} برای ${career.club}`;
+
+    if(assist){
+
+        text+=` | 🎯 پاس گل: ${assist.name}`;
+
+    }
+
+    addEvent(
+        minute,
+        "⚽",
+        text,
+        "goal"
+    );
+
+}
+
+function scoreAgainstTeam(minute){
+
+    if(Math.random()<.35)return;
+
+    if(matchState.isHome){
+
+        matchState.awayScore++;
+
+    }else{
+
+        matchState.homeScore++;
+
+    }
+
+    addEvent(
+        minute,
+        "🔴",
+        `حریف در دقیقه ${minute} به گل رسید.`,
+        "opponent-goal"
+    );
+
+}
+
+/* =========================================================
+   SCORER
+========================================================= */
+
+function chooseScorer(){
+
+    const candidates=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(p=>
+            p &&
+            /ST|LW|RW|CM/.test(p.position)
+        );
+
+    if(!candidates.length)return null;
+
+    let total=0;
+
+    const weights=candidates.map(p=>{
+
+        const w=
+            p.sho+
+            p.dri*.35+
+            p.pac*.15+
+            p.form*2;
+
+        total+=w;
+
+        return w;
+
+    });
+
+    let r=Math.random()*total;
+
+    for(let i=0;i<candidates.length;i++){
+
+        r-=weights[i];
+
+        if(r<=0){
+
+            return candidates[i];
+
+        }
+
+    }
+
+    return candidates[0];
+
+}
+
+function chooseAssist(scorer){
+
+    const candidates=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(p=>
+            p &&
+            p.id!==scorer.id &&
+            p.pas>40
+        );
+
+    if(!candidates.length)return null;
+
+    candidates.sort(
+        (a,b)=>
+            (b.pas+b.dri)-
+            (a.pas+a.dri)
+    );
+
+    return candidates[
+        randomBetween(
+            0,
+            Math.min(2,candidates.length-1)
+        )
+    ];
+
+}
+
+/* =========================================================
+   RANDOM EVENTS
+========================================================= */
+
+function randomMatchEvent(minute){
+
+    const starters=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
+
+    if(!starters.length)return;
+
+    if(Math.random()<.045){
+
+        const p=
+            starters[randomBetween(0,starters.length-1)];
+
+        const ps=matchState.playerStats[p.id];
+
+        if(ps){
+
+            if(ps.reds>0 || ps.sentOff)return;
+            ps.yellows++;
+            ps.rating-=.28;
+            if(ps.yellows>=2){
+                ps.reds++;
+                ps.sentOff=true;
+                ps.rating-=1.25;
+                addEvent(minute,"🟥",`${p.name} با دریافت دومین کارت زرد اخراج شد! محرومیت: بازی بعدی.` ,"red");
+            }else{
+                addEvent(minute,"🟨",`${p.name} کارت زرد گرفت.`,"yellow");
+            }
+
+        }
+
+    }
+
+    if(Math.random()<.0025){
+
+        const defenders=
+            starters.filter(p=>
+                /CB|LB|RB|CDM/.test(p.position)
+            );
+
+        if(defenders.length){
+
+            const p=
+                defenders[
+                    randomBetween(0,defenders.length-1)
+                ];
+
+            const ps=matchState.playerStats[p.id];
+
+            if(ps && !ps.sentOff){
+                ps.reds++;
+                ps.sentOff=true;
+                ps.rating-=1.5;
+                addEvent(minute,"🟥",`${p.name} با کارت قرمز مستقیم اخراج شد! محرومیت: بازی بعدی.`,"red");
+            }
+
+        }
+
+    }
+
+    if(Math.random()<.08){
+
+        const p=
+            starters[
+                randomBetween(0,starters.length-1)
+            ];
+
+        const ps=matchState.playerStats[p.id];
+
+        if(ps){
+
+            ps.rating+=.08;
+
+            addEvent(
+                minute,
+                "🔥",
+                `${p.name} حرکت خوبی انجام داد.`,
+                "chance"
+            );
+
+        }
+
+    }
+
+    if(Math.random()<.06){
+
+        const defenders=
+            starters.filter(p=>
+                /GK|CB|LB|RB|CDM/.test(p.position)
+            );
+
+        if(defenders.length){
+
+            const p=
+                defenders[
+                    randomBetween(0,defenders.length-1)
+                ];
+
+            const ps=matchState.playerStats[p.id];
+
+            if(ps){
+
+                ps.rating+=.12;
+
+                addEvent(
+                    minute,
+                    "🛡️",
+                    `${p.name} با یک تکل عالی حمله حریف را متوقف کرد.`,
+                    "defense"
+                );
+
+            }
+
+        }
+
+    }
+
+}
+
+/* =========================================================
+   MATCH EVENT
+========================================================= */
+
+function addEvent(minute,icon,text,type){
+
+    matchState.events.push({
+
+        minute,
+        icon,
+        text,
+        type
+
+    });
+
+}
+
+/* =========================================================
+   MATCH UI
+========================================================= */
+
+function updateMatchUI(){
+
+    if(!matchState)return;
+
+    document.getElementById("matchMinute").innerText=
+        `دقیقه ${matchState.minute}`;
+
+    document.getElementById("homeScore").innerText=
+        matchState.homeScore;
+
+    document.getElementById("awayScore").innerText=
+        matchState.awayScore;
+
+    document.getElementById("possessionHome").innerText=
+        Math.round(matchState.possessionHome)+"%";
+
+    document.getElementById("possessionAway").innerText=
+        Math.round(matchState.possessionAway)+"%";
+
+    document.getElementById("shotsHome").innerText=
+        matchState.shotsHome;
+
+    document.getElementById("shotsAway").innerText=
+        matchState.shotsAway;
+
+    document.getElementById("shotsTargetHome").innerText=
+        matchState.targetHome;
+
+    document.getElementById("shotsTargetAway").innerText=
+        matchState.targetAway;
+
+    const box=document.getElementById("liveEvents");
+
+    box.innerHTML=
+        matchState.events
+        .sort((a,b)=>a.minute-b.minute)
+        .map(e=>`
+
+            <div class="live-event ${e.type==="goal"?"goal":""}">
+                <strong>${e.minute}'</strong>
+                ${e.icon}
+                ${escapeHTML(e.text)}
+            </div>
+
+        `).join("");
+
+    box.scrollTop=box.scrollHeight;
+
+    renderLiveRatings();
+
+    renderMatchSubPanel();
+
+}
+
+/* =========================================================
+   MATCH RATINGS — scoreline, goals, assists and discipline
+========================================================= */
+
+function calculateMatchRating(p,s){
+    if(!p || !s)return 6.0;
+    const conceded=matchState.isHome?matchState.awayScore:matchState.homeScore;
+    let rating=Number(s.rating)||6.2;
+    // Extra reward for end product; s.rating already includes a smaller live bonus.
+    rating += (s.goals||0)*0.42 + (s.assists||0)*0.32;
+    rating -= (s.yellows||0)*0.28;
+    rating -= (s.reds||0)*1.35;
+    if(/GK/.test(p.position)) rating-=conceded*0.62;
+    else if(/CB|LB|RB/.test(p.position)) rating-=conceded*0.43;
+    else if(/CDM|CM/.test(p.position)) rating-=conceded*0.23;
+    else rating-=conceded*0.12;
+    if(conceded===0 && /GK|CB|LB|RB/.test(p.position)) rating+=0.45;
+    const scored=matchState.isHome?matchState.homeScore:matchState.awayScore;
+    if(scored>conceded) rating+=0.18;
+    else if(scored<conceded) rating-=0.22;
+    return Math.max(2.0,Math.min(10.0,rating));
+}
+
+/* =========================================================
+   LIVE RATINGS
+========================================================= */
+
+function renderLiveRatings(){
+
+    const box=
+        document.getElementById("matchRatings");
+
+    const starters=
+        Object.values(lineup)
+        .map(id=>getPlayer(id))
+        .filter(Boolean);
+
+    const sorted=[...starters].sort(
+        (a,b)=>
+            matchState.playerStats[b.id].rating-
+            matchState.playerStats[a.id].rating
+    );
+
+    box.innerHTML=sorted.map(p=>{
+
+        const s=matchState.playerStats[p.id];
+
+        const rating=calculateMatchRating(p,s);
+
+        return`
+
+            <div class="player">
+
+                <div class="player-row">
+
+                    <div>
+                        #${p.number}
+                        ${escapeHTML(p.name)}
+
+                        <div class="small">
+
+                            ${
+                                s.goals
+                                ?`⚽ ${s.goals} `
+                                :""
+                            }
+
+                            ${
+                                s.assists
+                                ?`🎯 ${s.assists} `
+                                :""
+                            }
+
+                            ${
+                                s.yellows
+                                ?`🟨 ${s.yellows} `
+                                :""
+                            }
+
+                            ${
+                                s.reds
+                                ?`🟥 ${s.reds}`
+                                :""
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="rating">
+                        ${rating.toFixed(1)}
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
+/* =========================================================
+   LIVE SUBSTITUTIONS
+========================================================= */
+
+function renderMatchSubPanel(){
+
+    if(!matchState)return;
+
+    if(
+        matchState.minute<55 ||
+        matchState.substitutions>=matchState.maxSubs ||
+        matchState.finished
+    ){
+
+        document.getElementById(
+            "matchSubPanel"
+        ).innerHTML="";
+
+        return;
+
+    }
+
+    const starters=
+        Object.values(lineup);
+
+    const bench=
+        players.filter(p=>!starters.includes(p.id));
+
+    document.getElementById(
+        "matchSubPanel"
+    ).innerHTML=`
+
+        <div class="card">
+
+            <h3>
+                🔄 تعویض
+                (${matchState.substitutions}/${matchState.maxSubs})
+            </h3>
+
+            <p class="small">
+                بازیکن خروجی و سپس بازیکن ورودی را انتخاب کن.
+            </p>
+
+            <div id="liveSubButtons">
+
+                ${Object.keys(lineup).map(slot=>{
+
+                    const p=getPlayer(lineup[slot]);
+
+                    if(!p)return"";
+
+                    return`
+
+                        <button
+                            class="btn btn-gray"
+                            onclick="openLiveSub('${slot}')">
+
+                            ${p.name}
+
+                        </button>
+
+                    `;
+
+                }).join("")}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+function openLiveSub(slot){
+
+    if(matchState.substitutions>=matchState.maxSubs)return;
+
+    const bench=
+        players.filter(p=>
+            !Object.values(lineup).includes(p.id)
+        );
+
+    const names=bench.map(p=>
+        `${p.name} — OVR ${p.ovr}`
+    ).join("\n");
+
+    const answer=
+        prompt(
+            `بازیکن جدید را با شماره پیراهن انتخاب کن:\n\n${names}`
+        );
+
+    if(!answer)return;
+
+    const p=
+        bench.find(x=>
+            String(x.number)===String(answer) ||
+            x.name===answer
+        );
+
+    if(!p){
+
+        alert("بازیکن پیدا نشد.");
+
+        return;
+
+    }
+
+    const old=getPlayer(lineup[slot]);
+
+    lineup[slot]=p.id;
+
+    matchState.playerStats[p.id]={
+
+        rating:6.3,
+        goals:0,
+        assists:0,
+        yellows:0,
+        reds:0,
+        saves:0,
+        minutes:0
+
+    };
+
+    matchState.substitutions++;
+
+    addEvent(
+        matchState.minute,
+        "🔄",
+        `${old.name} جای خود را به ${p.name} داد.`,
+        "sub"
+    );
+
+    saveGame();
+
+    updateMatchUI();
+
+}
+
+/* =========================================================
+   FINISH MATCH
+========================================================= */
+
+function finishMatch(){
+
+    if(!matchState||matchState.finished)return;
+
+    matchState.finished=true;
+
+    const ourGoals=
+        matchState.isHome
+        ?matchState.homeScore
+        :matchState.awayScore;
+
+    const theirGoals=
+        matchState.isHome
+        ?matchState.awayScore
+        :matchState.homeScore;
+
+    let result="draw";
+
+    if(ourGoals>theirGoals){
+
+        result="win";
+
+        career.wins++;
+
+        career.points+=3;
+
+        career.reputation+=2;
+
+        career.managerXP+=30;
+
+    }else if(ourGoals<theirGoals){
+
+        result="loss";
+
+        career.losses++;
+
+        career.reputation=
+            Math.max(0,career.reputation-1);
+
+        career.managerXP+=10;
+
+    }else{
+
+        career.draws++;
+
+        career.points++;
+
+        career.reputation+=1;
+
+        career.managerXP+=18;
+
+    }
+
+    career.matches++;
+
+    career.goalsFor+=ourGoals;
+
+    career.goalsAgainst+=theirGoals;
+
+    updateLeagueAfterMatch(
+        matchState.fixture.home,
+        matchState.fixture.away,
+        matchState.homeScore,
+        matchState.awayScore
+    );
+
+    updatePlayerMatchStats();
+
+    // Serve suspensions from the previous match, then assign one-match bans for reds today.
+    career.suspensions=career.suspensions||{};
+    (matchState.suspensionsServed||[]).forEach(id=>{ delete career.suspensions[String(id)]; });
+    Object.keys(matchState.playerStats||{}).forEach(id=>{
+        const ps=matchState.playerStats[id];
+        if(ps && ps.reds>0) career.suspensions[String(id)]=1;
+    });
+
+    const resultText=
+        result==="win"
+        ?"🎉 پیروزی"
+        :result==="loss"
+        ?"😔 شکست"
+        :"🤝 مساوی";
+
+    addEvent(
+        90,
+        "⏱️",
+        `سوت پایان! ${resultText}`,
+        "final"
+    );
+
+    career.matchHistory.unshift({
+
+        season:career.season,
+
+        week:career.week,
+
+        opponent:matchState.opponent,
+
+        home:matchState.fixture.home,
+
+        away:matchState.fixture.away,
+
+        homeGoals:matchState.homeScore,
+
+        awayGoals:matchState.awayScore,
+
+        result,
+
+        events:deepClone(matchState.events)
+
+    });
+
+    career.matchHistory=
+        career.matchHistory.slice(0,30);
+
+    showMOTM();
+
+    applyPostMatchDevelopment();
+
+    updateObjectivesAfterMatch(
+        result,
+        ourGoals
+    );
+
+    createMatchNews(
+        result,
+        ourGoals,
+        theirGoals
+    );
+
+    document.getElementById("matchStatus").innerText=
+        resultText;
+
+    document.getElementById(
+        "finishMatchButton"
+    ).disabled=false;
+
+    saveGame();
+
+    updateMatchUI();
+
+    advanceWeek();
+
+}
+
+/* =========================================================
+   PLAYER MATCH STATS
+========================================================= */
+
+function updatePlayerMatchStats(){
+
+    const cleanSheet=
+        (
+            matchState.isHome
+            ?matchState.awayScore
+            :matchState.homeScore
+        )===0;
+
+    Object.keys(matchState.playerStats)
+    .forEach(id=>{
+
+        const p=getPlayer(Number(id));
+
+        if(!p)return;
+
+        const s=matchState.playerStats[id];
+
+        const finalRating=calculateMatchRating(p,s);
+
+        p.seasonStats.appearances++;
+
+        p.seasonStats.starts++;
+
+        p.seasonStats.goals+=s.goals;
+
+        p.seasonStats.assists+=s.assists;
+
+        p.seasonStats.yellow+=s.yellows;
+
+        p.seasonStats.red+=s.reds;
+
+        p.seasonStats.ratingSum+=finalRating;
+
+        p.seasonStats.minutes+=90;
+
+        if(
+            cleanSheet &&
+            /GK|CB|LB|RB/.test(p.position)
+        ){
+
+            p.seasonStats.cleanSheets++;
+
+        }
+
+        if(p.position==="GK"){
+
+            p.seasonStats.saves+=
+                Math.floor(
+                    matchState.shotsTargetAway*
+                    .65
+                );
+
+        }
+
+        p.fitness=
+            Math.max(
+                45,
+                p.fitness-randomBetween(5,12)
+            );
+
+    });
+
+}
+
+/* =========================================================
+   DEVELOPMENT
+========================================================= */
+
+function applyPostMatchDevelopment(){
+
+    players.forEach(p=>{
+
+        p.fitness=
+            Math.min(
+                100,
+                p.fitness+randomBetween(1,5)
+            );
+
+        if(p.seasonStats.appearances===0){
+
+            return;
+
+        }
+
+        const chance=Math.random();
+
+        if(chance<.10){
+
+            const statKeys=[
+                "pac",
+                "sho",
+                "pas",
+                "dri",
+                "def",
+                "phy"
+            ];
+
+            const key=
+                statKeys[
+                    randomBetween(
+                        0,
+                        statKeys.length-1
+                    )
+                ];
+
+            p[key]=clamp(p[key]+1);
+
+            p.ovr=calculateOVR(p);
+
+        }
+
+        if(Math.random()<.06){
+
+            p.form=
+                Math.min(
+                    10,
+                    p.form+.2
+                );
+
+        }
+
+        if(Math.random()<.04){
+
+            p.morale=
+                Math.min(
+                    100,
+                    p.morale+3
+                );
+
+        }
+
+    });
+
+}
+
+function calculateOVR(p){
+
+    return Math.round(
+        p.pac*.15+
+        p.sho*.15+
+        p.pas*.15+
+        p.dri*.15+
+        p.def*.20+
+        p.phy*.20
+    );
+
+}
+
+/* =========================================================
+   MOTM
+========================================================= */
+
+function showMOTM(){
+
+    const starters=
+        Object.keys(matchState.playerStats);
+
+    let best=null;
+
+    starters.forEach(id=>{
+
+        const p=getPlayer(Number(id));
+
+        if(!p)return;
+
+        const s=matchState.playerStats[id];
+
+        if(
+            !best ||
+            s.rating>
+            matchState.playerStats[best.id].rating
+        ){
+
+            best=p;
+
+        }
+
+    });
+
+    if(!best)return;
+
+    const s=matchState.playerStats[best.id];
+
+    document.getElementById("motm").innerHTML=`
+
+        🏆 <strong>${escapeHTML(best.name)}</strong>
+
+        <br><br>
+
+        ⭐ نمره:
+        <strong>${s.rating.toFixed(1)}</strong>
+
+        <br>
+
+        ⚽ گل:
+        ${s.goals}
+
+        <br>
+
+        🎯 پاس گل:
+        ${s.assists}
+
+        <br>
+
+        🟨 کارت:
+        ${s.yellows}
+
+    `;
+
+}
+
+/* =========================================================
+   ADVANCE WEEK
+========================================================= */
+
+function advanceWeek(){
+
+    career.week++;
+
+    if(career.week>30){
+
+        finishSeason();
+
+        return;
+
+    }
+
+    career.transferWindowOpen=isTransferWindowOpen(career.week);
+
+    weeklyRecovery();
+
+    generateWeeklyNews();
+
+    generateTransferOffersAfterMatch();
+
+    saveGame();
+
+}
+
+function weeklyRecovery(){
+
+    players.forEach(p=>{
+
+        p.fitness=
+            Math.min(
+                100,
+                p.fitness+randomBetween(8,16)
+            );
+
+        p.morale=
+            Math.min(
+                100,
+                p.morale+randomBetween(-2,3)
+            );
+
+    });
+
+}
+
+/* =========================================================
+   SEASON END
+========================================================= */
+
+function finishSeason(){
+
+    const champion=
+        getSortedTable()[0];
+
+    const position=
+        getSortedTable()
+        .findIndex(t=>t.name===career.club)+1;
+
+    let reward=0;
+
+    if(position===1){
+
+        reward=500000;
+
+        career.reputation+=10;
+
+        unlockAchievement("قهرمان لیگ");
+
+    }else if(position<=4){
+
+        reward=250000;
+
+        career.reputation+=5;
+
+    }else{
+
+        reward=100000;
+
+    }
+
+    career.money+=reward;
+
+    career.seasonHistory.unshift({
+
+        season:career.season,
+
+        position,
+
+        points:leagueTable[career.club].points,
+
+        reward,
+
+        champion:champion.name
+
+    });
+
+    addNews(
+        "🏆",
+        `فصل تمام شد. ${champion.name} قهرمان شد. شما رتبه ${position} را گرفتید.`
+    );
+
+    career.season++;
+
+    career.week=1;
+
+    career.matches=0;
+
+    career.wins=0;
+
+    career.draws=0;
+
+    career.losses=0;
+
+    career.points=0;
+
+    career.goalsFor=0;
+
+    career.goalsAgainst=0;
+
+    career.schedule=generateSchedule();
+
+    leagueTable=emptyTable();
+
+    career.transferWindowOpen=isTransferWindowOpen(career.week);
+
+    players.forEach(p=>{
+
+        p.seasonStats=createPlayerStats();
+
+        p.fitness=100;
+
+        p.form=6;
+
+        p.contractYears=
+            Math.max(
+                1,
+                p.contractYears-1
+            );
+
+    });
+
+    createObjectives();
+
+    addNews(
+        "🆕",
+        `فصل ${career.season} شروع شد. بودجه پاداش: ${formatMoney(reward)}`
+    );
+
+    saveGame();
+
+    alert(
+        `🏆 پایان فصل!\n\nقهرمان: ${champion.name}\nرتبه شما: ${position}\nپاداش: ${formatMoney(reward)}`
+    );
+
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+function getSortedTable(){
+
+    return leagueTeams.map(name=>{
+
+        if(!leagueTable[name]){
+
+            leagueTable[name]={
+                played:0,
+                wins:0,
+                draws:0,
+                losses:0,
+                gf:0,
+                ga:0,
+                points:0,
+                form:[]
+            };
+
+        }
+
+        return{
+            name,
+            ...leagueTable[name]
+        };
+
+    }).sort((a,b)=>{
+
+        if(b.points!==a.points)
+            return b.points-a.points;
+
+        const gdA=a.gf-a.ga;
+
+        const gdB=b.gf-b.ga;
+
+        if(gdB!==gdA)
+            return gdB-gdA;
+
+        return b.gf-a.gf;
+
+    });
+
+}
+
+function renderTable(){
+
+    const table=
+        getSortedTable();
+
+    document.getElementById("tableSeason").innerText=
+        career.season;
+
+    document.getElementById("tableWeek").innerText=
+        career.week;
+
+    document.getElementById("leagueTable").innerHTML=
+        table.map((t,i)=>`
+
+            <tr class="${t.name===career.club?"my-team":""}">
+
+                <td>${i+1}</td>
+
+                <td>
+                    ${t.name}
+                    ${t.name===career.club?" ⭐":""}
+                </td>
+
+                <td>${t.played}</td>
+
+                <td>${t.wins}</td>
+
+                <td>${t.draws}</td>
+
+                <td>${t.losses}</td>
+
+                <td>${t.gf}:${t.ga}</td>
+
+                <td>${t.gf-t.ga}</td>
+
+                <td><strong>${t.points}</strong></td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+/* =========================================================
+   SEASON CALENDAR
+========================================================= */
+
+function getFixtureForWeek(week){
+    const round=(career.schedule||[])[week-1]||[];
+    return round.find(g=>g.home===career.club||g.away===career.club)||null;
+}
+
+function renderCalendar(){
+    const summary=document.getElementById("calendarSummary");
+    const list=document.getElementById("calendarList");
+    const open=isTransferWindowOpen(career.week);
+    summary.innerHTML=`<strong>فصل ${career.season} · هفته ${career.week} از ۳۰</strong><br>
+        ${open?'🟢 پنجره نقل‌وانتقالات اکنون باز است.':'🔴 پنجره نقل‌وانتقالات اکنون بسته است.'}
+        <br><span class="small">${getTransferWindowLabel()}</span>`;
+
+    let html="";
+    for(let week=1;week<=30;week++){
+        const fixture=getFixtureForWeek(week);
+        const windowOpen=isTransferWindowOpen(week);
+        let opponent="برنامه بازی مشخص نیست";
+        if(fixture){
+            const home=fixture.home===career.club;
+            opponent=(home?"🏟️ میزبان مقابل ":"✈️ میهمان مقابل ")+(home?fixture.away:fixture.home);
+        }
+        const status=week<career.week?"تمام‌شده":week===career.week?"هفته فعلی":"پیش‌رو";
+        html+=`<div class="transfer-card" style="display:block;border:1px solid ${week===career.week?'#f1c40f':'#303944'}">
+            <div class="player-row"><strong>${week===career.week?'📍 ':''}هفته ${week}</strong><span class="small">${status}</span></div>
+            <div style="margin-top:7px">${escapeHTML(opponent)}</div>
+            <div class="small" style="margin-top:5px">${windowOpen?'🔄 پنجره نقل‌وانتقالات باز است':'🔒 پنجره نقل‌وانتقالات بسته است'}</div>
+        </div>`;
+    }
+    list.innerHTML=html;
+}
+
+/* =========================================================
+   TRANSFERS — stable market, longer windows, buy-back support
+========================================================= */
+
+function isTransferWindowOpen(week){
+    // پنجره پیش‌فصل فقط ۴ هفته؛ سپس تا پنجره نیم‌فصل بسته می‌ماند.
+    // پنجره نیم‌فصل هم ۴ هفته ادامه دارد.
+    return (week>=1 && week<=4) || (week>=15 && week<=18);
+}
+
+function getTransferWindowLabel(week=career.week){
+    if(week>=1 && week<=4) return "پنجره پیش‌فصل؛ هفته‌های ۱ تا ۴";
+    if(week>=15 && week<=18) return "پنجره نیم‌فصل؛ هفته‌های ۱۵ تا ۱۸";
+    if(week<15) return "پنجره بسته است؛ پنجره بعدی از هفته ۱۵ باز می‌شود";
+    return "پنجره بسته است؛ پنجره بعدی ابتدای فصل آینده باز می‌شود";
+}
+
+function getTransferMarket(){
+    career.freeAgents=career.freeAgents||[];
+    const market=[];
+    leagueTeams.forEach(team=>{
+        if(team===career.club) return;
+        (SQUADS[team]||[]).forEach(p=>{
+            market.push({...p,sourceClub:team,marketType:"club"});
+        });
+    });
+    career.freeAgents.forEach(p=>{
+        market.push({...p,sourceClub:"بازیکن آزاد",marketType:"free"});
+    });
+    const seen=new Set();
+    return market.filter(p=>{
+        const key=String(p.id);
+        if(seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    }).sort((a,b)=>(b.ovr||0)-(a.ovr||0));
+}
+
+function ensureTransferData(){
+    career.freeAgents=career.freeAgents||[];
+    career.transferListed=Array.isArray(career.transferListed)?career.transferListed:[];
+    career.transferOffers=Array.isArray(career.transferOffers)?career.transferOffers:[];
+    career.clubBudgets=career.clubBudgets||{};
+    TEAM_DEFS.forEach(t=>{
+        if(typeof career.clubBudgets[t.name]!=="number") career.clubBudgets[t.name]=Math.round((t.strength-55)*180000 + 2500000);
+    });
+}
+
+function renderTransfers(){
+    ensureTransferData();
+    career.transferWindowOpen=isTransferWindowOpen(career.week);
+    document.getElementById("transferMoney").innerText=formatMoney(career.money);
+    document.getElementById("transferWindowText").innerText=
+        (career.transferWindowOpen ? "🟢 پنجره نقل‌وانتقالات باز است. " : "🔴 پنجره نقل‌وانتقالات بسته است. ")
+        + getTransferWindowLabel();
+
+    const market=getTransferMarket();
+    const list=document.getElementById("transferList");
+    list.innerHTML=market.slice(0,40).map(p=>`
+        <div class="transfer-card">
+            <div>
+                <strong>${escapeHTML(p.name)}</strong>
+                <div class="small">${escapeHTML(p.position||"")} · OVR ${p.ovr||0} · ${formatMoney(p.value||0)}</div>
+                <div class="small">باشگاه: ${escapeHTML(p.sourceClub)} · بودجه باشگاه: ${formatMoney(p.sourceClub==="بازیکن آزاد"?0:(career.clubBudgets[p.sourceClub]||0))}</div>
+            </div>
+            <button class="btn-blue" onclick="buyPlayer(${Number(p.id)}, '${String(p.sourceClub).replace(/'/g,"\\'")}')"
+                ${career.transferWindowOpen?"":"disabled"}>خرید</button>
+        </div>`).join("") || '<div class="info">فعلاً بازیکنی در بازار موجود نیست.</div>';
+
+    document.getElementById("sellList").innerHTML=players.map(p=>{
+        const listed=career.transferListed.find(x=>Number(x.playerId)===Number(p.id));
+        return `<div class="transfer-card">
+            <div>
+                #${p.number||"-"} <strong>${escapeHTML(p.name)}</strong>
+                <div class="small">${escapeHTML(p.position||"")} · OVR ${p.ovr||0} · ارزش ${formatMoney(p.value||0)}</div>
+                <div class="small">${listed?`🟡 در لیست فروش · پیشنهادها از هفته ${listed.offerDueWeek} به بعد بررسی می‌شوند`:`بازیکن هنوز برای فروش گذاشته نشده`}</div>
+            </div>
+            ${listed
+                ? `<button class="btn-gray" onclick="removeFromTransferList(${Number(p.id)})">برداشتن از لیست</button>`
+                : `<button class="btn-red" onclick="listPlayerForTransfer(${Number(p.id)})" ${career.transferWindowOpen?"":"disabled"}>قرار دادن در لیست فروش</button>`}
+        </div>`;
+    }).join("");
+
+    const offersBox=document.getElementById("transferOffers");
+    const pending=career.transferOffers.filter(o=>o.status==="pending");
+    offersBox.innerHTML=pending.map(o=>{
+        const p=players.find(x=>Number(x.id)===Number(o.playerId));
+        const budget=Number(career.clubBudgets[o.club]||0);
+        return `<div class="transfer-card" style="display:block">
+            <div class="player-row"><strong>📨 ${escapeHTML(o.club)} برای ${escapeHTML(o.playerName)} پیشنهاد داده</strong><strong>${formatMoney(o.amount)}</strong></div>
+            <div class="small">OVR ${o.ovr} · بودجه باقی‌مانده باشگاه: ${formatMoney(budget)}</div>
+            <div class="small">${career.transferWindowOpen?"می‌توانی پیشنهاد را قبول یا رد کنی.":"پیشنهاد رسیده؛ برای نهایی‌کردن انتقال باید پنجره نقل‌وانتقالات باز باشد."}</div>
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                <button class="btn-blue" onclick="acceptTransferOffer('${o.id}')" ${career.transferWindowOpen && p?"":"disabled"}>قبول پیشنهاد</button>
+                <button class="btn-gray" onclick="rejectTransferOffer('${o.id}')">رد پیشنهاد</button>
+            </div>
+        </div>`;
+    }).join("") || '<div class="info">هنوز پیشنهادی دریافت نکردی. بازیکن را در لیست فروش بگذار و بعد از مسابقه‌ها دوباره اینجا را بررسی کن.</div>';
+
+    const budgets=document.getElementById("clubBudgetsList");
+    budgets.innerHTML=TEAM_DEFS.slice().sort((a,b)=>(career.clubBudgets[b.name]||0)-(career.clubBudgets[a.name]||0)).map(t=>
+        `<div class="player-row"><span>${escapeHTML(t.name)}${t.name===career.club?" (تیم تو)":""}</span><strong>${formatMoney(t.name===career.club?career.money:(career.clubBudgets[t.name]||0))}</strong></div>`
+    ).join("");
+}
+
+function listPlayerForTransfer(id){
+    ensureTransferData();
+    if(!isTransferWindowOpen(career.week)){alert("پنجره نقل‌وانتقالات بسته است.");return;}
+    const p=players.find(x=>Number(x.id)===Number(id));
+    if(!p)return;
+    if(career.transferListed.some(x=>Number(x.playerId)===Number(id))){alert("این بازیکن از قبل در لیست فروش است.");return;}
+    career.transferListed.push({
+        playerId:Number(p.id), playerName:p.name, ovr:Number(p.ovr||0), value:Number(p.value||0),
+        listedWeek:career.week, offerDueWeek:career.week+randomBetween(1,2), offersGenerated:false
+    });
+    addNews("📤",`${p.name} در لیست فروش قرار گرفت؛ پیشنهادها پس از ۱ تا ۲ مسابقه ممکن است برسند.`);
+    saveGame();
+    renderTransfers();
+}
+
+function removeFromTransferList(id){
+    ensureTransferData();
+    career.transferListed=career.transferListed.filter(x=>Number(x.playerId)!==Number(id));
+    career.transferOffers=career.transferOffers.filter(o=>!(Number(o.playerId)===Number(id)&&o.status==="pending"));
+    saveGame();
+    renderTransfers();
+}
+
+function generateTransferOffersAfterMatch(){
+    ensureTransferData();
+    career.transferListed.forEach(item=>{
+        if(item.offersGenerated || career.week<Number(item.offerDueWeek||career.week+1)) return;
+        const player=players.find(p=>Number(p.id)===Number(item.playerId));
+        if(!player){item.offersGenerated=true;return;}
+        const candidates=TEAM_DEFS.filter(t=>t.name!==career.club)
+            .filter(t=>(Number(career.clubBudgets[t.name]||0)>=Math.max(10000,Number(player.value||0)*0.55)))
+            .sort(()=>Math.random()-0.5);
+        if(!candidates.length){
+            item.offerDueWeek=career.week+1;
+            return;
+        }
+        const count=Math.min(candidates.length,randomBetween(1,2));
+        candidates.slice(0,count).forEach(team=>{
+            const strength=Number((TEAM_DEFS.find(t=>t.name===team.name)||{}).strength||70);
+            const skillFactor=1+(strength-70)*0.008;
+            const amount=Math.min(Number(career.clubBudgets[team.name]||0),Math.max(10000,Math.round(Number(player.value||0)*randomBetween(80,120)/100*skillFactor)));
+            career.transferOffers.push({
+                id:`offer_${career.season}_${career.week}_${player.id}_${team.name}`,
+                playerId:Number(player.id),playerName:player.name,ovr:Number(player.ovr||0),
+                club:team.name,amount,status:"pending",createdWeek:career.week
+            });
+        });
+        item.offersGenerated=true;
+        addNews("📨",`برای ${player.name} از باشگاه‌های دیگر پیشنهاد نقل‌وانتقال رسیده است.`);
+    });
+}
+
+function acceptTransferOffer(offerId){
+    ensureTransferData();
+    if(!isTransferWindowOpen(career.week)){alert("برای نهایی‌کردن انتقال باید پنجره نقل‌وانتقالات باز باشد.");return;}
+    const offer=career.transferOffers.find(o=>String(o.id)===String(offerId)&&o.status==="pending");
+    if(!offer)return;
+    const playerIndex=players.findIndex(p=>Number(p.id)===Number(offer.playerId));
+    if(playerIndex<0){offer.status="cancelled";renderTransfers();saveGame();return;}
+    const budget=Number(career.clubBudgets[offer.club]||0);
+    if(budget<Number(offer.amount)){alert("بودجه این باشگاه برای این پیشنهاد کافی نیست.");return;}
+    const player=deepClone(players[playerIndex]);
+    career.money+=Number(offer.amount);
+    career.clubBudgets[offer.club]=budget-Number(offer.amount);
+    player.id=Date.now()+randomBetween(100,999);
+    while(players.some(x=>Number(x.id)===Number(player.id)) || (SQUADS[offer.club]||[]).some(x=>Number(x.id)===Number(player.id))) player.id++;
+    player.number=(SQUADS[offer.club]||[]).length+1;
+    SQUADS[offer.club]=SQUADS[offer.club]||[];
+    SQUADS[offer.club].push(preparePlayer(player));
+    const soldId=players[playerIndex].id;
+    players.splice(playerIndex,1);
+    career.transferListed=career.transferListed.filter(x=>Number(x.playerId)!==Number(soldId));
+    career.transferOffers.forEach(o=>{if(Number(o.playerId)===Number(soldId)&&o.status==="pending")o.status=o.id===offer.id?"accepted":"cancelled";});
+    Object.keys(lineup).forEach(slot=>{if(Number(lineup[slot])===Number(soldId))delete lineup[slot];});
+    lineupRepair();
+    SQUADS[career.club]=deepClone(players);
+    addNews("💰",`${player.name} با مبلغ ${formatMoney(offer.amount)} به ${offer.club} منتقل شد.`);
+    saveGame();
+    alert(`✅ پیشنهاد ${offer.club} قبول شد؛ ${formatMoney(offer.amount)} به بودجه تیم اضافه شد.`);
+    renderTransfers();
+}
+
+function rejectTransferOffer(offerId){
+    const offer=career.transferOffers.find(o=>String(o.id)===String(offerId)&&o.status==="pending");
+    if(!offer)return;
+    offer.status="rejected";
+    saveGame();
+    renderTransfers();
+}
+
+function buyPlayer(id,sourceClub){
+    ensureTransferData();
+    if(!isTransferWindowOpen(career.week)){
+        career.transferWindowOpen=false;
+        alert("پنجره نقل‌وانتقالات بسته است. " + getTransferWindowLabel());
+        renderTransfers(); return;
+    }
+    if(players.length>=25){ alert("حداکثر ظرفیت تیم ۲۵ بازیکن است."); return; }
+
+    let source=null;
+    if(sourceClub==="بازیکن آزاد"){
+        source=career.freeAgents;
+    }else{
+        source=SQUADS[sourceClub]||[];
+    }
+    const index=source.findIndex(p=>Number(p.id)===Number(id));
+    if(index<0){ alert("این بازیکن دیگر در بازار موجود نیست؛ بازار را تازه‌سازی کن."); renderTransfers(); return; }
+
+    const p=source[index];
+    const price=Number(p.value||0);
+    if(career.money<price){ alert("بودجه کافی نیست."); return; }
+    const newPlayer=preparePlayer(deepClone(p));
+    career.money-=price;
+    newPlayer.id=Date.now()+randomBetween(1,999);
+    while(players.some(x=>Number(x.id)===Number(newPlayer.id))) newPlayer.id++;
+    newPlayer.number=getFreeNumber();
+    players.push(newPlayer);
+    source.splice(index,1);
+    if(sourceClub!=="بازیکن آزاد") career.clubBudgets[sourceClub]=Number(career.clubBudgets[sourceClub]||0)+price;
+    lineupRepair();
+    SQUADS[career.club]=deepClone(players);
+    career.reputation=(career.reputation||0)+1;
+    addNews("🔄",`${p.name} با مبلغ ${formatMoney(price)} به تیم پیوست.`);
+    saveGame();
+    alert(`✅ ${p.name} خریداری شد!`);
+    renderTransfers();
+}
+
+function getFreeNumber(){
+
+    const used=players.map(p=>p.number);
+
+    for(let i=1;i<=99;i++){
+
+        if(!used.includes(i))return i;
+
+    }
+
+    return 99;
+
+}
+
+function lineupRepair(){
+
+    const ids=players.map(p=>p.id);
+
+    Object.keys(lineup).forEach(slot=>{
+
+        if(!ids.includes(lineup[slot])){
+
+            const candidate=
+                players.find(p=>
+                    !Object.values(lineup)
+                        .includes(p.id)
+                );
+
+            if(candidate){
+
+                lineup[slot]=candidate.id;
+
+            }
+
+        }
+
+    });
+
+}
+
+/* =========================================================
+   SEASON STATS
+========================================================= */
+
+function renderSeasonStats(){
+
+    const sortedGoals=
+        [...players]
+        .sort((a,b)=>
+            b.seasonStats.goals-
+            a.seasonStats.goals
+        );
+
+    const sortedAssists=
+        [...players]
+        .sort((a,b)=>
+            b.seasonStats.assists-
+            a.seasonStats.assists
+        );
+
+    const sortedRating=
+        [...players]
+        .filter(p=>p.seasonStats.appearances)
+        .sort((a,b)=>
+            (
+                b.seasonStats.ratingSum/
+                b.seasonStats.appearances
+            )-
+            (
+                a.seasonStats.ratingSum/
+                a.seasonStats.appearances
+            )
+        );
+
+    document.getElementById("topScorers").innerHTML=
+        renderPlayerRanking(sortedGoals,p=>
+            p.seasonStats.goals);
+
+    document.getElementById("topAssists").innerHTML=
+        renderPlayerRanking(sortedAssists,p=>
+            p.seasonStats.assists);
+
+    document.getElementById("topRatings").innerHTML=
+        renderPlayerRanking(sortedRating,p=>
+            p.seasonStats.appearances
+            ?(
+                p.seasonStats.ratingSum/
+                p.seasonStats.appearances
+            ).toFixed(1)
+            :"—");
+
+    const keepers=
+        players.filter(p=>p.position==="GK");
+
+    document.getElementById("keeperStats").innerHTML=
+        keepers.map(p=>`
+
+            <div class="player">
+
+                🧤 ${p.name}
+
+                <div class="small">
+
+                    بازی:
+                    ${p.seasonStats.appearances}
+
+                    · سیو:
+                    ${p.seasonStats.saves}
+
+                    · کلین‌شیت:
+                    ${p.seasonStats.cleanSheets}
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+function renderPlayerRanking(list,valueFn){
+
+    return list.slice(0,10).map((p,i)=>`
+
+        <div class="player">
+
+            <div class="player-row">
+
+                <div>
+                    ${i+1}. ${escapeHTML(p.name)}
+
+                    <div class="small">
+                        ${p.position}
+                        · OVR ${p.ovr}
+                    </div>
+                </div>
+
+                <div class="ovr">
+                    ${valueFn(p)}
+                </div>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+/* =========================================================
+   NEWS
+========================================================= */
+
+function addNews(icon,text){
+
+    career.news.unshift({
+
+        icon,
+
+        text,
+
+        week:career.week,
+
+        season:career.season,
+
+        time:Date.now()
+
+    });
+
+    career.news=
+        career.news.slice(0,50);
+
+}
+
+function createMatchNews(result,forGoals,againstGoals){
+
+    addNews(
+        result==="win"?"🎉":result==="draw"?"🤝":"😔",
+        `${career.club} مقابل ${matchState.opponent}: ${forGoals}-${againstGoals}`
+    );
+
+}
+
+function generateWeeklyNews(){
+
+    const options=[
+
+        "تمرین تیم با شدت بالا برگزار شد.",
+
+        "بازیکنان جوان در تمرین امروز عملکرد خوبی داشتند.",
+
+        "کادر فنی از وضعیت تیم راضی است.",
+
+        "هواداران منتظر بازی هفته بعد هستند.",
+
+        "بازار نقل‌وانتقالات دوباره داغ شده است."
+
+    ];
+
+    if(Math.random()<.7){
+
+        addNews(
+            "📰",
+            options[
+                randomBetween(0,options.length-1)
+            ]
+        );
+
+    }
+
+}
+
+function renderNews(){
+
+    const box=
+        document.getElementById("newsList");
+
+    if(!career.news.length){
+
+        box.innerHTML=
+            `<p class="info">هنوز خبری نیست.</p>`;
+
+        return;
+
+    }
+
+    box.innerHTML=
+        career.news.map(n=>`
+
+            <div class="news-item">
+
+                ${n.icon}
+                <strong>
+                    فصل ${n.season} · هفته ${n.week}
+                </strong>
+
+                <br>
+
+                ${escapeHTML(n.text)}
+
+            </div>
+
+        `).join("");
+
+}
+
+function renderDashboardNews(){
+
+    const box=
+        document.getElementById("dashboardNews");
+
+    const list=
+        career.news.slice(0,3);
+
+    box.innerHTML=
+        list.length
+        ?list.map(n=>`
+
+            <div class="news-item">
+                ${n.icon} ${escapeHTML(n.text)}
+            </div>
+
+        `).join("")
+        :`<p class="info">هنوز خبری نیست.</p>`;
+
+}
+
+/* =========================================================
+   OBJECTIVES
+========================================================= */
+
+function createObjectives(){
+
+    career.objectives=[
+
+        {
+            id:"top4",
+            title:"🏆 پایان فصل در جمع ۴ تیم اول",
+            target:4,
+            type:"position",
+            reward:300000
+        },
+
+        {
+            id:"wins10",
+            title:"⚽ کسب حداقل ۱۰ برد",
+            target:10,
+            type:"wins",
+            reward:200000
+        },
+
+        {
+            id:"goals25",
+            title:"🥅 زدن حداقل ۲۵ گل",
+            target:25,
+            type:"goals",
+            reward:150000
+        }
+
+    ];
+
+    career.objectiveProgress={};
+
+    career.objectives.forEach(o=>{
+
+        career.objectiveProgress[o.id]=0;
+
+    });
+
+}
+
+function getObjectiveProgress(obj){
+
+    if(obj.type==="wins")
+        return career.wins;
+
+    if(obj.type==="goals")
+        return career.goalsFor;
+
+    if(obj.type==="position"){
+
+        const pos=
+            getSortedTable()
+            .findIndex(t=>t.name===career.club)+1;
+
+        return pos||16;
+
+    }
+
+    return 0;
+
+}
+
+function renderDashboardObjective(){
+
+    const box=
+        document.getElementById("dashboardObjective");
+
+    if(!career.objectives.length){
+
+        box.innerHTML=
+            "اهدافی تعیین نشده.";
+
+        return;
+
+    }
+
+    const o=career.objectives[0];
+
+    const value=getObjectiveProgress(o);
+
+    const percent=
+        o.type==="position"
+        ?value<=o.target?100:50
+        :Math.min(
+            100,
+            value/o.target*100
+        );
+
+    box.innerHTML=`
+
+        <strong>${o.title}</strong>
+
+        <div class="progress">
+            <span style="width:${percent}%"></span>
+        </div>
+
+        <div class="small">
+            پیشرفت: ${value}
+            / ${o.target}
+            · پاداش:
+            ${formatMoney(o.reward)}
+        </div>
+
+    `;
+
+}
+
+function updateObjectivesAfterMatch(result,goals){
+
+    career.objectives.forEach(o=>{
+
+        const value=getObjectiveProgress(o);
+
+        if(
+            value>=o.target &&
+            !career.achievements.includes(
+                "objective_"+o.id
+            )
+        ){
+
+            career.money+=o.reward;
+
+            career.reputation+=3;
+
+            career.achievements.push(
+                "objective_"+o.id
+            );
+
+            addNews(
+                "🎯",
+                `هدف "${o.title}" تکمیل شد! پاداش ${formatMoney(o.reward)}`
+            );
+
+        }
+
+    });
+
+}
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+const achievementDefs=[
+
+{
+id:"firstwin",
+title:"اولین برد",
+desc:"اولین مسابقه لیگ را ببری."
+},
+
+{
+id:"fivewins",
+title:"۵ برد",
+desc:"حداقل ۵ مسابقه را ببری."
+},
+
+{
+id:"clean",
+title:"دروازه بسته",
+desc:"یک مسابقه را بدون گل خورده تمام کنی."
+},
+
+{
+id:"threegoals",
+title:"سه‌تایی",
+desc:"در یک مسابقه حداقل ۳ گل بزنی."
+},
+
+{
+id:"champion",
+title:"قهرمان لیگ",
+desc:"قهرمان لیگ شوی."
+}
+
+];
+
+function unlockAchievement(id){
+
+    if(career.achievements.includes(id))
+        return;
+
+    career.achievements.push(id);
+
+    const def=
+        achievementDefs.find(x=>x.id===id);
+
+    if(def){
+
+        addNews(
+            "🏅",
+            `دستاورد جدید: ${def.title}`
+        );
+
+    }
+
+}
+
+function checkAchievements(){
+
+    if(career.wins>=1)
+        unlockAchievement("firstwin");
+
+    if(career.wins>=5)
+        unlockAchievement("fivewins");
+
+    if(
+        career.matchHistory.some(h=>
+            h.season===career.season &&
+            h.homeGoals+h.awayGoals>=0 &&
+            h.result==="win"
+        )
+    ){}
+
+    const last=career.matchHistory[0];
+
+    if(last){
+
+        const ourGoals=
+            last.home===career.club
+            ?last.homeGoals
+            :last.awayGoals;
+
+        const theirGoals=
+            last.home===career.club
+            ?last.awayGoals
+            :last.homeGoals;
+
+        if(
+            ourGoals>0 &&
+            theirGoals===0
+        ){
+
+            unlockAchievement("clean");
+
+        }
+
+        if(ourGoals>=3){
+
+            unlockAchievement("threegoals");
+
+        }
+
+    }
+
+}
+
+function renderObjectives(){
+
+    const box=
+        document.getElementById("objectiveList");
+
+    box.innerHTML=
+        career.objectives.map(o=>{
+
+            const value=getObjectiveProgress(o);
+
+            const done=
+                value>=o.target;
+
+            const percent=
+                o.type==="position"
+                ?done?100:40
+                :Math.min(
+                    100,
+                    value/o.target*100
+                );
+
+            return`
+
+                <div class="card">
+
+                    <strong>
+                        ${done?"✅":"🎯"} ${o.title}
+                    </strong>
+
+                    <div class="progress">
+                        <span style="width:${percent}%"></span>
+                    </div>
+
+                    <div class="small">
+                        پیشرفت:
+                        ${value}/${o.target}
+
+                        · پاداش:
+                        ${formatMoney(o.reward)}
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+    const achievements=
+        document.getElementById("achievementList");
+
+    achievements.innerHTML=
+        achievementDefs.map(a=>{
+
+            const unlocked=
+                career.achievements.includes(a.id);
+
+            return`
+
+                <div class="player">
+
+                    ${unlocked?"🏅":"🔒"}
+
+                    <strong>
+                        ${a.title}
+                    </strong>
+
+                    <div class="small">
+                        ${a.desc}
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory(){
+
+    const box=
+        document.getElementById("historyList");
+
+    if(!career.matchHistory.length){
+
+        box.innerHTML=
+            `<p class="info">هنوز مسابقه‌ای انجام نشده.</p>`;
+
+        return;
+
+    }
+
+    box.innerHTML=
+        career.matchHistory.map(h=>{
+
+            const ourHome=
+                h.home===career.club;
+
+            const ourGoals=
+                ourHome?h.homeGoals:h.awayGoals;
+
+            const oppGoals=
+                ourHome?h.awayGoals:h.homeGoals;
+
+            const color=
+                h.result==="win"
+                ?"green"
+                :h.result==="loss"
+                ?"red"
+                :"yellow";
+
+            return`
+
+                <div class="player">
+
+                    <div class="player-row">
+
+                        <div>
+
+                            هفته ${h.week}
+
+                            <br>
+
+                            ${h.home}
+                            —
+                            ${h.away}
+
+                        </div>
+
+                        <div class="${color}">
+
+                            ${h.homeGoals}
+                            -
+                            ${h.awayGoals}
+
+                        </div>
+
+                    </div>
+
+                    <div class="small">
+
+                        نتیجه شما:
+                        ${ourGoals}-${oppGoals}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+/* =========================================================
+   HOME INITIAL
+========================================================= */
+
+updateHomeSaveStatus();
+
+showScreen("home");
+
+/* =========================================================
+   AUTO SAVE
+========================================================= */
+
+setInterval(()=>{
+
+    if(career.club){
+
+        saveGame();
+
+    }
+
+},10000);
+
+/* =========================================================
+   ACHIEVEMENT CHECK
+========================================================= */
+
+setInterval(()=>{
+
+    if(career.club){
+
+        checkAchievements();
+
+    }
+
+},5000);
+
+/* =========================================================
+   NEW CAREER CONFIRM
+========================================================= */
+
+function newCareerConfirm(){
+
+    if(!confirm(
+        "⚠️ تمام اطلاعات کریر فعلی پاک می‌شود.\n\nمطمئنی؟"
+    ))return;
+
+    startNewCareer();
+
+}
+
+
+/* ===================== V4.4 EXPANSION ===================== */
+const MFC44 = { version:"4.4.0", negotiation:null, browserResults:[], scouting:[] };
+
+function ensurePlayerCareerFields(p){
+    preparePlayer(p);
+    if(!Number.isFinite(Number(p.age))) p.age=randomBetween(18,32);
+    p.age=Number(p.age);
+    if(!Number.isFinite(Number(p.potential))) p.potential=clamp(Number(p.ovr||60)+randomBetween(0,14), Number(p.ovr||60), 99);
+    p.potential=Math.max(Number(p.ovr||0),Math.min(99,Number(p.potential)));
+    if(!Number.isFinite(Number(p.contractYears))) p.contractYears=randomBetween(1,4);
+    if(!Number.isFinite(Number(p.value)) || Number(p.value)<=0) p.value=calculatePlayerValue(p);
+    if(!Number.isFinite(Number(p.salary)) || Number(p.salary)<=0) p.salary=Math.max(500,Math.round((Number(p.ovr||55)-45)**2*22));
+    if(!p.injury || typeof p.injury!=="object") p.injury=null;
+    return p;
+}
+function calculatePlayerValue(p){
+    const o=Number(p.ovr||55), age=Number(p.age||24), potential=Number(p.potential||o);
+    const ageFactor=age<=21?1.45:age<=25?1.25:age<=29?1:age<=32?.72:.48;
+    const potentialFactor=1+Math.max(0,potential-o)*.025;
+    return Math.max(10000,Math.round(Math.max(1,o-45)**2*1800*ageFactor*potentialFactor));
+}
+function normalizeAllPlayers(){
+    Object.keys(SQUADS).forEach(k=>SQUADS[k].forEach(ensurePlayerCareerFields));
+    players.forEach(ensurePlayerCareerFields);
+    (career.freeAgents||[]).forEach(ensurePlayerCareerFields);
+}
+normalizeAllPlayers();
+
+function renderRoster(){
+    const box=document.getElementById("roster");
+    if(!box)return;
+    const starterIds=Object.values(lineup).map(Number);
+    box.innerHTML=players.map(p=>{
+        const starter=starterIds.includes(Number(p.id));
+        const injury=p.injury && Number(p.injury.weeksRemaining)>0;
+        return `<div class="player" onclick="handleRosterClick(${Number(p.id)})" ondblclick="showPlayer(${Number(p.id)})">
+          <div class="player-row"><div><strong>#${Number(p.number)||"-"} ${escapeHTML(p.name)}</strong>
+          <div class="position">${escapeHTML(p.position||"")}${starter?" • 🟢 ترکیب اصلی":" • ⚪ نیمکت"}</div></div><div class="ovr">${Number(p.ovr)||0}</div></div>
+          <div class="small">سن ${Number(p.age)||"-"} · پتانسیل ${Number(p.potential)||p.ovr} · ارزش ${formatMoney(p.value||0)}</div>
+          <div class="small">فرم ${Number(p.form||0).toFixed(1)} · آمادگی ${Math.round(p.fitness||0)}% · روحیه ${Math.round(p.morale||0)}% · قرارداد ${Number(p.contractYears)||0} فصل</div>
+          ${injury?`<div class="small red">🩹 مصدومیت ${escapeHTML(p.injury.area||"نامشخص")} — ${Number(p.injury.weeksRemaining)} هفته باقی‌مانده</div>`:""}
+        </div>`;
+    }).join("") || '<p class="info">بازیکنی در فهرست تیم نیست.</p>';
+}
+function calculateTeamPower(){
+    const starters=Object.values(lineup).map(id=>getPlayer(id)).filter(Boolean);
+    if(!starters.length)return 50;
+    const effective=starters.map(p=>{
+        const injury=p.injury && Number(p.injury.weeksRemaining)>0;
+        return Number(p.ovr||50)*(injury?.52:1)*(0.82+Math.min(100,Number(p.fitness||100))*.0018);
+    });
+    let modifier=1;
+    if(career.mentality==="attacking")modifier+=.025;
+    if(career.mentality==="defensive")modifier+=.015;
+    if(career.tempo==="fast")modifier+=.01;
+    if(career.pressing==="high")modifier+=.01;
+    if(career.defensiveLine==="high")modifier-=.005;
+    return average(effective)*modifier;
+}
+function getTransferMarket(){
+    ensureTransferData();
+    const market=[];
+    leagueTeams.forEach(team=>{
+        if(team===career.club)return;
+        (SQUADS[team]||[]).forEach(p=>{
+            if(!p.injury || Number(p.injury.weeksRemaining)<=0) market.push({...ensurePlayerCareerFields(p),sourceClub:team,marketType:"club"});
+        });
+    });
+    (career.freeAgents||[]).forEach(p=>market.push({...ensurePlayerCareerFields(p),sourceClub:"بازیکن آزاد",marketType:"free"}));
+    const seen=new Set();
+    return market.filter(p=>{const k=String(p.id);if(seen.has(k))return false;seen.add(k);return true;})
+      .sort((a,b)=>(Number(b.ovr)||0)-(Number(a.ovr)||0));
+}
+function renderTransfers(){
+    ensureTransferData();
+    normalizeAllPlayers();
+    career.transferWindowOpen=isTransferWindowOpen(career.week);
+    const moneyEl=document.getElementById("transferMoney");
+    if(moneyEl)moneyEl.innerText=formatMoney(career.money);
+    const win=document.getElementById("transferWindowText");
+    if(win)win.innerText=(career.transferWindowOpen?"🟢 پنجره نقل‌وانتقالات باز است. ":"🔴 پنجره نقل‌وانتقالات بسته است. ")+getTransferWindowLabel();
+    const market=getTransferMarket();
+    const query=(document.getElementById("tmSearch")?.value||"").trim().toLocaleLowerCase("fa");
+    const pos=document.getElementById("tmPosition")?.value||"all";
+    const minOvr=Number(document.getElementById("tmMinOvr")?.value||0);
+    const maxAge=Number(document.getElementById("tmMaxAge")?.value||99);
+    const maxPrice=Number(document.getElementById("tmMaxPrice")?.value||0);
+    const affordable=document.getElementById("tmAffordable")?.checked||false;
+    const sort=document.getElementById("tmSort")?.value||"ovr";
+    let filtered=market.filter(p=>{
+        const hay=`${p.name} ${p.position} ${p.sourceClub}`.toLocaleLowerCase("fa");
+        const positionMatches=pos==="all" || String(p.position||"").split(/[\/, ]+/).includes(pos) || (pos==="DEF"&&/CB|LB|RB/.test(p.position)) || (pos==="MID"&&/CM|CDM|CAM/.test(p.position)) || (pos==="ATT"&&/ST|LW|RW/.test(p.position));
+        return hay.includes(query)&&positionMatches&&Number(p.ovr||0)>=minOvr&&Number(p.age||25)<=maxAge&&(!maxPrice||Number(p.value||0)<=maxPrice)&&(!affordable||Number(p.value||0)<=Number(career.money||0));
+    });
+    filtered.sort(sort==="age"?(a,b)=>a.age-b.age:sort==="price"?(a,b)=>a.value-b.value:(a,b)=>b.ovr-a.ovr);
+    const list=document.getElementById("transferList");
+    if(list)list.innerHTML=filtered.slice(0,100).map(p=>`
+      <div class="transfer-card"><div class="transfer-player-main">
+       <strong>${escapeHTML(p.name)}</strong><div class="small">${escapeHTML(p.position||"")} · OVR ${p.ovr} · سن ${p.age} · پتانسیل ${p.potential}</div>
+       <div class="small">باشگاه: ${escapeHTML(p.sourceClub)} · ارزش ${formatMoney(p.value)} · قرارداد ${p.contractYears} فصل</div>
+      </div><button class="btn-blue" onclick="buyPlayer(${Number(p.id)},'${String(p.sourceClub).replace(/'/g,"\\'")}')" ${career.transferWindowOpen?"":"disabled"}>مذاکره</button></div>`).join("")||'<div class="info">با این فیلترها بازیکنی پیدا نشد.</div>';
+    const sell=document.getElementById("sellList");
+    if(sell)sell.innerHTML=players.map(p=>{
+      const listed=career.transferListed.find(x=>Number(x.playerId)===Number(p.id));
+      return `<div class="transfer-card"><div class="transfer-player-main"><strong>#${p.number||"-"} ${escapeHTML(p.name)}</strong>
+       <div class="small">${escapeHTML(p.position||"")} · OVR ${p.ovr} · سن ${p.age||"-"} · ارزش ${formatMoney(p.value||0)}</div>
+       <div class="small">${listed?`🟡 در لیست فروش · بررسی از هفته ${listed.offerDueWeek}`:"هنوز در لیست فروش نیست"}</div></div>
+       ${listed?`<button class="btn-gray" onclick="removeFromTransferList(${Number(p.id)})">لغو فروش</button>`:`<button class="btn-red" onclick="listPlayerForTransfer(${Number(p.id)})" ${career.transferWindowOpen?"":"disabled"}>لیست فروش</button>`}</div>`;
+    }).join("")||'<p class="info">بازیکنی برای نمایش وجود ندارد.</p>';
+    const offersBox=document.getElementById("transferOffers");
+    if(offersBox){
+      const pending=career.transferOffers.filter(o=>o.status==="pending");
+      offersBox.innerHTML=pending.map(o=>{
+        const p=players.find(x=>Number(x.id)===Number(o.playerId));
+        return `<div class="transfer-card"><div class="transfer-player-main"><strong>📨 ${escapeHTML(o.club)} برای ${escapeHTML(o.playerName)} پیشنهاد داده</strong>
+        <div class="small">مبلغ ${formatMoney(o.amount)} · OVR ${o.ovr}</div><div class="small">بودجه باشگاه: ${formatMoney(career.clubBudgets[o.club]||0)}</div></div>
+        <div class="transfer-actions"><button class="btn-blue" onclick="acceptTransferOffer('${String(o.id).replace(/'/g,"")}')" ${career.transferWindowOpen&&p?"":"disabled"}>قبول</button>
+        <button class="btn-gray" onclick="rejectTransferOffer('${String(o.id).replace(/'/g,"")}')">رد</button></div></div>`;
+      }).join("")||'<div class="info">پیشنهاد دریافتی نداری. بازیکنی را در لیست فروش قرار بده و بعد از مسابقه‌ها بررسی کن.</div>';
+    }
+    const budgets=document.getElementById("clubBudgetsList");
+    if(budgets)budgets.innerHTML=TEAM_DEFS.slice().sort((a,b)=>(career.clubBudgets[b.name]||0)-(career.clubBudgets[a.name]||0)).map(t=>
+      `<div class="player-row"><span>${escapeHTML(t.name)}${t.name===career.club?" (تیم تو)":""}</span><strong>${formatMoney(t.name===career.club?career.money:(career.clubBudgets[t.name]||0))}</strong></div>`).join("");
+}
+function beginBuyNegotiation(id,sourceClub){
+    if(!isTransferWindowOpen(career.week)){alert("پنجره نقل‌وانتقالات بسته است. "+getTransferWindowLabel());return;}
+    if(players.length>=25){alert("ظرفیت تیم ۲۵ بازیکن است.");return;}
+    const source=sourceClub==="بازیکن آزاد"?(career.freeAgents||[]):(SQUADS[sourceClub]||[]);
+    const p=source.find(x=>Number(x.id)===Number(id));
+    if(!p){alert("این بازیکن دیگر در بازار نیست؛ بازار را تازه‌سازی کن.");renderTransfers();return;}
+    if(sourceClub!=="بازیکن آزاد" && sourceClub===career.club){alert("این بازیکن همین حالا عضو تیم توست.");return;}
+    MFC44.negotiation={id:Number(id),sourceClub,phase:sourceClub==="بازیکن آزاد"?"salary":"club",asking:Number(p.value||0),playerSalary:Number(p.salary||1000)};
+    renderNegotiation();
+}
+function renderNegotiation(){
+    const n=MFC44.negotiation;if(!n)return;
+    const source=n.sourceClub==="بازیکن آزاد"?(career.freeAgents||[]):(SQUADS[n.sourceClub]||[]);
+    const p=source.find(x=>Number(x.id)===n.id);
+    if(!p){closeNegotiation();alert("بازیکن از بازار خارج شده است.");return;}
+    let title,body;
+    if(n.phase==="club"){
+      title="مذاکره با باشگاه";
+      body=`<p>برای جذب <strong>${escapeHTML(p.name)}</strong> با ${escapeHTML(n.sourceClub)} بر سر مبلغ انتقال مذاکره کن.</p>
+      <div class="small">ارزش تخمینی ${formatMoney(p.value)} · بودجه تو ${formatMoney(career.money)}</div>
+      <label>پیشنهاد انتقال (تومان/واحد بازی)</label><input id="negFee" type="number" min="0" value="${Math.min(career.money,Math.round(p.value*.9))}">
+      <button class="btn" onclick="submitClubOffer()">ارسال پیشنهاد به باشگاه</button>`;
+    }else{
+      title="مذاکره با بازیکن";
+      body=`<p><strong>${escapeHTML(p.name)}</strong> با مبلغ انتقال موافقت کرده؛ حالا درباره حقوق فصلانه مذاکره کن.</p>
+      <div class="small">حقوق درخواستی ${formatMoney(p.salary||1000)} · سن ${p.age||"-"} · پتانسیل ${p.potential||p.ovr}</div>
+      <label>حقوق پیشنهادی برای هر فصل</label><input id="negSalary" type="number" min="0" value="${Math.round((p.salary||1000)*1.05)}">
+      <label>مدت قرارداد</label><select id="negYears"><option value="1">۱ فصل</option><option value="2" selected>۲ فصل</option><option value="3">۳ فصل</option><option value="4">۴ فصل</option></select>
+      <button class="btn" onclick="submitPlayerOffer()">نهایی‌کردن قرارداد</button>`;
+    }
+    const modal=document.getElementById("negotiationModal");
+    modal.innerHTML=`<div class="negotiation-card"><button class="close-modal" onclick="closeNegotiation()">✕</button><h3>🤝 ${title}</h3>${body}<p class="small">مذاکره شبیه‌سازی‌شده داخل بازی است؛ قبل از تأیید، بودجه بررسی می‌شود.</p></div>`;
+    modal.classList.remove("hidden");
+}
+function closeNegotiation(){MFC44.negotiation=null;document.getElementById("negotiationModal")?.classList.add("hidden");}
+function submitClubOffer(){
+    const n=MFC44.negotiation;if(!n)return;
+    const source=SQUADS[n.sourceClub]||[];
+    const p=source.find(x=>Number(x.id)===n.id);
+    if(!p){closeNegotiation();renderTransfers();return;}
+    const fee=Math.floor(Number(document.getElementById("negFee")?.value||0));
+    if(!Number.isFinite(fee)||fee<0){alert("مبلغ معتبر وارد کن.");return;}
+    if(fee>career.money){alert("این پیشنهاد از بودجه باشگاهت بیشتر است.");return;}
+    const ask=Number(p.value||0);
+    if(fee<ask*.65){alert("باشگاه پیشنهاد را رد کرد؛ مبلغ خیلی پایین است.");return;}
+    if(fee<ask*.9){
+      n.asking=Math.round(ask*randomBetween(92,108)/100);
+      alert(`باشگاه پیشنهاد اولیه را نپذیرفت و ${formatMoney(n.asking)} درخواست کرد. مبلغ جدید را وارد کن.`);
+      document.getElementById("negFee").value=Math.min(career.money,n.asking);
+      return;
+    }
+    n.agreedFee=fee;n.phase="salary";renderNegotiation();
+}
+function submitPlayerOffer(){
+    const n=MFC44.negotiation;if(!n)return;
+    const source=n.sourceClub==="بازیکن آزاد"?(career.freeAgents||[]):(SQUADS[n.sourceClub]||[]);
+    const idx=source.findIndex(x=>Number(x.id)===n.id);
+    if(idx<0){closeNegotiation();renderTransfers();return;}
+    const p=source[idx];
+    const salary=Math.floor(Number(document.getElementById("negSalary")?.value||0));
+    const years=Math.floor(Number(document.getElementById("negYears")?.value||2));
+    if(salary<0||!Number.isFinite(salary)||years<1||years>4){alert("حقوق یا مدت قرارداد معتبر نیست.");return;}
+    const askSalary=Number(p.salary||1000);
+    if(salary<askSalary*.8){alert("بازیکن پیشنهاد حقوق را نپذیرفت؛ حقوق بالاتری پیشنهاد بده.");return;}
+    const fee=n.sourceClub==="بازیکن آزاد"?0:Number(n.agreedFee||0);
+    if(career.money<fee){alert("بودجه برای مبلغ انتقال کافی نیست.");return;}
+    career.money-=fee;
+    if(n.sourceClub!=="بازیکن آزاد")career.clubBudgets[n.sourceClub]=Number(career.clubBudgets[n.sourceClub]||0)+fee;
+    const newPlayer=ensurePlayerCareerFields(deepClone(p));
+    newPlayer.id=Date.now()+randomBetween(100,999);
+    while(players.some(x=>Number(x.id)===Number(newPlayer.id)) || Object.values(SQUADS).some(s=>s.some(x=>Number(x.id)===Number(newPlayer.id))))newPlayer.id++;
+    newPlayer.number=getFreeNumber();newPlayer.salary=salary;newPlayer.contractYears=years;newPlayer.injury=null;
+    players.push(newPlayer);source.splice(idx,1);
+    lineupRepair();SQUADS[career.club]=deepClone(players);
+    career.reputation=Math.min(100,Number(career.reputation||0)+1);
+    addNews("🔄",`${newPlayer.name} پس از توافق مالی به ${career.club} پیوست.`);
+    closeNegotiation();saveGame();renderTransfers();alert(`✅ انتقال ${newPlayer.name} نهایی شد!`);
+}
+function buyPlayer(id,sourceClub){beginBuyNegotiation(id,sourceClub);}
+function acceptTransferOffer(offerId){
+    ensureTransferData();
+    if(!isTransferWindowOpen(career.week)){alert("برای نهایی‌کردن انتقال پنجره باید باز باشد.");return;}
+    const offer=career.transferOffers.find(o=>String(o.id)===String(offerId)&&o.status==="pending");
+    if(!offer)return;
+    const idx=players.findIndex(p=>Number(p.id)===Number(offer.playerId));
+    if(idx<0){offer.status="cancelled";renderTransfers();saveGame();return;}
+    const budget=Number(career.clubBudgets[offer.club]||0);
+    if(budget<Number(offer.amount)){alert("بودجه باشگاه پیشنهاددهنده کافی نیست.");return;}
+    const sold=players[idx];
+    const player=ensurePlayerCareerFields(deepClone(sold));
+    career.money+=Number(offer.amount);career.clubBudgets[offer.club]=budget-Number(offer.amount);
+    player.id=Date.now()+randomBetween(100,999);
+    while(players.some(x=>Number(x.id)===Number(player.id))||Object.values(SQUADS).some(s=>s.some(x=>Number(x.id)===Number(player.id))))player.id++;
+    player.number=getFreeNumberForSquad(SQUADS[offer.club]||[]);player.injury=null;
+    SQUADS[offer.club]=SQUADS[offer.club]||[];SQUADS[offer.club].push(player);
+    players.splice(idx,1);
+    career.transferListed=career.transferListed.filter(x=>Number(x.playerId)!==Number(sold.id));
+    career.transferOffers.forEach(o=>{if(Number(o.playerId)===Number(sold.id)&&o.status==="pending")o.status=String(o.id)===String(offer.id)?"accepted":"cancelled";});
+    Object.keys(lineup).forEach(slot=>{if(Number(lineup[slot])===Number(sold.id))delete lineup[slot];});
+    lineupRepair();SQUADS[career.club]=deepClone(players);
+    addNews("💰",`${sold.name} با مبلغ ${formatMoney(offer.amount)} به ${offer.club} منتقل شد.`);
+    saveGame();renderTransfers();alert(`✅ انتقال انجام شد؛ ${formatMoney(offer.amount)} به بودجه اضافه شد.`);
+}
+function getFreeNumberForSquad(squad){const used=squad.map(p=>Number(p.number));for(let i=1;i<=99;i++)if(!used.includes(i))return i;return 99;}
+function listPlayerForTransfer(id){
+    ensureTransferData();
+    if(!isTransferWindowOpen(career.week)){alert("پنجره نقل‌وانتقالات بسته است.");return;}
+    const p=players.find(x=>Number(x.id)===Number(id));if(!p)return;
+    if(career.transferListed.some(x=>Number(x.playerId)===Number(id))){alert("این بازیکن از قبل در لیست فروش است.");return;}
+    career.transferListed.push({playerId:Number(p.id),playerName:p.name,ovr:Number(p.ovr||0),value:Number(p.value||0),listedWeek:career.week,offerDueWeek:career.week+randomBetween(1,2),offersGenerated:false});
+    addNews("📤",`${p.name} در لیست فروش قرار گرفت.`);saveGame();renderTransfers();
+}
+function generateTransferOffersAfterMatch(){
+    ensureTransferData();
+    career.transferListed.forEach(item=>{
+      if(item.offersGenerated||career.week<Number(item.offerDueWeek||career.week+1))return;
+      const p=players.find(x=>Number(x.id)===Number(item.playerId));if(!p){item.offersGenerated=true;return;}
+      const candidates=TEAM_DEFS.filter(t=>t.name!==career.club && Number(career.clubBudgets[t.name]||0)>=Math.max(10000,Number(p.value||0)*.55)).sort(()=>Math.random()-.5);
+      if(!candidates.length){item.offerDueWeek=career.week+1;return;}
+      candidates.slice(0,Math.min(candidates.length,randomBetween(1,2))).forEach(t=>{
+        const amount=Math.min(Number(career.clubBudgets[t.name]||0),Math.max(10000,Math.round(Number(p.value||0)*randomBetween(80,120)/100)));
+        career.transferOffers.push({id:`offer_${career.season}_${career.week}_${p.id}_${t.name}`,playerId:Number(p.id),playerName:p.name,ovr:Number(p.ovr||0),club:t.name,amount,status:"pending",createdWeek:career.week});
+      });
+      item.offersGenerated=true;addNews("📨",`برای ${p.name} پیشنهاد نقل‌وانتقال رسیده است.`);
+    });
+}
+function weeklyRecovery(){
+    players.forEach(p=>{
+      p.fitness=Math.min(100,Number(p.fitness||0)+randomBetween(8,16));
+      p.morale=Math.max(0,Math.min(100,Number(p.morale||70)+randomBetween(-2,3)));
+      if(p.injury&&Number(p.injury.weeksRemaining)>0){
+        p.injury.weeksRemaining--;
+        if(p.injury.weeksRemaining<=0){addNews("🩹",`${p.name} از مصدومیت برگشت و آماده بازی است.`);p.injury=null;}
+      }
+    });
+}
+const _mfc44FinishMatch=finishMatch;
+finishMatch=function(){
+    if(!matchState||matchState.finished)return;
+    const playedIds=Object.keys(matchState.playerStats||{}).map(Number);
+    _mfc44FinishMatch();
+    const candidates=players.filter(p=>playedIds.includes(Number(p.id))&&!p.injury);
+    if(candidates.length&&Math.random()<.11){
+      const p=candidates[randomBetween(0,candidates.length-1)];
+      const areas=["مچ پا","زانو","عضله ران","همسترینگ","شانه"];
+      const severe=Math.random()<.18;
+      p.injury={area:areas[randomBetween(0,areas.length-1)],severity:severe?"شدید":"خفیف",weeksRemaining:severe?randomBetween(3,6):randomBetween(1,2)};
+      addNews("🩹",`${p.name} دچار مصدومیت ${p.injury.severity} از ناحیه ${p.injury.area} شد؛ ${p.injury.weeksRemaining} هفته دور از میادین.`);
+    }
+    saveGame();
+    if(document.getElementById("team")&&!document.getElementById("team").classList.contains("hidden"))renderTeam();
+};
+function analyzeOpponent(){
+    if(!career.club){alert("اول باشگاهت را انتخاب کن.");return;}
+    const f=getCurrentFixture();if(!f){alert("بازی بعدی پیدا نشد.");return;}
+    const opponent=f.home===career.club?f.away:f.home;
+    const def=TEAM_DEFS.find(t=>t.name===opponent)||{strength:65};
+    const squad=(SQUADS[opponent]||[]).slice().sort((a,b)=>(b.ovr||0)-(a.ovr||0));
+    const attack=average(squad.filter(p=>/ST|LW|RW/.test(p.position)).map(p=>p.ovr||0));
+    const defense=average(squad.filter(p=>/CB|LB|RB|GK/.test(p.position)).map(p=>p.ovr||0));
+    const mids=average(squad.filter(p=>/CM|CDM/.test(p.position)).map(p=>p.ovr||0));
+    const box=document.getElementById("analysisContent");
+    box.innerHTML=`<h3>🔍 تحلیل حریف: ${escapeHTML(opponent)}</h3>
+      <div class="stats"><div class="stat">قدرت کلی<strong>${def.strength}</strong></div><div class="stat">میانگین حمله<strong>${Math.round(attack||def.strength)}</strong></div><div class="stat">میانگین دفاع<strong>${Math.round(defense||def.strength)}</strong></div><div class="stat">میانگین میانه<strong>${Math.round(mids||def.strength)}</strong></div></div>
+      <p>${def.strength>calculateTeamPower()?"حریف روی کاغذ قوی‌تر است؛ دفاع فشرده و ضدحمله را در نظر بگیر.":"قدرت تیمت رقابتی است؛ پرس کنترل‌شده و استفاده از فضاها می‌تواند کمک کند."}</p>
+      <h4>بازیکنان برتر حریف</h4>${squad.slice(0,5).map(p=>`<div class="player-row"><span>${escapeHTML(p.name)} · ${escapeHTML(p.position)}</span><strong>OVR ${p.ovr}</strong></div>`).join("")}
+      <p class="small">این تحلیل بر اساس داده‌های شبیه‌سازی ذخیره‌شده بازی است، نه ترکیب رسمی واقعی.</p>`;
+    document.getElementById("analysisModal").classList.remove("hidden");
+}
+function closeAnalysis(){document.getElementById("analysisModal")?.classList.add("hidden");}
+function renderClubBrowser(){
+    const q=(document.getElementById("browseSearch")?.value||"").trim().toLocaleLowerCase("fa");
+    const box=document.getElementById("clubBrowserResults");if(!box)return;
+    const results=[];
+    leagueTeams.forEach(team=>(SQUADS[team]||[]).forEach(p=>{if(`${p.name} ${team} ${p.position}`.toLocaleLowerCase("fa").includes(q))results.push({...p,club:team});}));
+    results.sort((a,b)=>(b.ovr||0)-(a.ovr||0));
+    box.innerHTML=results.slice(0,120).map(p=>`<div class="transfer-card"><div class="transfer-player-main"><strong>${escapeHTML(p.name)}</strong><div class="small">${escapeHTML(p.club)} · ${escapeHTML(p.position)} · سن ${p.age||"-"} · OVR ${p.ovr}</div><div class="small">ارزش ${formatMoney(p.value||0)} · پتانسیل ${p.potential||p.ovr} · قرارداد ${p.contractYears||0} فصل</div></div></div>`).join("")||'<p class="info">بازیکنی پیدا نشد.</p>';
+}
+function scoutYouth(){
+    if(career.money<50000){alert("برای اعزام استعدادیاب حداقل ۵۰٬۰۰۰ بودجه لازم است.");return;}
+    career.money-=50000;
+    const first=randomBetween(0,OTHER_NAMES.length-1);
+    const name=OTHER_NAMES[first]+" (استعداد جوان)";
+    const pos=["GK","CB","CM","LW","ST"][randomBetween(0,4)];
+    const ovr=randomBetween(48,64),potential=randomBetween(Math.max(ovr+8,60),88);
+    const p=ensurePlayerCareerFields({id:Date.now()+randomBetween(1,999),number:0,name,position:pos,ovr,pac:randomBetween(45,75),sho:randomBetween(35,70),pas:randomBetween(40,72),dri:randomBetween(40,75),def:randomBetween(30,70),phy:randomBetween(40,75),age:randomBetween(16,19),potential,value:randomBetween(20000,120000),salary:randomBetween(500,1800),contractYears:1,form:6,fitness:100,morale:75,seasonStats:createPlayerStats()});
+    career.freeAgents=career.freeAgents||[];career.freeAgents.push(p);
+    addNews("🕵️",`استعدادیاب یک استعداد ${p.age} ساله در پست ${p.position} پیدا کرد: ${p.name}.`);
+    saveGame();document.getElementById("scoutResult").innerHTML=`<div class="alert-box"><strong>${escapeHTML(p.name)}</strong><div>پست ${p.position} · سن ${p.age} · OVR ${p.ovr} · پتانسیل ${p.potential}</div><p>این بازیکن به بازار بازیکنان آزاد اضافه شد؛ برای جذبش به نقل‌وانتقالات برو.</p></div>`;
+}
+function trainPlayer(){
+    const id=Number(document.getElementById("trainingPlayer")?.value);
+    const type=document.getElementById("trainingType")?.value||"balanced";
+    const p=players.find(x=>Number(x.id)===id);if(!p)return;
+    if(Number(p.fitness||0)<25){alert("آمادگی بازیکن خیلی پایین است؛ اول استراحت بده.");return;}
+    if(p.injury&&p.injury.weeksRemaining>0){alert("بازیکن مصدوم نمی‌تواند تمرین کند.");return;}
+    p.fitness=Math.max(0,Number(p.fitness||100)-12);
+    const stat=({pace:"pac",shooting:"sho",passing:"pas",defending:"def",balanced:null})[type];
+    if(stat)p[stat]=clamp(Number(p[stat]||50)+randomBetween(1,2));
+    p.form=Math.min(10,Number(p.form||6)+.2);
+    const next=calculateOVR(p);p.ovr=Math.min(Number(p.potential||99),Math.max(Number(p.ovr||0),next));
+    p.value=calculatePlayerValue(p);
+    saveGame();renderTraining();alert(`تمرین ${p.name} انجام شد؛ آمادگی فعلی ${Math.round(p.fitness)}٪.`);
+}
+function renderTraining(){
+    const select=document.getElementById("trainingPlayer");if(!select)return;
+    const old=select.value;
+    select.innerHTML=players.map(p=>`<option value="${p.id}">${escapeHTML(p.name)} · ${p.position} · OVR ${p.ovr}${p.injury&&p.injury.weeksRemaining>0?" (مصدوم)":""}</option>`).join("");
+    if(players.some(p=>String(p.id)===old))select.value=old;
+    const box=document.getElementById("trainingRoster");
+    if(box)box.innerHTML=players.map(p=>`<div class="player-row"><span>${escapeHTML(p.name)} · آمادگی ${Math.round(p.fitness||0)}%${p.injury&&p.injury.weeksRemaining>0?` · 🩹 ${p.injury.weeksRemaining} هفته`:""}</span><strong>OVR ${p.ovr} / POT ${p.potential||p.ovr}</strong></div>`).join("");
+}
+function showScreen(screen){
+    document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+    const target=document.getElementById(screen);if(target)target.classList.remove("hidden");
+    if(screen==="home")updateHomeSaveStatus();
+    if(screen==="club")renderClubList();
+    if(screen==="dashboard")updateDashboard();
+    if(screen==="team")renderTeam();
+    if(screen==="player")renderPlayerPage();
+    if(screen==="tactics")updateTactics();
+    if(screen==="table")renderTable();
+    if(screen==="transfer")renderTransfers();
+    if(screen==="calendar")renderCalendar();
+    if(screen==="stats")renderSeasonStats();
+    if(screen==="news")renderNews();
+    if(screen==="objectives")renderObjectives();
+    if(screen==="history")renderHistory();
+    if(screen==="clubBrowser")renderClubBrowser();
+    if(screen==="training")renderTraining();
+}
+function renderPlayerPage(){
+    const p=getPlayer(currentPlayerId);if(!p)return;
+    document.getElementById("playerName").innerText=p.name;
+    document.getElementById("playerPosition").innerText=`${p.position} · سن ${p.age||"-"} · پتانسیل ${p.potential||p.ovr} · قرارداد ${p.contractYears||0} فصل${p.injury&&p.injury.weeksRemaining>0?` · مصدوم: ${p.injury.area} (${p.injury.weeksRemaining} هفته)`:""}`;
+    document.getElementById("playerOVR").innerText=p.ovr;
+    ["PAC","SHO","PAS","DRI","DEF","PHY"].forEach((k,i)=>{const map=["pac","sho","pas","dri","def","phy"];document.getElementById("player"+k).innerText=p[map[i]]||0;});
+    const form=document.getElementById("playerFormBox");if(form)form.innerHTML=`<div class="player-stat-grid"><div class="player-stat-mini">ارزش<strong>${formatMoney(p.value||0)}</strong></div><div class="player-stat-mini">حقوق فصلانه<strong>${formatMoney(p.salary||0)}</strong></div><div class="player-stat-mini">آمادگی<strong>${Math.round(p.fitness||0)}%</strong></div><div class="player-stat-mini">روحیه<strong>${Math.round(p.morale||0)}%</strong></div><div class="player-stat-mini">پتانسیل<strong>${p.potential||p.ovr}</strong></div><div class="player-stat-mini">قرارداد<strong>${p.contractYears||0} فصل</strong></div></div>`;
+    const st=p.seasonStats||createPlayerStats();
+    document.getElementById("playerSeasonStats").innerHTML=`بازی ${st.appearances||0} · گل ${st.goals||0} · پاس گل ${st.assists||0} · میانگین نمره ${st.appearances?(Number(st.ratingSum||0)/st.appearances).toFixed(1):"-"}`;
+}
+
+function applySeasonProgression(){
+    const progress=(p)=>{
+      ensurePlayerCareerFields(p);
+      const st=p.seasonStats||createPlayerStats();
+      const performance=Number(st.ratingSum||0)/Math.max(1,Number(st.appearances||0));
+      const age=Number(p.age||24),potential=Number(p.potential||p.ovr);
+      let delta=0;
+      if(age<=22&&p.ovr<potential&&performance>=6.8)delta=randomBetween(0,2);
+      else if(performance>=7.5&&p.ovr<potential)delta=1;
+      else if(age>=32&&performance<6&&Math.random()<.4)delta=-1;
+      p.ovr=clamp(Math.min(potential,Number(p.ovr||50)+delta),35,99);
+      p.age=age+1;p.value=calculatePlayerValue(p);
+    };
+    players.forEach(progress);
+    Object.keys(SQUADS).forEach(team=>{if(team!==career.club)(SQUADS[team]||[]).forEach(progress);});
+}
+const _mfc44FinishSeason=finishSeason;
+finishSeason=function(){applySeasonProgression();_mfc44FinishSeason();};
+
+
+const _mfc44ContinueCareer=continueCareer;
+continueCareer=function(){
+    _mfc44ContinueCareer();
+    if(career.club){
+      normalizeAllPlayers();
+      players.forEach(ensurePlayerCareerFields);
+      saveGame();
+    }
+};
+const _mfc44StartMatch=startMatch;
+startMatch=function(){
+    if(career.club){
+      const used=new Set();
+      Object.keys(lineup).forEach(slot=>{
+        const current=getPlayer(lineup[slot]);
+        if(current && current.injury && Number(current.injury.weeksRemaining)>0){
+          delete lineup[slot];
+          const candidates=players.filter(p=>!(p.injury&&Number(p.injury.weeksRemaining)>0)&&!used.has(Number(p.id))&&!Object.values(lineup).map(Number).includes(Number(p.id)));
+          candidates.sort((a,b)=>(positionScore(b,slot)*10+b.ovr)-(positionScore(a,slot)*10+a.ovr));
+          if(candidates[0])lineup[slot]=candidates[0].id;
+        }
+        if(lineup[slot]!==undefined)used.add(Number(lineup[slot]));
+      });
+      lineupRepair();
+    }
+    _mfc44StartMatch();
+};
+
+</script>
+
+</body>
+</html>
